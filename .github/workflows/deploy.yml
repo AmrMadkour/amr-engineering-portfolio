@@ -1,0 +1,22 @@
+# Deploy — Production Deployment
+# Runs on push to main after CI passes.
+#
+# TODO (Phase 1.5): Wire up deploy hooks once Vercel and Render projects are created.
+# Secrets needed:
+#   VERCEL_DEPLOY_HOOK  — from Vercel project settings → Git → Deploy Hooks
+#   RENDER_DEPLOY_HOOK  — from Render service settings → Deploy Hook URL
+
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  placeholder:
+    name: Deploy Placeholder
+    runs-on: ubuntu-latest
+    steps:
+      - name: Placeholder
+        run: echo "Deploy pipeline — wired up in Phase 1.5"

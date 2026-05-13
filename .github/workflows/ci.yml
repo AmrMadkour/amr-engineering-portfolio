@@ -1,0 +1,24 @@
+# CI — Continuous Integration
+# Runs on every pull request targeting main or develop.
+#
+# TODO (Phase 1.5): Wire up actual jobs once local dev is validated.
+# Jobs to add:
+#   frontend: ESLint → Prettier check → TypeScript typecheck → next build
+#   backend:  dotnet format --verify-no-changes → dotnet build → dotnet test
+
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - main
+      - AmrMadkour-develop
+
+jobs:
+  placeholder:
+    name: CI Placeholder
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Placeholder
+        run: echo "CI pipeline — wired up in Phase 1.5"
