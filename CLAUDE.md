@@ -7,7 +7,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Project Status
 
 **Phase 1.1 (Monorepo Scaffold) — COMPLETE**
-**Phase 1.2 (Backend Foundation) — NEXT**
+**Phase 1.2 (Backend Foundation) — COMPLETE**
+**Phase 1.3 (Frontend Foundation) — NEXT**
 
 Full architecture decisions and implementation roadmap: `docs/planning/Stage1/3-ArchitectureReview.md`
 
@@ -30,9 +31,11 @@ npm run typecheck:web  # tsc --noEmit
 
 ### Backend (`apps/api`)
 ```bash
+cd apps/api/src/AmrPortfolio.Api
+dotnet run           # start API → http://localhost:5000 | Scalar docs → /scalar/v1
+
 cd apps/api
-dotnet run           # start API → http://localhost:5000 | Swagger → /swagger
-dotnet build         # compile
+dotnet build         # compile entire solution
 dotnet test          # run xUnit tests
 ```
 
@@ -63,10 +66,10 @@ Api → Application → Domain
 Infrastructure → Application
 ```
 
-- `Domain/` — entities, value objects; zero external dependencies
-- `Application/` — use cases, repository interfaces (`IContentRepository`), DTOs, query handlers
+- `Domain/` — placeholder; no entities yet (all data is DTO-shaped JSON, no rich domain model needed at this stage)
+- `Application/` — repository interface (`IContentRepository`), DTOs (`ProfileDto`, `ProjectDto`, `ExperienceDto`, `RecommendationDto`)
 - `Infrastructure/` — implements interfaces; reads JSON from `content/`; wraps `IMemoryCache`
-- `Api/` — Minimal API routes, middleware, DI wiring, Swagger, CORS
+- `Api/` — Minimal API routes, middleware, DI wiring, Scalar/OpenAPI, CORS
 
 `Infrastructure` never references `Api`. `Domain` has no NuGet dependencies.
 
@@ -113,4 +116,4 @@ const { default: Page } = await import(`@/content/${locale}/pages/about.mdx`)
 
 **Localization** — `next-intl` handles URL routing (`/en`, `/ar`, `/nl`) and UI strings (`messages/{locale}.json`). Portfolio content strings live separately in `content/{locale}/`.
 
-**MediatR** — included for CQRS demonstration value. For 4 read-only endpoints, direct `IContentService` calls would be equally valid.
+**No MediatR** — endpoints inject `IContentRepository` directly. For 4 read-only GET endpoints, MediatR adds overhead without benefit. The interface boundary in `Application/` is the CQRS seam if needed later.
