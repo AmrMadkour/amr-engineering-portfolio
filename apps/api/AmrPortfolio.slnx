@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/AmrPortfolio.Api/AmrPortfolio.Api.csproj" />
+    <Project Path="src/AmrPortfolio.Application/AmrPortfolio.Application.csproj" />
+    <Project Path="src/AmrPortfolio.Domain/AmrPortfolio.Domain.csproj" />
+    <Project Path="src/AmrPortfolio.Infrastructure/AmrPortfolio.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/AmrPortfolio.UnitTests/AmrPortfolio.UnitTests.csproj" />
+  </Folder>
+</Solution>

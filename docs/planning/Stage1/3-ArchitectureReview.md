@@ -485,7 +485,7 @@ feature/*         ← short-lived; merged to develop; deleted after merge
 
 ## Implementation Roadmap
 
-### Phase 1.1 — Monorepo Scaffold
+### Phase 1.1 — Monorepo Scaffold ✅ COMPLETE
 - [ ] Root `package.json` with npm workspaces (`apps/*`, `packages/*`)
 - [ ] Create `packages/eslint-config` and `packages/tsconfig` shared packages
 - [ ] Create `apps/web/` and `apps/api/` placeholder directories
@@ -495,14 +495,14 @@ feature/*         ← short-lived; merged to develop; deleted after merge
 - [ ] Add root `.editorconfig`, update `.gitignore`
 - [ ] Create `apps/web/.env.local.example` and `apps/api/.env.example`
 
-### Phase 1.2 — Backend Foundation
-- [ ] Scaffold Clean Architecture solution (`dotnet new sln`)
-- [ ] Configure Serilog + Swagger/OpenAPI + IMemoryCache + CORS (`AllowedOrigins` env var)
-- [ ] Implement `IContentRepository` interface in `Application/`
-- [ ] Implement `JsonContentRepository` in `Infrastructure/`
-- [ ] Add endpoint groups: `ProfileEndpoints`, `ProjectsEndpoints`, `ExperienceEndpoints`, `RecommendationsEndpoints`
-- [ ] Add `GET /health` endpoint
-- [ ] Add xUnit test project with one representative query handler test
+### Phase 1.2 — Backend Foundation ✅ COMPLETE
+- [x] Scaffold Clean Architecture solution (`dotnet new sln`)
+- [x] Configure Serilog + Scalar/OpenAPI + IMemoryCache + CORS (`AllowedOrigins` env var)
+- [x] Implement `IContentRepository` interface in `Application/`
+- [x] Implement `JsonContentRepository` in `Infrastructure/`
+- [x] Add endpoint groups: `ProfileEndpoints`, `ProjectsEndpoints`, `ExperienceEndpoints`, `RecommendationsEndpoints`
+- [x] Add `GET /health` endpoint
+- [x] Add xUnit test project with 4 contract tests (NSubstitute); all passing
 
 ### Phase 1.3 — Frontend Foundation
 - [ ] Create Next.js 15 app with App Router
