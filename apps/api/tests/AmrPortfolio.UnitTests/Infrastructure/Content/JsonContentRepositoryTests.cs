@@ -2,7 +2,7 @@ using AmrPortfolio.Application.DTOs;
 using AmrPortfolio.Application.Interfaces;
 using NSubstitute;
 
-namespace AmrPortfolio.UnitTests.Content;
+namespace AmrPortfolio.UnitTests.Infrastructure.Content;
 
 public sealed class ContentRepositoryContractTests
 {
