@@ -1,0 +1,25 @@
+{
+  "Metadata": {
+    "title": "Amr Madkour — Senior .NET Engineer",
+    "description": "Senior .NET Engineer gespecialiseerd in schone architectuur, full-stack ontwikkeling en AI-integratie."
+  },
+  "Navigation": {
+    "home": "Home",
+    "projects": "Projecten",
+    "experience": "Ervaring",
+    "about": "Over mij",
+    "contact": "Contact"
+  },
+  "Common": {
+    "learnMore": "Meer informatie",
+    "viewProject": "Project bekijken",
+    "viewCode": "Code bekijken",
+    "present": "Heden",
+    "comingSoon": "Binnenkort"
+  },
+  "NotFound": {
+    "title": "Pagina niet gevonden",
+    "description": "De pagina die u zoekt bestaat niet.",
+    "backHome": "Terug naar home"
+  }
+}

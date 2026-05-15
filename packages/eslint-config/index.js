@@ -1,6 +1,7 @@
 /** @type {import("eslint").Linter.Config} */
 module.exports = {
   extends: ["next/core-web-vitals"],
+  plugins: ["@typescript-eslint"],
   rules: {
     // Enforce explicit return types on exported functions
     "@typescript-eslint/explicit-module-boundary-types": "off",

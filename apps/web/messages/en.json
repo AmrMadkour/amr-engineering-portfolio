@@ -1,0 +1,25 @@
+{
+  "Metadata": {
+    "title": "Amr Madkour — Senior .NET Engineer",
+    "description": "Senior .NET Engineer specializing in clean architecture, full-stack development, and AI integration."
+  },
+  "Navigation": {
+    "home": "Home",
+    "projects": "Projects",
+    "experience": "Experience",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "Common": {
+    "learnMore": "Learn More",
+    "viewProject": "View Project",
+    "viewCode": "View Code",
+    "present": "Present",
+    "comingSoon": "Coming Soon"
+  },
+  "NotFound": {
+    "title": "Page Not Found",
+    "description": "The page you are looking for does not exist.",
+    "backHome": "Back to Home"
+  }
+}

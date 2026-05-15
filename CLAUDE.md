@@ -8,7 +8,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Phase 1.1 (Monorepo Scaffold) — COMPLETE**
 **Phase 1.2 (Backend Foundation) — COMPLETE**
-**Phase 1.3 (Frontend Foundation) — NEXT**
+**Phase 1.3 (Frontend Foundation) — COMPLETE**
+**Phase 1.4 (Content Scaffold) — NEXT**
 
 Full architecture decisions and implementation roadmap: `docs/planning/Stage1/3-ArchitectureReview.md`
 
@@ -32,7 +33,7 @@ npm run typecheck:web  # tsc --noEmit
 ### Backend (`apps/api`)
 ```bash
 cd apps/api/src/AmrPortfolio.Api
-dotnet run           # start API → http://localhost:5000 | Scalar docs → /scalar/v1
+dotnet run           # start API → http://localhost:5088 | Scalar docs → /scalar/v1
 
 cd apps/api
 dotnet build         # compile entire solution

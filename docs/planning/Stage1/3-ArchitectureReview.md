@@ -486,14 +486,14 @@ feature/*         ← short-lived; merged to develop; deleted after merge
 ## Implementation Roadmap
 
 ### Phase 1.1 — Monorepo Scaffold ✅ COMPLETE
-- [ ] Root `package.json` with npm workspaces (`apps/*`, `packages/*`)
-- [ ] Create `packages/eslint-config` and `packages/tsconfig` shared packages
-- [ ] Create `apps/web/` and `apps/api/` placeholder directories
-- [ ] Create `content/en/`, `content/ar/`, `content/nl/` folder structure
-- [ ] Create `docs/architecture/` and `docs/decisions/` for future ADRs
-- [ ] Create `infrastructure/` folder
-- [ ] Add root `.editorconfig`, update `.gitignore`
-- [ ] Create `apps/web/.env.local.example` and `apps/api/.env.example`
+- [x] Root `package.json` with npm workspaces (`apps/*`, `packages/*`)
+- [x] Create `packages/eslint-config` and `packages/tsconfig` shared packages
+- [x] Create `apps/web/` and `apps/api/` placeholder directories
+- [x] Create `content/en/`, `content/ar/`, `content/nl/` folder structure
+- [x] Create `docs/architecture/` and `docs/decisions/` for future ADRs
+- [x] Create `infrastructure/` folder
+- [x] Add root `.editorconfig`, update `.gitignore`
+- [x] Create `apps/web/.env.local.example` and `apps/api/.env.example`
 
 ### Phase 1.2 — Backend Foundation ✅ COMPLETE
 - [x] Scaffold Clean Architecture solution (`dotnet new sln`)
@@ -504,15 +504,15 @@ feature/*         ← short-lived; merged to develop; deleted after merge
 - [x] Add `GET /health` endpoint
 - [x] Add xUnit test project with 4 contract tests (NSubstitute); all passing
 
-### Phase 1.3 — Frontend Foundation
-- [ ] Create Next.js 15 app with App Router
-- [ ] Configure `next-intl` middleware and `routing.ts` for `en`, `ar`, `nl`
-- [ ] Configure `next-themes` provider
-- [ ] Install and configure `shadcn/ui` (init + Button, Card, Badge)
-- [ ] Configure Tailwind with `rtl:` variant (`mode: 'selector'`)
-- [ ] Build root layout: `<html lang={locale} dir={...}>`
-- [ ] Add `robots.ts` and `sitemap.ts`
-- [ ] Add `next/font` configuration
+### Phase 1.3 — Frontend Foundation ✅ COMPLETE
+- [x] Create Next.js 15 app with App Router
+- [x] Configure `next-intl` middleware and `routing.ts` for `en`, `ar`, `nl`
+- [x] Configure `next-themes` provider
+- [x] Install and configure `shadcn/ui` (init + Button, Card, Badge)
+- [x] Configure Tailwind with `rtl:` variant (`mode: 'selector'`)
+- [x] Build root layout: `<html lang={locale} dir={...}>`
+- [x] Add `robots.ts` and `sitemap.ts`
+- [x] Add `next/font` configuration
 
 ### Phase 1.4 — Content Scaffold
 - [ ] Create `content/en/`, `content/ar/`, `content/nl/`

@@ -100,11 +100,40 @@ npm run dev:web
 ### 4. Run the backend
 
 ```bash
-cd apps/api
+cd apps/api/src/AmrPortfolio.Api
 dotnet run
-# → http://localhost:5000
-# → Swagger: http://localhost:5000/swagger
+# → http://localhost:5088
+# → API docs (Scalar): http://localhost:5088/scalar/v1
 ```
+
+### 5. Build, lint, and typecheck (frontend)
+
+```bash
+npm run build:web      # production build
+npm run lint:web       # ESLint
+npm run typecheck:web  # tsc --noEmit
+```
+
+### 6. Build and test (backend)
+
+```bash
+cd apps/api
+dotnet build    # compile entire solution
+dotnet test     # run xUnit tests
+```
+
+---
+
+## Architecture Summary
+
+The backend follows **Clean Architecture** with enforced layer dependencies:
+
+```
+Api → Application → Domain
+Infrastructure → Application
+```
+
+Portfolio data lives as JSON files under `content/{locale}/` — no database. The `Infrastructure` layer reads and caches these files via `IMemoryCache` (15-min TTL). The frontend fetches data from the API using Next.js `fetch` with hourly ISR revalidation.
 
 ---
 
