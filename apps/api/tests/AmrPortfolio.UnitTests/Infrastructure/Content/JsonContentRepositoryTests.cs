@@ -35,7 +35,7 @@ public sealed class ContentRepositoryContractTests
     {
         var expected = new List<ProjectDto>
         {
-            new("portfolio", "AMR Portfolio", "Portfolio platform", ["Next.js", ".NET"],
+            new("portfolio", "amr-portfolio", "AMR Portfolio", "Portfolio platform", ["Next.js", ".NET"],
                 "https://example.com", "https://github.com/amr/portfolio", "2026-01", null, true)
         };
 
@@ -52,7 +52,7 @@ public sealed class ContentRepositoryContractTests
     {
         var expected = new List<ExperienceDto>
         {
-            new("exp-1", "Acme Corp", "Senior Engineer", "2022-01", null,
+            new("exp-1", "senior-engineer-acme", "Acme Corp", "Senior Engineer", "2022-01", null,
                 "Led backend services.", ["Reduced latency by 40%"], ["C#", "Kubernetes"])
         };
 
@@ -70,7 +70,7 @@ public sealed class ContentRepositoryContractTests
         var expected = new List<RecommendationDto>
         {
             new("rec-1", "Jane Doe", "Engineering Manager", "Acme Corp", null,
-                "Outstanding engineer.", "2025-03")
+                "Outstanding engineer.", "2025-03", "Managed directly", "LinkedIn")
         };
 
         _repo.GetRecommendationsAsync("en", Arg.Any<CancellationToken>()).Returns(expected.AsReadOnly());

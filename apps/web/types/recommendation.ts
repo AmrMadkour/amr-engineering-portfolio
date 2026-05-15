@@ -6,4 +6,6 @@ export interface Recommendation {
   authorAvatarUrl: string | null
   text: string
   date: string
+  relationship: string | null
+  source: string | null
 }

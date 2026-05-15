@@ -9,7 +9,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 **Phase 1.1 (Monorepo Scaffold) — COMPLETE**
 **Phase 1.2 (Backend Foundation) — COMPLETE**
 **Phase 1.3 (Frontend Foundation) — COMPLETE**
-**Phase 1.4 (Content Scaffold) — NEXT**
+**Phase 1.4 (Content Scaffold) — COMPLETE**
+**Phase 1.5 (CI/CD Scaffold — minimal skeleton) — COMPLETE**
+**Phase 2 (UI Implementation) — NEXT**
 
 Full architecture decisions and implementation roadmap: `docs/planning/Stage1/3-ArchitectureReview.md`
 
@@ -100,9 +102,15 @@ Two-tier caching:
 
 All portfolio data lives in `content/{locale}/{file}.json`. The backend reads these via `JsonContentRepository` in `Infrastructure/`. Locale is passed as a query param (`?locale=en`); the backend reads the matching locale folder. No database. Content updates require a git push and rebuild.
 
-MDX pages (`content/{locale}/pages/*.mdx`) processed by `@next/mdx` via dynamic imports:
+MDX pages (`content/{locale}/pages/*.mdx`) processed by `@next/mdx`. `content/` is at the monorepo root; accessed via the `@content/*` tsconfig alias (`../../content/*` relative to `apps/web`).
+
+Use an **explicit locale→import map** — never a template literal dynamic import (breaks Next.js static analysis):
 ```ts
-const { default: Page } = await import(`@/content/${locale}/pages/about.mdx`)
+const mdxPages = {
+  en: () => import('@content/en/pages/about.mdx'),
+  ar: () => import('@content/ar/pages/about.mdx'),
+  nl: () => import('@content/nl/pages/about.mdx'),
+}
 ```
 
 ---

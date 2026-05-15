@@ -1,0 +1,33 @@
+[
+  {
+    "id": "senior-dotnet-engineer-current",
+    "slug": "senior-dotnet-engineer-current",
+    "company": "TODO: translate — Current Employer",
+    "role": "TODO: translate — Senior .NET Engineer",
+    "startDate": "2022-01",
+    "endDate": null,
+    "description": "TODO: human translation required — see content/en/experience.json",
+    "highlights": [
+      "TODO: translate highlight 1",
+      "TODO: translate highlight 2",
+      "TODO: translate highlight 3",
+      "TODO: translate highlight 4"
+    ],
+    "technologies": [".NET 10", "C#", "ASP.NET Core", "SQL Server", "Redis", "Azure Service Bus", "Docker", "Kubernetes", "OpenTelemetry"]
+  },
+  {
+    "id": "dotnet-engineer-previous",
+    "slug": "dotnet-engineer-previous",
+    "company": "TODO: translate — Previous Employer",
+    "role": "TODO: translate — .NET Engineer",
+    "startDate": "2019-03",
+    "endDate": "2021-12",
+    "description": "TODO: human translation required — see content/en/experience.json",
+    "highlights": [
+      "TODO: translate highlight 1",
+      "TODO: translate highlight 2",
+      "TODO: translate highlight 3"
+    ],
+    "technologies": [".NET 5", "C#", "Entity Framework Core", "PostgreSQL", "React", "Next.js", "TypeScript", "Azure", "SignalR"]
+  }
+]

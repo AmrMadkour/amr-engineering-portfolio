@@ -2,6 +2,7 @@ namespace AmrPortfolio.Application.DTOs;
 
 public sealed record ExperienceDto(
     string Id,
+    string Slug,
     string Company,
     string Role,
     string StartDate,

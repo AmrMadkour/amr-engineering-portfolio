@@ -1,0 +1,31 @@
+{
+  "name": "Amr Madkour",
+  "title": "Senior .NET Engineer",
+  "bio": "Senior .NET Engineer with 8+ years building high-throughput backend systems and full-stack products across fintech, logistics, and enterprise SaaS — from architecture to deployment. Based in the Netherlands, I work at the intersection of clean backend design and modern frontend delivery, with a focus on systems that are testable by construction and observable under pressure.",
+  "email": "mismadkor14@gmail.com",
+  "gitHubUrl": "https://github.com/AmrMadkour",
+  "linkedInUrl": "https://linkedin.com/in/amrmadkour",
+  "resumeUrl": null,
+  "skills": [
+    ".NET 10",
+    "C#",
+    "ASP.NET Core",
+    "Clean Architecture",
+    "Domain-Driven Design",
+    "Entity Framework Core",
+    "SQL Server",
+    "PostgreSQL",
+    "Redis",
+    "Next.js",
+    "TypeScript",
+    "React",
+    "Tailwind CSS",
+    "Docker",
+    "Kubernetes",
+    "Azure",
+    "GitHub Actions",
+    "xUnit",
+    "Serilog",
+    "OpenTelemetry"
+  ]
+}

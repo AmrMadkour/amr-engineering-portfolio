@@ -1,5 +1,6 @@
 export interface Experience {
   id: string
+  slug: string
   company: string
   role: string
   startDate: string

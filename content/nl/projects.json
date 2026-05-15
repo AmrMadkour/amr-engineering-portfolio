@@ -1,0 +1,14 @@
+[
+  {
+    "id": "amr-engineering-portfolio",
+    "slug": "amr-engineering-portfolio",
+    "title": "TODO: translate — AMR Engineering Portfolio",
+    "description": "TODO: human translation required — see content/en/projects.json",
+    "tags": ["Next.js", ".NET 10", "Clean Architecture", "TypeScript", "Tailwind CSS", "next-intl", "Monorepo"],
+    "liveUrl": null,
+    "repoUrl": "https://github.com/AmrMadkour/amr-engineering-portfolio",
+    "startDate": "2026-01",
+    "endDate": null,
+    "featured": true
+  }
+]

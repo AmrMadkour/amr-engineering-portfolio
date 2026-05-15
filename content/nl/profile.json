@@ -1,0 +1,31 @@
+{
+  "name": "Amr Madkour",
+  "title": "TODO: translate — Senior .NET Engineer",
+  "bio": "TODO: human translation required — see content/en/profile.json",
+  "email": "mismadkor14@gmail.com",
+  "gitHubUrl": "https://github.com/AmrMadkour",
+  "linkedInUrl": "https://linkedin.com/in/amrmadkour",
+  "resumeUrl": null,
+  "skills": [
+    ".NET 10",
+    "C#",
+    "ASP.NET Core",
+    "Clean Architecture",
+    "Domain-Driven Design",
+    "Entity Framework Core",
+    "SQL Server",
+    "PostgreSQL",
+    "Redis",
+    "Next.js",
+    "TypeScript",
+    "React",
+    "Tailwind CSS",
+    "Docker",
+    "Kubernetes",
+    "Azure",
+    "GitHub Actions",
+    "xUnit",
+    "Serilog",
+    "OpenTelemetry"
+  ]
+}

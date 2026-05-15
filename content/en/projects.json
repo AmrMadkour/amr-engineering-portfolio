@@ -1,0 +1,14 @@
+[
+  {
+    "id": "amr-engineering-portfolio",
+    "slug": "amr-engineering-portfolio",
+    "title": "AMR Engineering Portfolio",
+    "description": "A monorepo portfolio platform built as a genuine engineering exercise, not a template. The backend is a four-layer Clean Architecture .NET 10 Minimal API with enforced layer boundaries, a Repository Pattern over JSON content, and IMemoryCache — sized for a portfolio but structured for extensibility. The frontend is Next.js 15 App Router with ISR, three-locale support (EN/AR/NL), RTL layout, and dark mode. An AI chat integration is planned for Phase 3.",
+    "tags": ["Next.js", ".NET 10", "Clean Architecture", "TypeScript", "Tailwind CSS", "next-intl", "Monorepo"],
+    "liveUrl": null,
+    "repoUrl": "https://github.com/AmrMadkour/amr-engineering-portfolio",
+    "startDate": "2026-01",
+    "endDate": null,
+    "featured": true
+  }
+]

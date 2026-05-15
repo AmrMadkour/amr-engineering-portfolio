@@ -51,10 +51,12 @@ CORS configuration (`AllowedOrigins` env var) is required for cross-origin reque
 
 ### Missing from spec (additions required)
 
-| Item | Priority | Action |
-|---|---|---|
-| MDX library | **Required** | Explicitly choose `@next/mdx` — official, build-time compilation, App Router native |
-| `next/font` | Recommended | Replace Google Fonts CDN; one `next/font/google` import |
+Both items resolved in Phase 1.3/1.4:
+
+| Item | Status |
+|---|---|
+| MDX library (`@next/mdx`) | ✅ Implemented in Phase 1.4 |
+| `next/font` | ✅ Implemented in Phase 1.3 (Inter via `next/font/google`) |
 
 ---
 
@@ -76,7 +78,15 @@ CORS configuration (`AllowedOrigins` env var) is required for cross-origin reque
 
 1. **CORS config** — `AllowedOrigins` from env var; allow `localhost:3000` in development. This is standard implementation config, not an architecture decision.
 
-2. **Explicitly choose `@next/mdx`** — official Next.js integration; MDX compiled at build time (not runtime); App Router native via `mdx-components.tsx`; locale-keyed loading via dynamic imports (`await import('@/content/${locale}/pages/about.mdx')`) — webpack bundles all variants at build time. `next-mdx-remote` is only needed when MDX comes from an external CMS, which is not the case here.
+2. **Explicitly choose `@next/mdx`** ✅ Done — official Next.js integration; MDX compiled at build time (not runtime); App Router native via `mdx-components.tsx`; locale-keyed loading via an **explicit import map** (not a template literal — webpack cannot statically analyze template literals):
+   ```ts
+   const mdxPages = {
+     en: () => import('@content/en/pages/about.mdx'),
+     ar: () => import('@content/ar/pages/about.mdx'),
+     nl: () => import('@content/nl/pages/about.mdx'),
+   }
+   ```
+   `@content/*` is a tsconfig alias mapping to `../../content/*` (monorepo root) from `apps/web/`.
 
 3. **Add `next/font`** — one-line replacement for Google Fonts CDN imports; self-hosted; eliminates the external network request and improves CLS/LCP scores.
 
@@ -95,8 +105,7 @@ CORS configuration (`AllowedOrigins` env var) is required for cross-origin reque
 ├── packages/       → Shared internal libraries. Not deployed; consumed by apps.
 ├── infrastructure/ → IaC, GitHub config, deploy docs. Non-code artifacts.
 ├── .github/        → CI/CD workflow definitions (GitHub requires root placement).
-├── turbo.json      → Task pipeline: defines which tasks depend on which.
-└── package.json    → Root workspace definition.
+└── package.json    → Root workspace definition (npm workspaces — Turborepo removed).
 ```
 
 **Why this shape?** The separation of `apps/` (deployable) from `packages/` (shared) from `content/` (data) from `infrastructure/` (ops) makes each concern easy to locate and easy to change independently. Adding a new app (e.g., a docs site) is a new folder in `apps/` — nothing else changes.
@@ -339,6 +348,7 @@ All JSON files must match their corresponding DTO exactly. Example:
 [
   {
     "id": "portfolio-platform",
+    "slug": "amr-engineering-portfolio",
     "title": "AMR Engineering Portfolio",
     "description": "Production-grade portfolio platform built with Next.js and .NET 10.",
     "tags": ["Next.js", ".NET", "Clean Architecture", "TypeScript"],
@@ -349,9 +359,24 @@ All JSON files must match their corresponding DTO exactly. Example:
     "featured": true
   }
 ]
+
+// content/en/recommendations.json
+[
+  {
+    "id": "rec-1",
+    "authorName": "...",
+    "authorTitle": "...",
+    "authorCompany": "...",
+    "authorAvatarUrl": null,
+    "text": "...",
+    "relationship": "Managed directly",
+    "source": "LinkedIn",
+    "date": "2024-03"
+  }
+]
 ```
 
-The C# `ProjectDto` and TypeScript `ProjectDto` must mirror this shape exactly. Any field added to the JSON must be added to both DTOs.
+The C# DTOs and TypeScript interfaces must mirror these shapes exactly. Any field added to the JSON must be added to both. `slug` enables future SEO URLs and AI retrieval — do not omit it.
 
 ### MDX processing
 
@@ -361,7 +386,7 @@ Chosen over `next-mdx-remote` because:
 - Official Next.js integration (co-maintained by Vercel); simpler setup
 - MDX compiled at build time — better performance, no runtime serialization
 - App Router native: global custom component injection via `mdx-components.tsx`
-- Locale-keyed loading works via dynamic imports: `await import('@/content/${locale}/pages/about.mdx')` — webpack bundles all locale variants at build time
+- Locale-keyed loading via an explicit import map (never a template literal — breaks webpack static analysis); `@content/*` tsconfig alias resolves to monorepo root `content/`
 - `next-mdx-remote` runtime loading is only needed when MDX is fetched from an external CMS — not applicable here
 
 ### Content validation (optional CI step)
@@ -514,17 +539,23 @@ feature/*         ← short-lived; merged to develop; deleted after merge
 - [x] Add `robots.ts` and `sitemap.ts`
 - [x] Add `next/font` configuration
 
-### Phase 1.4 — Content Scaffold
-- [ ] Create `content/en/`, `content/ar/`, `content/nl/`
-- [ ] Write sample `profile.json`, `projects.json`, `experience.json`, `recommendations.json` (EN)
-- [ ] Write placeholder translations for `ar` and `nl`
-- [ ] Write sample `pages/about.mdx` and `pages/ai-workflow.mdx`
+### Phase 1.4 — Content Scaffold ✅ COMPLETE
+- [x] Add `slug: string` to `ProjectDto`, `ExperienceDto` (C#) and matching TS types
+- [x] Add `relationship: string?` and `source: string?` to `RecommendationDto` (C#) and matching TS type
+- [x] Install `@next/mdx` + `@types/mdx` in `apps/web`
+- [x] Wire `withMDX()` in `apps/web/next.config.ts` (composed with existing `withNextIntl`)
+- [x] Create minimal `apps/web/mdx-components.tsx` (headings, links, code, paragraphs only)
+- [x] Populate `content/en/` with real data: `profile.json`, `projects.json`, `experience.json`, `recommendations.json`
+- [x] Create `content/ar/` and `content/nl/` stubs (same schema, English values, marked for human translation)
+- [x] Write `content/en/pages/about.mdx` and `content/en/pages/ai-workflow.mdx`
+- [x] Write AR and NL MDX stubs for each page
+- [x] Add `apps/web/app/[locale]/about/page.tsx` with explicit locale→MDX import map
 
-### Phase 1.5 — CI/CD Scaffold (minimal only)
-- [ ] Add `.github/workflows/ci.yml` — skeleton with TODO comments; no live runners yet
-- [ ] Add `.github/workflows/deploy.yml` — skeleton with TODO comments
-- [ ] Update `README.md` with local dev setup instructions
-- [ ] Full pipelines wired after local dev is validated
+### Phase 1.5 — CI/CD Scaffold ✅ COMPLETE (minimal)
+- [x] Add `.github/workflows/ci.yml` — skeleton with TODO comments; no live runners yet
+- [x] Add `.github/workflows/deploy.yml` — skeleton with TODO comments
+- [x] Update `README.md` with local dev setup instructions
+- [ ] Full CI/CD pipelines wired (actual jobs) — deferred to Phase 2 after local dev validated
 
 ### Phase 2 — UI Implementation
 - Hero section with headline, sub-headline, CTA

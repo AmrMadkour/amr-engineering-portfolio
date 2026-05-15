@@ -133,7 +133,7 @@ Api → Application → Domain
 Infrastructure → Application
 ```
 
-Portfolio data lives as JSON files under `content/{locale}/` — no database. The `Infrastructure` layer reads and caches these files via `IMemoryCache` (15-min TTL). The frontend fetches data from the API using Next.js `fetch` with hourly ISR revalidation.
+Portfolio data lives as JSON and MDX files under `content/{locale}/` — no database. The `Infrastructure` layer reads and caches JSON via `IMemoryCache` (15-min TTL). MDX pages are compiled at build time by `@next/mdx`. The frontend fetches API data using Next.js `fetch` with hourly ISR revalidation.
 
 ---
 

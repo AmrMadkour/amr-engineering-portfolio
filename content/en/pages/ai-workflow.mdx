@@ -1,0 +1,48 @@
+---
+title: My AI Workflow
+description: How I use AI tooling as a senior engineer — where it helps, where it doesn't, and how I think about the tradeoffs.
+---
+
+# My AI Workflow
+
+AI has changed what a single engineer can ship in a week. This page explains how I think about that — where AI genuinely extends my reach, and where experience and judgment still have to do the work.
+
+## What I Use
+
+- **Claude** (Anthropic) — primary reasoning and code generation assistant
+- **GitHub Copilot** — inline completions and boilerplate reduction
+- **Claude Code** — agentic tasks: refactoring sessions, architecture planning, documentation generation
+
+## Where AI Helps Me
+
+### Reducing friction on known patterns
+
+When I'm writing a new endpoint, a test setup, or a DTO mapping — tasks I've done hundreds of times — AI dramatically reduces the time from intent to working code. The mental model is already in my head; the AI types it.
+
+### First-draft documentation
+
+API docs, ADRs, PR descriptions. AI produces a structurally sound first draft that I then refine. The refinement is where accuracy and nuance come in — the draft is where AI earns its keep.
+
+### Exploring unfamiliar territory
+
+When I'm working in a framework or language I use less often, AI gives me a working starting point faster than documentation alone. I still read the docs — but I start from working code, not a blank file.
+
+## Where I Don't Rely on AI
+
+### Architectural decisions
+
+AI will confidently suggest an architecture. It won't know your team's constraints, your deployment environment, your incident history, or the three edge cases you learned about last quarter. Architectural decisions stay with the engineer.
+
+### Security-sensitive code
+
+Authentication flows, authorisation checks, cryptographic operations. I write these from first principles and review them manually. AI-generated security code needs the same scrutiny as any other third-party code.
+
+### Performance-critical paths
+
+AI optimises for readability and correctness, not for p99 latency or memory pressure in hot paths. Profile first, optimise deliberately.
+
+## The Honest Tradeoff
+
+AI tools make me faster at producing code. They do not make me better at knowing what to build, when to stop, or whether the thing I'm building is the right thing. Those judgements still require experience, context, and ownership.
+
+This portfolio itself was built with AI assistance — including this very page. The architecture decisions, the content, and the final review were mine.

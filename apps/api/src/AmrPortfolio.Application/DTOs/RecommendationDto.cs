@@ -7,5 +7,7 @@ public sealed record RecommendationDto(
     string AuthorCompany,
     string? AuthorAvatarUrl,
     string Text,
-    string Date
+    string Date,
+    string? Relationship,
+    string? Source
 );

@@ -1,0 +1,33 @@
+[
+  {
+    "id": "senior-dotnet-engineer-current",
+    "slug": "senior-dotnet-engineer-current",
+    "company": "Current Employer",
+    "role": "Senior .NET Engineer",
+    "startDate": "2022-01",
+    "endDate": null,
+    "description": "Leading backend development for a high-throughput financial platform processing millions of transactions daily. Driving architectural decisions, mentoring engineers, and championing Clean Architecture and DDD across the team.",
+    "highlights": [
+      "Redesigned core transaction processing pipeline, reducing p99 latency by 40%",
+      "Introduced OpenTelemetry-based observability stack (traces, metrics, logs) across 12 microservices",
+      "Led migration from .NET 6 to .NET 10, enabling AOT compilation for 3 critical services",
+      "Mentored 4 mid-level engineers, running bi-weekly architecture review sessions"
+    ],
+    "technologies": [".NET 10", "C#", "ASP.NET Core", "SQL Server", "Redis", "Azure Service Bus", "Docker", "Kubernetes", "OpenTelemetry"]
+  },
+  {
+    "id": "dotnet-engineer-previous",
+    "slug": "dotnet-engineer-previous",
+    "company": "Previous Employer",
+    "role": ".NET Engineer",
+    "startDate": "2019-03",
+    "endDate": "2021-12",
+    "description": "Full-stack development on a logistics SaaS platform serving 200+ enterprise clients. Built and maintained backend APIs, React frontends, and ETL pipelines.",
+    "highlights": [
+      "Built a real-time shipment tracking system using SignalR and Azure Maps",
+      "Reduced ETL processing time by 60% through parallelisation and batched SQL writes",
+      "Delivered a white-label portal using Next.js and multi-tenant architecture"
+    ],
+    "technologies": [".NET 5", "C#", "Entity Framework Core", "PostgreSQL", "React", "Next.js", "TypeScript", "Azure", "SignalR"]
+  }
+]
