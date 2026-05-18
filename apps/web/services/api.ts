@@ -10,7 +10,7 @@ export class ApiError extends Error {
   }
 }
 
-async function fetchWithRetry(url: string, init: RequestInit, retries = 2): Promise<Response> {
+async function fetchWithRetry(url: string, init: RequestInit, retries = 1): Promise<Response> {
   try {
     const response = await fetch(url, init)
     if (!response.ok) {
@@ -27,10 +27,23 @@ async function fetchWithRetry(url: string, init: RequestInit, retries = 2): Prom
 }
 
 export async function apiFetch<T>(path: string, locale: string, signal?: AbortSignal): Promise<T> {
-  const url = `${API_BASE}${path}?locale=${locale}`
-  const response = await fetchWithRetry(url, {
-    next: { revalidate: 3600 },
-    signal,
-  })
-  return response.json() as Promise<T>
+  if (!API_BASE) {
+    throw new ApiError(0, 'NEXT_PUBLIC_API_URL is not configured')
+  }
+
+  // 5-second timeout so builds don't hang when the API is unreachable
+  const controller = new AbortController()
+  const timeout = setTimeout(() => controller.abort(), 5000)
+  const combinedSignal = signal ?? controller.signal
+
+  try {
+    const url = `${API_BASE}${path}?locale=${locale}`
+    const response = await fetchWithRetry(url, {
+      next: { revalidate: 3600 },
+      signal: combinedSignal,
+    })
+    return response.json() as Promise<T>
+  } finally {
+    clearTimeout(timeout)
+  }
 }

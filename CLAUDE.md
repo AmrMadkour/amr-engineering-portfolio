@@ -11,7 +11,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 **Phase 1.3 (Frontend Foundation) — COMPLETE**
 **Phase 1.4 (Content Scaffold) — COMPLETE**
 **Phase 1.5 (CI/CD Scaffold — minimal skeleton) — COMPLETE**
-**Phase 2 (UI Implementation) — NEXT**
+**Phase 2 (UI Implementation) — IN PROGRESS**
+- [x] Step 1a: Tailwind v4 → v3 migration (monorepo content scanning fix)
+- [x] Step 1b: Navbar redesign (Showoff floating pill, dotted texture, hover labels, avatar placeholder)
+- [ ] Step 1c: Verify Tailwind working (delete .next, restart, check green test box)
+- [ ] Step 2: Home page (Hero, Projects, Experience, Recommendations, Contact CTA)
+- [ ] Step 3: Projects page
+- [ ] Step 4: Experience page
+- [ ] Step 5: Contact page
 
 Full architecture decisions and implementation roadmap: `docs/planning/Stage1/3-ArchitectureReview.md`
 

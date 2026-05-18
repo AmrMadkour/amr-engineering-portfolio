@@ -1,13 +1,14 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Outfit } from 'next/font/google'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages, getTranslations } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import { ThemeProvider } from '@/components/providers/ThemeProvider'
+import { Navbar } from '@/components/layout/Navbar'
 import { routing } from '@/i18n/routing'
 import '../globals.css'
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
+const outfit = Outfit({ subsets: ['latin'], variable: '--font-outfit', display: 'swap' })
 
 type Props = {
   children: React.ReactNode
@@ -58,10 +59,11 @@ export default async function LocaleLayout({ children, params }: Props) {
       dir={locale === 'ar' ? 'rtl' : 'ltr'}
       suppressHydrationWarning
     >
-      <body className={`${inter.variable} font-sans antialiased`}>
+      <body className={`${outfit.variable} font-sans antialiased`}>
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider>
-            {children}
+            <Navbar locale={locale} />
+            <div className="page-body">{children}</div>
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>

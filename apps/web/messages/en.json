@@ -17,6 +17,49 @@
     "present": "Present",
     "comingSoon": "Coming Soon"
   },
+  "Hero": {
+    "credentialLabel": "Senior .NET Engineer • AI-Integrated Development",
+    "headline": "Building scalable backend systems and modern AI-powered developer experiences.",
+    "subtext": "8+ years delivering high-throughput .NET backends, full-stack products, and AI-integrated developer tooling — from architecture to production.",
+    "ctaProjects": "View Projects",
+    "ctaBookMeeting": "Book a Meeting",
+    "ctaGitHub": "GitHub"
+  },
+  "Projects": {
+    "sectionTitle": "Projects",
+    "sectionSubtitle": "Selected work demonstrating architecture, scale, and engineering depth.",
+    "filterAll": "All",
+    "viewLive": "Live Demo",
+    "viewRepo": "Repository",
+    "featured": "Featured"
+  },
+  "Experience": {
+    "sectionTitle": "Experience",
+    "sectionSubtitle": "A track record of ownership, systems thinking, and measurable impact.",
+    "viewAll": "View full timeline",
+    "present": "Present"
+  },
+  "Recommendations": {
+    "sectionTitle": "Recommendations",
+    "sectionSubtitle": "What colleagues and managers say."
+  },
+  "AIWorkflow": {
+    "label": "Engineering Process",
+    "headline": "How I Work with AI",
+    "subtext": "I've built AI-augmented workflows into how I code, review, and ship — from pair programming to RAG-powered tooling.",
+    "cta": "Read about my AI workflow"
+  },
+  "Contact": {
+    "headline": "Want to work together?",
+    "subtext": "I'm open to senior engineering roles, technical consulting, and architecture reviews.",
+    "ctaEmail": "Send an Email",
+    "ctaLinkedIn": "LinkedIn",
+    "ctaBookMeeting": "Book a Meeting"
+  },
+  "Footer": {
+    "copyright": "© {year} Amr Madkour",
+    "builtWith": "Built with Next.js and .NET 10"
+  },
   "NotFound": {
     "title": "Page Not Found",
     "description": "The page you are looking for does not exist.",

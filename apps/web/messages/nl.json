@@ -17,6 +17,49 @@
     "present": "Heden",
     "comingSoon": "Binnenkort"
   },
+  "Hero": {
+    "credentialLabel": "Senior .NET Engineer • AI-geïntegreerde ontwikkeling",
+    "headline": "Schaalbare backendsystemen bouwen en moderne AI-gedreven ontwikkelaarservaringen.",
+    "subtext": "8+ jaar levering van high-throughput .NET backends, full-stack producten en AI-geïntegreerde tooling — van architectuur tot productie.",
+    "ctaProjects": "Projecten bekijken",
+    "ctaBookMeeting": "Meeting boeken",
+    "ctaGitHub": "GitHub"
+  },
+  "Projects": {
+    "sectionTitle": "Projecten",
+    "sectionSubtitle": "Geselecteerd werk dat architectuur, schaal en technische diepgang toont.",
+    "filterAll": "Alle",
+    "viewLive": "Live demo",
+    "viewRepo": "Repository",
+    "featured": "Uitgelicht"
+  },
+  "Experience": {
+    "sectionTitle": "Ervaring",
+    "sectionSubtitle": "Een trackrecord van eigenaarschap, systeemdenken en meetbare impact.",
+    "viewAll": "Volledige tijdlijn bekijken",
+    "present": "Heden"
+  },
+  "Recommendations": {
+    "sectionTitle": "Aanbevelingen",
+    "sectionSubtitle": "Wat collega's en managers zeggen."
+  },
+  "AIWorkflow": {
+    "label": "Engineeringsproces",
+    "headline": "Hoe ik met AI werk",
+    "subtext": "Ik heb AI-versterkte workflows ingebouwd in hoe ik codeer, review en ship — van pair programming tot RAG-tooling.",
+    "cta": "Lees over mijn AI-werkwijze"
+  },
+  "Contact": {
+    "headline": "Wil je samenwerken?",
+    "subtext": "Ik sta open voor senior engineeringfuncties, technisch advies en architectuurreviews.",
+    "ctaEmail": "Stuur een e-mail",
+    "ctaLinkedIn": "LinkedIn",
+    "ctaBookMeeting": "Meeting boeken"
+  },
+  "Footer": {
+    "copyright": "© {year} Amr Madkour",
+    "builtWith": "Gebouwd met Next.js en .NET 10"
+  },
   "NotFound": {
     "title": "Pagina niet gevonden",
     "description": "De pagina die u zoekt bestaat niet.",
