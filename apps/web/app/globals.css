@@ -413,6 +413,7 @@
     .nav-hamburger      { display: flex; margin-inline-end: 30px; }
     .nav-hamburger-sep  { display: block; }
     .nav-lang-trigger   { margin-inline-end: 0; }
+    .nav-lang-dropdown  { margin-inline-end: 0; }
   }
 
   /* ≤ 440px — hide name, shrink controls */

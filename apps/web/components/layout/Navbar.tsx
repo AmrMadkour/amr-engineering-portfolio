@@ -8,14 +8,15 @@ import {
   Sun, Moon, Globe, ChevronDown, Menu, X,
 } from 'lucide-react'
 import { useTheme } from 'next-themes'
+import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
 
 const NAV_ITEMS = [
-  { key: 'home',       href: '/',           icon: House,      label: 'Home'       },
-  { key: 'about',      href: '/about',      icon: User,       label: 'About'      },
-  { key: 'experience', href: '/experience', icon: Briefcase,  label: 'Experience' },
-  { key: 'projects',   href: '/projects',   icon: FolderOpen, label: 'Projects'   },
-  { key: 'contact',    href: '/contact',    icon: Phone,      label: 'Contact'    },
+  { key: 'home',       href: '/',           icon: House      },
+  { key: 'about',      href: '/about',      icon: User       },
+  { key: 'experience', href: '/experience', icon: Briefcase  },
+  { key: 'projects',   href: '/projects',   icon: FolderOpen },
+  { key: 'contact',    href: '/contact',    icon: Phone      },
 ] as const
 
 const LOCALES = [
@@ -31,9 +32,12 @@ export function Navbar({ locale }: NavbarProps) {
   const router   = useRouter()
   const { resolvedTheme, setTheme } = useTheme()
 
+  const [mounted,  setMounted]    = useState(false)
   const [langOpen, setLangOpen]   = useState(false)
   const [menuOpen, setMenuOpen]   = useState(false)
   const langRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => { setMounted(true) }, [])
 
   // Close language dropdown on outside click
   useEffect(() => {
@@ -67,6 +71,7 @@ export function Navbar({ locale }: NavbarProps) {
       : pathname === full || pathname.startsWith(`${full}/`)
   }
 
+  const t = useTranslations('Navigation')
   const currentLocale = LOCALES.find((l) => l.code === locale)
 
   return (
@@ -85,13 +90,13 @@ export function Navbar({ locale }: NavbarProps) {
 
         {/* Center — Desktop nav icons */}
         <div className="nav-icons">
-          {NAV_ITEMS.map(({ key, href, icon: Icon, label }) => (
+          {NAV_ITEMS.map(({ key, href, icon: Icon }) => (
             <Link key={key} href={getFullHref(href)} className="nav-icon-link">
               <div className={cn('nav-icon-btn', isNavActive(href) && 'nav-icon-btn--active')}>
                 <Icon size={22} strokeWidth={1.5} />
               </div>
               <span className={cn('nav-icon-label', isNavActive(href) && 'nav-icon-label--visible')}>
-                {label}
+                {t(key)}
               </span>
             </Link>
           ))}
@@ -106,9 +111,9 @@ export function Navbar({ locale }: NavbarProps) {
             aria-label="Toggle theme"
             onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
           >
-            {resolvedTheme === 'dark'
-              ? <Sun  size={20} strokeWidth={1.5} />
-              : <Moon size={20} strokeWidth={1.5} />}
+            {!mounted || resolvedTheme !== 'dark'
+              ? <Moon size={20} strokeWidth={1.5} />
+              : <Sun  size={20} strokeWidth={1.5} />}
           </button>
 
           <span className="nav-divider" />
@@ -163,14 +168,14 @@ export function Navbar({ locale }: NavbarProps) {
       {/* ── Mobile menu panel ── */}
       {menuOpen && (
         <div className="nav-mobile-panel">
-          {NAV_ITEMS.map(({ key, href, label }) => (
+          {NAV_ITEMS.map(({ key, href }) => (
             <Link
               key={key}
               href={getFullHref(href)}
               className={cn('nav-mobile-link', isNavActive(href) && 'nav-mobile-link--active')}
               onClick={() => setMenuOpen(false)}
             >
-              {label}
+              {t(key)}
             </Link>
           ))}
         </div>
