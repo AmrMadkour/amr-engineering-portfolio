@@ -19,9 +19,11 @@
   },
   "Hero": {
     "credentialLabel": "Senior .NET Engineer • AI-geïntegreerde ontwikkeling",
+    "greeting": "Hoi, ik ben",
     "headline": "Schaalbare backendsystemen bouwen en moderne AI-gedreven ontwikkelaarservaringen.",
     "subtext": "8+ jaar levering van high-throughput .NET backends, full-stack producten en AI-geïntegreerde tooling — van architectuur tot productie.",
     "ctaProjects": "Projecten bekijken",
+    "ctaContact": "Neem contact op",
     "ctaBookMeeting": "Meeting boeken",
     "ctaGitHub": "GitHub"
   },

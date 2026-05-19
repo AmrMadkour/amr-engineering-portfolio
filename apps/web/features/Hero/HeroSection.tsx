@@ -1,58 +1,93 @@
 import Link from 'next/link'
-import { CalendarDays } from 'lucide-react'
+import { Mail, CalendarDays } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
-import { Button } from '@/components/ui/button'
-import { GitHubIcon } from '@/components/ui/icons'
-import { Section } from '@/components/layout/Section'
-import { Container } from '@/components/layout/Container'
+import { GitHubIcon, LinkedInIcon } from '@/components/ui/icons'
+import type { Profile } from '@/types/profile'
 
 interface HeroSectionProps {
+  profile: Profile
   locale: string
 }
 
-export async function HeroSection({ locale }: HeroSectionProps) {
+export async function HeroSection({ profile, locale }: HeroSectionProps) {
   const t = await getTranslations('Hero')
 
   return (
-    <Section className="py-20 sm:py-32">
-      <Container>
-        <div className="max-w-3xl">
-          <p className="mb-4 font-mono text-xs font-medium tracking-widest uppercase text-muted-foreground">
-            {t('credentialLabel')}
+    <section className="hero-section">
+      <div className="hero-grid">
+
+        {/* ── Left / Text ── */}
+        <div className="hero-text">
+          <p className="hero-greeting">
+            <span aria-hidden="true">👋</span>
+            {t('greeting')}
           </p>
-          <h1 className="mb-6 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-            {t('headline')}
-          </h1>
-          <p className="mb-8 max-w-2xl text-lg text-muted-foreground">
-            {t('subtext')}
-          </p>
-          <div className="flex flex-wrap gap-3">
-            <Button asChild size="lg">
-              <Link href={`/${locale}/projects`}>{t('ctaProjects')}</Link>
-            </Button>
-            <Button asChild variant="outline" size="lg">
+
+          <h1 className="hero-name">{profile.name}</h1>
+
+          <p className="hero-title">{profile.title}</p>
+
+          <p className="hero-bio">{t('subtext')}</p>
+
+          <div className="hero-ctas">
+            <Link href={`/${locale}/projects`} className="hero-btn-primary">
+              {t('ctaProjects')} →
+            </Link>
+            <Link href={`/${locale}/contact`} className="hero-btn-secondary">
+              {t('ctaContact')}
+            </Link>
+          </div>
+
+          <div className="hero-socials">
+            {profile.linkedInUrl && (
               <a
-                href="https://cal.com/amr-madkour/30min"
+                href={profile.linkedInUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                className="hero-social-btn"
+                aria-label="LinkedIn"
               >
-                <CalendarDays className="size-4" />
-                {t('ctaBookMeeting')}
+                <LinkedInIcon className="size-5" />
               </a>
-            </Button>
-            <Button asChild variant="ghost" size="lg">
+            )}
+            {profile.gitHubUrl && (
               <a
-                href="https://github.com/AmrMadkour"
+                href={profile.gitHubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                className="hero-social-btn"
+                aria-label="GitHub"
               >
-                <GitHubIcon className="size-4" />
-                {t('ctaGitHub')}
+                <GitHubIcon className="size-5" />
               </a>
-            </Button>
+            )}
+            <a
+              href={`mailto:${profile.email}`}
+              className="hero-social-btn"
+              aria-label="Email"
+            >
+              <Mail size={20} strokeWidth={1.5} />
+            </a>
+            <a
+              href="https://cal.com/amr-madkour/30min"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hero-social-btn"
+              aria-label="Book a meeting"
+            >
+              <CalendarDays size={20} strokeWidth={1.5} />
+            </a>
           </div>
         </div>
-      </Container>
-    </Section>
+
+        {/* ── Right / Avatar ── */}
+        <div className="hero-avatar-col">
+          <div className="hero-avatar">
+            <span className="hero-avatar-initials">AM</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
   )
 }
