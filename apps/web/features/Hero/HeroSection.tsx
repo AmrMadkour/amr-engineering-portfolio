@@ -18,12 +18,13 @@ export async function HeroSection({ profile, locale }: HeroSectionProps) {
 
         {/* ── Left / Text ── */}
         <div className="hero-text">
-          <p className="hero-greeting">
-            <span aria-hidden="true">👋</span>
-            {t('greeting')}
-          </p>
-
-          <h1 className="hero-name">{profile.name}</h1>
+          <div className="hero-intro">
+            <span className="hero-greeting">
+              <span aria-hidden="true">👋</span>
+              {t('greeting')}
+            </span>
+            <h1 className="hero-name">{profile.name}</h1>
+          </div>
 
           <p className="hero-title">{profile.title}</p>
 

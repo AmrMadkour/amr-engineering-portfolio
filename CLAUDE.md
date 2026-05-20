@@ -14,8 +14,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 **Phase 2 (UI Implementation) — IN PROGRESS**
 - [x] Step 1a: Tailwind v4 → v3 migration (monorepo content scanning fix)
 - [x] Step 1b: Navbar redesign (Showoff floating pill, dotted texture, hover labels, avatar placeholder)
-- [ ] Step 1c: Verify Tailwind working (delete .next, restart, check green test box)
-- [ ] Step 2: Home page (Hero, Projects, Experience, Recommendations, Contact CTA)
+- [x] Step 1c: Critical CSS fix — Tailwind preflight missing; manually added `box-sizing: border-box` + `body { margin: 0 }` to `@layer base`; horizontal overflow fixed; scrollbar hidden
+- [x] Step 2a: Hero section polish — responsive breakpoints, bio padding, greeting layout, color scheme (violet), LinkedIn hover, double-comma fix
+- [ ] Step 2b: Home page remaining sections (Projects, Experience, Recommendations, Contact CTA)
 - [ ] Step 3: Projects page
 - [ ] Step 4: Experience page
 - [ ] Step 5: Contact page
