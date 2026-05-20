@@ -57,3 +57,15 @@ logs/
 Thumbs.db
 
 *.pem
+
+# =========================================
+# Development artifacts
+# =========================================
+
+# Playwright MCP auto-generated files
+.playwright-mcp/
+
+# Dev/debug screenshots and scripts
+*.png
+screenshot-*.mjs
+test-*.mjs
