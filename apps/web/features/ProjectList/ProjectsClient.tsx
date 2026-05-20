@@ -16,9 +16,10 @@ interface Labels {
 interface ProjectsClientProps {
   projects: Project[]
   labels: Labels
+  experienceLookup?: Record<string, string>
 }
 
-export function ProjectsClient({ projects, labels }: ProjectsClientProps) {
+export function ProjectsClient({ projects, labels, experienceLookup = {} }: ProjectsClientProps) {
   const [activeTag, setActiveTag] = useState<string | null>(null)
 
   const allTags = useMemo(() => {
@@ -35,7 +36,12 @@ export function ProjectsClient({ projects, labels }: ProjectsClientProps) {
       <TagFilter tags={allTags} activeTag={activeTag} onChange={setActiveTag} filterAllLabel={labels.filterAll} />
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {filtered.map((project) => (
-          <ProjectCard key={project.id} project={project} labels={labels} />
+          <ProjectCard
+            key={project.id}
+            project={project}
+            labels={labels}
+            experienceCompany={project.experienceId ? experienceLookup[project.experienceId] : undefined}
+          />
         ))}
       </div>
     </div>

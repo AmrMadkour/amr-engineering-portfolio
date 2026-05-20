@@ -2,14 +2,17 @@
 
 import { motion } from 'framer-motion'
 import type { Experience } from '@/types/experience'
+import type { Project } from '@/types/project'
 import { ExperienceCard } from './ExperienceCard'
 
 interface ExperienceAnimatedListProps {
   experience: Experience[]
   presentLabel: string
+  relatedProjectsMap: Record<string, Project[]>
+  locale: string
 }
 
-export function ExperienceAnimatedList({ experience, presentLabel }: ExperienceAnimatedListProps) {
+export function ExperienceAnimatedList({ experience, presentLabel, relatedProjectsMap, locale }: ExperienceAnimatedListProps) {
   return (
     <div>
       {experience.map((exp, i) => (
@@ -24,6 +27,8 @@ export function ExperienceAnimatedList({ experience, presentLabel }: ExperienceA
             experience={exp}
             presentLabel={presentLabel}
             isLast={i === experience.length - 1}
+            relatedProjects={relatedProjectsMap[exp.id] ?? []}
+            locale={locale}
           />
         </motion.div>
       ))}

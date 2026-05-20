@@ -9,6 +9,59 @@
     "repoUrl": "https://github.com/AmrMadkour/amr-engineering-portfolio",
     "startDate": "2026-01",
     "endDate": null,
-    "featured": true
+    "featured": true,
+    "experienceId": null
+  },
+  {
+    "id": "transaction-pipeline-redesign",
+    "slug": "transaction-pipeline-redesign",
+    "title": "TODO: translate — Transaction Pipeline Redesign",
+    "description": "TODO: human translation required — see content/en/projects.json",
+    "tags": [".NET 10", "C#", "Redis", "SQL Server", "ASP.NET Core"],
+    "liveUrl": null,
+    "repoUrl": null,
+    "startDate": "2023-01",
+    "endDate": "2023-06",
+    "featured": false,
+    "experienceId": "senior-dotnet-engineer-current"
+  },
+  {
+    "id": "opentelemetry-observability-stack",
+    "slug": "opentelemetry-observability-stack",
+    "title": "TODO: translate — OpenTelemetry Observability Stack",
+    "description": "TODO: human translation required — see content/en/projects.json",
+    "tags": [".NET 10", "OpenTelemetry", "Docker", "Kubernetes", "Azure"],
+    "liveUrl": null,
+    "repoUrl": null,
+    "startDate": "2022-06",
+    "endDate": "2022-12",
+    "featured": false,
+    "experienceId": "senior-dotnet-engineer-current"
+  },
+  {
+    "id": "realtime-shipment-tracking",
+    "slug": "realtime-shipment-tracking",
+    "title": "TODO: translate — Real-Time Shipment Tracking",
+    "description": "TODO: human translation required — see content/en/projects.json",
+    "tags": [".NET 5", "SignalR", "Azure", "TypeScript", "React"],
+    "liveUrl": null,
+    "repoUrl": null,
+    "startDate": "2020-06",
+    "endDate": "2021-03",
+    "featured": false,
+    "experienceId": "dotnet-engineer-previous"
+  },
+  {
+    "id": "whitelabel-logistics-portal",
+    "slug": "whitelabel-logistics-portal",
+    "title": "TODO: translate — White-Label Logistics Portal",
+    "description": "TODO: human translation required — see content/en/projects.json",
+    "tags": ["Next.js", "TypeScript", ".NET 5", "PostgreSQL", "Entity Framework Core"],
+    "liveUrl": null,
+    "repoUrl": null,
+    "startDate": "2020-01",
+    "endDate": "2020-12",
+    "featured": false,
+    "experienceId": "dotnet-engineer-previous"
   }
 ]

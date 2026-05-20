@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Mail, CalendarDays } from 'lucide-react'
+import { Mail, CalendarDays, Download } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 import { GitHubIcon, LinkedInIcon } from '@/components/ui/icons'
 import type { Profile } from '@/types/profile'
@@ -37,6 +37,12 @@ export async function HeroSection({ profile, locale }: HeroSectionProps) {
             <Link href={`/${locale}/contact`} className="hero-btn-secondary">
               {t('ctaContact')}
             </Link>
+            {profile.resumeUrl && (
+              <a href={profile.resumeUrl} download className="hero-btn-secondary">
+                <Download size={16} strokeWidth={1.5} />
+                {t('ctaResume')}
+              </a>
+            )}
           </div>
 
           <div className="hero-socials">

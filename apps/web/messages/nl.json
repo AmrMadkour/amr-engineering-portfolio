@@ -25,7 +25,8 @@
     "ctaProjects": "Projecten bekijken",
     "ctaContact": "Neem contact op",
     "ctaBookMeeting": "Meeting boeken",
-    "ctaGitHub": "GitHub"
+    "ctaGitHub": "GitHub",
+    "ctaResume": "CV"
   },
   "Projects": {
     "sectionTitle": "Projecten",
@@ -44,6 +45,17 @@
   "Recommendations": {
     "sectionTitle": "Aanbevelingen",
     "sectionSubtitle": "Wat collega's en managers zeggen."
+  },
+  "About": {
+    "sectionTitle": "Over mij",
+    "sectionSubtitle": "8+ jaar aan het bouwen van systemen die schalen, presteren en meegaan.",
+    "p1": "Ik ben een Senior .NET Engineer met ruime ervaring in fintech, logistiek en enterprise SaaS. Ik heb platformmigraties geleid, event-driven microservices ontworpen en producten gebouwd die door honderdduizenden gebruikers worden gebruikt.",
+    "p2": "Mijn kernstack is .NET/C# voor de backend en Next.js/TypeScript voor de frontend, gegrond in Clean Architecture en DDD. Ik denk na over koppelingspunten, observeerbaarheid en omkeerbare beslissingen — omdat ze teams op de lange termijn sneller maken.",
+    "p3": "Gevestigd in Nederland. Ik werk in het Engels, Arabisch en Nederlands. Ik ben geïnteresseerd in hoe AI-tooling de productiviteit van individuele engineers vergroot — dit portfolio is een experiment in precies die richting."
+  },
+  "Skills": {
+    "sectionTitle": "Technische Expertise",
+    "sectionSubtitle": "De tools en technologieën waarmee ik bouw, ship en schaal."
   },
   "AIWorkflow": {
     "label": "Engineeringsproces",

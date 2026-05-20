@@ -1,5 +1,6 @@
 import { getTranslations } from 'next-intl/server'
 import type { Project } from '@/types/project'
+import type { Experience } from '@/types/experience'
 import { Section } from '@/components/layout/Section'
 import { Container } from '@/components/layout/Container'
 import { ProjectsClient } from './ProjectsClient'
@@ -7,11 +8,12 @@ import { ProjectsAnimatedGrid } from './ProjectsAnimatedGrid'
 
 interface ProjectsSectionProps {
   projects: Project[]
+  experience?: Experience[]
   featured?: boolean
   locale?: string
 }
 
-export async function ProjectsSection({ projects, featured = false }: ProjectsSectionProps) {
+export async function ProjectsSection({ projects, experience = [], featured = false }: ProjectsSectionProps) {
   const t = await getTranslations('Projects')
   const tCommon = await getTranslations('Common')
 
@@ -21,6 +23,11 @@ export async function ProjectsSection({ projects, featured = false }: ProjectsSe
     viewRepo: t('viewRepo'),
     present: tCommon('present'),
     filterAll: t('filterAll'),
+  }
+
+  const experienceLookup: Record<string, string> = {}
+  for (const exp of experience) {
+    experienceLookup[exp.id] = exp.company
   }
 
   const displayed = featured ? projects.filter((p) => p.featured) : projects
@@ -34,9 +41,9 @@ export async function ProjectsSection({ projects, featured = false }: ProjectsSe
         </div>
 
         {featured ? (
-          <ProjectsAnimatedGrid projects={displayed} labels={labels} />
+          <ProjectsAnimatedGrid projects={displayed} labels={labels} experienceLookup={experienceLookup} />
         ) : (
-          <ProjectsClient projects={displayed} labels={labels} />
+          <ProjectsClient projects={displayed} labels={labels} experienceLookup={experienceLookup} />
         )}
       </Container>
     </Section>

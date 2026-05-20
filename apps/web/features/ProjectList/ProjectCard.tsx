@@ -12,12 +12,16 @@ interface ProjectCardProps {
     viewRepo: string
     present: string
   }
+  experienceCompany?: string
 }
 
-export function ProjectCard({ project, labels }: ProjectCardProps) {
+export function ProjectCard({ project, labels, experienceCompany }: ProjectCardProps) {
   return (
     <div className="project-card flex flex-col gap-5 rounded-2xl border border-border bg-card p-7">
       <div className="flex flex-col gap-3">
+        {experienceCompany && (
+          <span className="text-xs font-medium text-muted-foreground">@ {experienceCompany}</span>
+        )}
         <h3 className="text-2xl font-bold leading-tight text-foreground">{project.title}</h3>
         <p className="text-sm text-muted-foreground leading-relaxed">{project.description}</p>
       </div>

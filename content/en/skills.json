@@ -1,0 +1,63 @@
+{
+  "categories": [
+    {
+      "id": "backend",
+      "title": "Backend",
+      "skills": [
+        ".NET 10",
+        "C#",
+        "ASP.NET Core",
+        "Clean Architecture",
+        "Domain-Driven Design",
+        "Entity Framework Core",
+        "SignalR",
+        "gRPC"
+      ]
+    },
+    {
+      "id": "frontend",
+      "title": "Frontend",
+      "skills": [
+        "Next.js",
+        "React",
+        "TypeScript",
+        "JavaScript",
+        "Tailwind CSS",
+        "HTML5",
+        "CSS"
+      ]
+    },
+    {
+      "id": "databases",
+      "title": "Databases & Caching",
+      "skills": [
+        "SQL Server",
+        "PostgreSQL",
+        "Redis",
+        "MongoDB"
+      ]
+    },
+    {
+      "id": "devops",
+      "title": "DevOps & Cloud",
+      "skills": [
+        "Docker",
+        "Kubernetes",
+        "Azure",
+        "GitHub Actions",
+        "Git",
+        "Vercel"
+      ]
+    },
+    {
+      "id": "quality",
+      "title": "Quality & Observability",
+      "skills": [
+        "xUnit",
+        "Serilog",
+        "OpenTelemetry",
+        "Spectre.Console"
+      ]
+    }
+  ]
+}

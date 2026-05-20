@@ -3,6 +3,8 @@ import { getProjects } from '@/services/projects'
 import { getExperience } from '@/services/experience'
 import { getRecommendations } from '@/services/recommendations'
 import { HeroSection } from '@/features/Hero/HeroSection'
+import { AboutSection } from '@/features/About/AboutSection'
+import { SkillsSection } from '@/features/TechnicalSkills/SkillsSection'
 import { ProjectsSection } from '@/features/ProjectList/ProjectsSection'
 import { ExperienceSection } from '@/features/ExperienceTimeline/ExperienceSection'
 import { RecommendationsSection } from '@/features/RecommendationsCarousel/RecommendationsSection'
@@ -21,8 +23,10 @@ export default async function HomePage({ params }: Props) {
   return (
     <main>
       <HeroSection profile={profile} locale={locale} />
-      <ProjectsSection projects={projects} featured locale={locale} />
-      <ExperienceSection experience={experience} locale={locale} preview />
+      <AboutSection />
+      <SkillsSection locale={locale} />
+      <ProjectsSection projects={projects} experience={experience} featured locale={locale} />
+      <ExperienceSection experience={experience} projects={projects} locale={locale} preview />
       <RecommendationsSection recommendations={recommendations} />
     </main>
   )

@@ -4,7 +4,7 @@ import { useRef, useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import {
-  House, User, Briefcase, FolderOpen, Phone,
+  House, Briefcase, FolderOpen, Phone,
   Sun, Moon, Globe, ChevronDown, Menu, X,
 } from 'lucide-react'
 import { useTheme } from 'next-themes'
@@ -13,7 +13,6 @@ import { cn } from '@/lib/utils'
 
 const NAV_ITEMS = [
   { key: 'home',       href: '/',           icon: House      },
-  { key: 'about',      href: '/about',      icon: User       },
   { key: 'experience', href: '/experience', icon: Briefcase  },
   { key: 'projects',   href: '/projects',   icon: FolderOpen },
   { key: 'contact',    href: '/contact',    icon: Phone      },

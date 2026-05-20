@@ -10,5 +10,6 @@ public sealed record ProjectDto(
     string? RepoUrl,
     string StartDate,
     string? EndDate,
-    bool Featured
+    bool Featured,
+    string? ExperienceId
 );

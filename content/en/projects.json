@@ -9,6 +9,59 @@
     "repoUrl": "https://github.com/AmrMadkour/amr-engineering-portfolio",
     "startDate": "2026-01",
     "endDate": null,
-    "featured": true
+    "featured": true,
+    "experienceId": null
+  },
+  {
+    "id": "transaction-pipeline-redesign",
+    "slug": "transaction-pipeline-redesign",
+    "title": "Transaction Pipeline Redesign",
+    "description": "TODO: describe this initiative — Redesigned the core transaction processing pipeline, reducing p99 latency by 40%. Fill in: what the original system looked like, the specific bottlenecks, what architectural changes you made, and how you measured the improvement in production.",
+    "tags": [".NET 10", "C#", "Redis", "SQL Server", "ASP.NET Core"],
+    "liveUrl": null,
+    "repoUrl": null,
+    "startDate": "2023-01",
+    "endDate": "2023-06",
+    "featured": false,
+    "experienceId": "senior-dotnet-engineer-current"
+  },
+  {
+    "id": "opentelemetry-observability-stack",
+    "slug": "opentelemetry-observability-stack",
+    "title": "OpenTelemetry Observability Stack",
+    "description": "TODO: describe this initiative — Introduced distributed tracing, metrics, and structured logging across 12 microservices using OpenTelemetry. Fill in: the observability gaps before this, what you instrumented, which backends you shipped to (Grafana, Jaeger, etc.), and the on-call impact.",
+    "tags": [".NET 10", "OpenTelemetry", "Docker", "Kubernetes", "Azure"],
+    "liveUrl": null,
+    "repoUrl": null,
+    "startDate": "2022-06",
+    "endDate": "2022-12",
+    "featured": false,
+    "experienceId": "senior-dotnet-engineer-current"
+  },
+  {
+    "id": "realtime-shipment-tracking",
+    "slug": "realtime-shipment-tracking",
+    "title": "Real-Time Shipment Tracking",
+    "description": "TODO: describe this initiative — Built a real-time shipment tracking system for 200+ enterprise logistics clients using SignalR and Azure Maps. Fill in: how the push architecture worked, the scale (concurrent connections), and measurable client impact.",
+    "tags": [".NET 5", "SignalR", "Azure", "TypeScript", "React"],
+    "liveUrl": null,
+    "repoUrl": null,
+    "startDate": "2020-06",
+    "endDate": "2021-03",
+    "featured": false,
+    "experienceId": "dotnet-engineer-previous"
+  },
+  {
+    "id": "whitelabel-logistics-portal",
+    "slug": "whitelabel-logistics-portal",
+    "title": "White-Label Logistics Portal",
+    "description": "TODO: describe this initiative — Delivered a white-label client portal using Next.js and multi-tenant architecture for the logistics SaaS platform. Fill in: how multi-tenancy and theming worked, the number of tenants, and any interesting technical challenges.",
+    "tags": ["Next.js", "TypeScript", ".NET 5", "PostgreSQL", "Entity Framework Core"],
+    "liveUrl": null,
+    "repoUrl": null,
+    "startDate": "2020-01",
+    "endDate": "2020-12",
+    "featured": false,
+    "experienceId": "dotnet-engineer-previous"
   }
 ]

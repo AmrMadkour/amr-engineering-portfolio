@@ -2,6 +2,8 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+> **Permissions:** Before asking the user for approval, check `.claude/settings.local.json` — common dev commands (`npm run *`, `dotnet run *`, `dotnet build *`, `git *`, Playwright MCP tools, and specific PowerShell launch commands) are pre-approved and must be run without prompting.
+
 ---
 
 ## Project Status
@@ -16,7 +18,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - [x] Step 1b: Navbar redesign (Showoff floating pill, dotted texture, hover labels, avatar placeholder)
 - [x] Step 1c: Critical CSS fix — Tailwind preflight missing; manually added `box-sizing: border-box` + `body { margin: 0 }` to `@layer base`; horizontal overflow fixed; scrollbar hidden
 - [x] Step 2a: Hero section polish — responsive breakpoints, bio padding, greeting layout, color scheme (violet), LinkedIn hover, double-comma fix
-- [ ] Step 2b: Home page remaining sections (Projects, Experience, Recommendations, Contact CTA)
+- [x] Step 2b: Home page sections — About, Projects, Experience, Recommendations all implemented; ContactCTA + AIWorkflowTeaser built but not yet wired into home page
+- [ ] Step 2c: Wire ContactCTA (and optionally AIWorkflowTeaser) into home page; Technical Skills section
 - [ ] Step 3: Projects page
 - [ ] Step 4: Experience page
 - [ ] Step 5: Contact page
@@ -89,7 +92,7 @@ Infrastructure → Application
 ```
 apps/web/app/[locale]/     ← all routes under locale segment
 apps/web/components/       ← stateless reusable UI atoms (Button, Card, Badge)
-apps/web/features/         ← page-level sections (Hero/, ProjectList/) — colocate component + logic
+apps/web/features/         ← page-level sections (Hero/, About/, ProjectList/, ExperienceTimeline/, RecommendationsCarousel/, ContactCTA/, AIWorkflowTeaser/) — colocate component + logic
 apps/web/services/         ← typed fetch() wrappers; called from Server Components only
 apps/web/hooks/            ← client-only hooks; every file is 'use client'
 apps/web/lib/              ← pure utility functions; no React/Next imports

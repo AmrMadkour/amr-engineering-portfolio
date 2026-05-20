@@ -25,7 +25,8 @@
     "ctaProjects": "View Projects",
     "ctaContact": "Get In Touch",
     "ctaBookMeeting": "Book a Meeting",
-    "ctaGitHub": "GitHub"
+    "ctaGitHub": "GitHub",
+    "ctaResume": "Resume"
   },
   "Projects": {
     "sectionTitle": "Projects",
@@ -44,6 +45,17 @@
   "Recommendations": {
     "sectionTitle": "Recommendations",
     "sectionSubtitle": "What colleagues and managers say."
+  },
+  "About": {
+    "sectionTitle": "About Me",
+    "sectionSubtitle": "8+ years building systems that scale, perform, and last.",
+    "p1": "I'm a Senior .NET Engineer with deep experience across fintech, logistics, and enterprise SaaS. I've led platform migrations, designed event-driven microservices, and shipped products used by hundreds of thousands of users.",
+    "p2": "My core stack is .NET/C# on the backend and Next.js/TypeScript on the frontend, grounded in Clean Architecture and DDD. I think about seams, observability, and reversibility — not as abstract principles, but because they make teams measurably faster over time.",
+    "p3": "Based in the Netherlands. I work in English, Arabic, and Dutch. I'm interested in how AI tooling amplifies individual engineering leverage — this portfolio is an experiment in exactly that."
+  },
+  "Skills": {
+    "sectionTitle": "Technical Expertise",
+    "sectionSubtitle": "The tools and technologies I use to build, ship, and scale."
   },
   "AIWorkflow": {
     "label": "Engineering Process",

@@ -1,0 +1,63 @@
+{
+  "categories": [
+    {
+      "id": "backend",
+      "title": "تطوير الخلفية",
+      "skills": [
+        ".NET 10",
+        "C#",
+        "ASP.NET Core",
+        "Clean Architecture",
+        "Domain-Driven Design",
+        "Entity Framework Core",
+        "SignalR",
+        "gRPC"
+      ]
+    },
+    {
+      "id": "frontend",
+      "title": "تطوير الواجهة",
+      "skills": [
+        "Next.js",
+        "React",
+        "TypeScript",
+        "JavaScript",
+        "Tailwind CSS",
+        "HTML5",
+        "CSS"
+      ]
+    },
+    {
+      "id": "databases",
+      "title": "قواعد البيانات والتخزين المؤقت",
+      "skills": [
+        "SQL Server",
+        "PostgreSQL",
+        "Redis",
+        "MongoDB"
+      ]
+    },
+    {
+      "id": "devops",
+      "title": "DevOps والسحابة",
+      "skills": [
+        "Docker",
+        "Kubernetes",
+        "Azure",
+        "GitHub Actions",
+        "Git",
+        "Vercel"
+      ]
+    },
+    {
+      "id": "quality",
+      "title": "الجودة والمراقبة",
+      "skills": [
+        "xUnit",
+        "Serilog",
+        "OpenTelemetry",
+        "Spectre.Console"
+      ]
+    }
+  ]
+}

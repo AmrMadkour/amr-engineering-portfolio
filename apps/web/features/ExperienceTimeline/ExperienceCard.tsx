@@ -1,4 +1,6 @@
+import Link from 'next/link'
 import type { Experience } from '@/types/experience'
+import type { Project } from '@/types/project'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
 
@@ -6,9 +8,11 @@ interface ExperienceCardProps {
   experience: Experience
   isLast?: boolean
   presentLabel: string
+  relatedProjects?: Project[]
+  locale: string
 }
 
-export function ExperienceCard({ experience, isLast = false, presentLabel }: ExperienceCardProps) {
+export function ExperienceCard({ experience, isLast = false, presentLabel, relatedProjects = [], locale }: ExperienceCardProps) {
   const endLabel = experience.endDate ?? presentLabel
 
   return (
@@ -56,6 +60,21 @@ export function ExperienceCard({ experience, isLast = false, presentLabel }: Exp
                   >
                     {tech}
                   </Badge>
+                ))}
+              </div>
+            )}
+            {relatedProjects.length > 0 && (
+              <div className="mt-4 flex flex-wrap items-center gap-2">
+                <span className="text-xs font-medium text-muted-foreground">Projects:</span>
+                {relatedProjects.map((p) => (
+                  <Link key={p.id} href={`/${locale}/projects#${p.slug}`}>
+                    <Badge
+                      variant="secondary"
+                      className="text-xs cursor-pointer hover:bg-primary/10 hover:text-primary transition-colors"
+                    >
+                      {p.title}
+                    </Badge>
+                  </Link>
                 ))}
               </div>
             )}

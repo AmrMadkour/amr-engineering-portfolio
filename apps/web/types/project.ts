@@ -9,4 +9,5 @@ export interface Project {
   startDate: string
   endDate: string | null
   featured: boolean
+  experienceId: string | null
 }

@@ -14,9 +14,10 @@ interface Labels {
 interface ProjectsAnimatedGridProps {
   projects: Project[]
   labels: Labels
+  experienceLookup?: Record<string, string>
 }
 
-export function ProjectsAnimatedGrid({ projects, labels }: ProjectsAnimatedGridProps) {
+export function ProjectsAnimatedGrid({ projects, labels, experienceLookup = {} }: ProjectsAnimatedGridProps) {
   return (
     <div className="flex flex-col gap-4">
       {projects.map((project, i) => (
@@ -27,7 +28,11 @@ export function ProjectsAnimatedGrid({ projects, labels }: ProjectsAnimatedGridP
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: i * 0.1 }}
         >
-          <ProjectCard project={project} labels={labels} />
+          <ProjectCard
+            project={project}
+            labels={labels}
+            experienceCompany={project.experienceId ? experienceLookup[project.experienceId] : undefined}
+          />
         </motion.div>
       ))}
     </div>
