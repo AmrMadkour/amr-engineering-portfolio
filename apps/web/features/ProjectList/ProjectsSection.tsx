@@ -2,8 +2,8 @@ import { getTranslations } from 'next-intl/server'
 import type { Project } from '@/types/project'
 import { Section } from '@/components/layout/Section'
 import { Container } from '@/components/layout/Container'
-import { ProjectCard } from './ProjectCard'
 import { ProjectsClient } from './ProjectsClient'
+import { ProjectsAnimatedGrid } from './ProjectsAnimatedGrid'
 
 interface ProjectsSectionProps {
   projects: Project[]
@@ -34,11 +34,7 @@ export async function ProjectsSection({ projects, featured = false }: ProjectsSe
         </div>
 
         {featured ? (
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {displayed.map((project) => (
-              <ProjectCard key={project.id} project={project} labels={labels} />
-            ))}
-          </div>
+          <ProjectsAnimatedGrid projects={displayed} labels={labels} />
         ) : (
           <ProjectsClient projects={displayed} labels={labels} />
         )}

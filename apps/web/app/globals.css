@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 @layer base {
   /* Light theme */
   :root {
@@ -671,4 +672,172 @@
 
   /* ── RTL — undo center alignment on mobile for RTL ── */
   [dir="rtl"] .hero-bio { text-align: start; }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   Project Card hover
+══════════════════════════════════════════════════════════════ */
+@layer components {
+  .project-card {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .project-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 32px rgba(139, 92, 246, 0.18);
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   Recommendations Carousel
+══════════════════════════════════════════════════════════════ */
+@layer components {
+  .rec-carousel {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .rec-avatar-stack {
+    display: flex;
+    align-items: center;
+    margin-bottom: 32px;
+  }
+
+  .rec-avatar-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 9999px;
+    background: var(--secondary);
+    color: var(--secondary-foreground);
+    font-size: 12px;
+    font-weight: 600;
+    border: 2px solid var(--background);
+    margin-inline-end: -10px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .rec-avatar-btn:hover { transform: translateY(-3px); }
+  .rec-avatar-btn.rec-avatar-active {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--primary) 30%, transparent);
+  }
+  /* push spacing after the last avatar */
+  .rec-avatar-btn:last-of-type { margin-inline-end: 0; }
+
+  .rec-quote-area {
+    position: relative;
+    padding: 40px 48px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .rec-quote-mark {
+    position: absolute;
+    top: 12px;
+    left: 24px;
+    font-size: 96px;
+    line-height: 1;
+    font-family: Georgia, serif;
+    color: var(--primary);
+    opacity: 0.15;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .rec-quote-text {
+    font-size: clamp(16px, 2.2vw, 20px);
+    line-height: 1.7;
+    color: var(--foreground);
+    font-weight: 500;
+    margin: 0 0 28px;
+    position: relative;
+  }
+
+  .rec-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .rec-author-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 9999px;
+    background: var(--secondary);
+    color: var(--secondary-foreground);
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 2px solid var(--primary);
+    overflow: hidden;
+  }
+
+  .rec-author-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--foreground);
+    margin: 0 0 2px;
+  }
+
+  .rec-author-meta {
+    font-size: 13px;
+    color: var(--muted-foreground);
+    margin: 0;
+  }
+
+  .rec-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+
+  .rec-dots {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .rec-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 9999px;
+    background: var(--border);
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s, width 0.2s;
+  }
+  .rec-dot-active {
+    background: var(--primary);
+    width: 24px;
+  }
+  .rec-dot:hover:not(.rec-dot-active) {
+    background: var(--muted-foreground);
+  }
+
+  @media (max-width: 600px) {
+    .rec-quote-area {
+      padding: 28px 24px 28px 28px;
+      min-height: 180px;
+    }
+    .rec-quote-mark {
+      font-size: 64px;
+      top: 8px;
+      left: 16px;
+    }
+    .rec-quote-text {
+      font-size: 15px;
+    }
+  }
 }

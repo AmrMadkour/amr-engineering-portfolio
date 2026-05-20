@@ -1,15 +1,14 @@
 import type { Config } from 'tailwindcss'
-import path from 'path'
 
 const config: Config = {
   darkMode: 'class',
   content: [
-    path.join(__dirname, './app/**/*.{ts,tsx,mdx}'),
-    path.join(__dirname, './components/**/*.{ts,tsx}'),
-    path.join(__dirname, './features/**/*.{ts,tsx}'),
-    path.join(__dirname, './hooks/**/*.{ts,tsx}'),
-    path.join(__dirname, './lib/**/*.{ts,tsx}'),
-    path.join(__dirname, './types/**/*.{ts,tsx}'),
+    './app/**/*.{ts,tsx,mdx}',
+    './components/**/*.{ts,tsx}',
+    './features/**/*.{ts,tsx}',
+    './hooks/**/*.{ts,tsx}',
+    './lib/**/*.{ts,tsx}',
+    './types/**/*.{ts,tsx}',
   ],
   theme: {
     extend: {

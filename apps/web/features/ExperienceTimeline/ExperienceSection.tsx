@@ -4,7 +4,7 @@ import { getTranslations } from 'next-intl/server'
 import type { Experience } from '@/types/experience'
 import { Section } from '@/components/layout/Section'
 import { Container } from '@/components/layout/Container'
-import { ExperienceCard } from './ExperienceCard'
+import { ExperienceAnimatedList } from './ExperienceAnimatedList'
 
 interface ExperienceSectionProps {
   experience: Experience[]
@@ -26,16 +26,7 @@ export async function ExperienceSection({ experience, locale, preview = false }:
           <p className="text-muted-foreground">{t('sectionSubtitle')}</p>
         </div>
 
-        <div>
-          {displayed.map((exp, i) => (
-            <ExperienceCard
-              key={exp.id}
-              experience={exp}
-              presentLabel={presentLabel}
-              isLast={i === displayed.length - 1 && (!preview || experience.length <= 2)}
-            />
-          ))}
-        </div>
+        <ExperienceAnimatedList experience={displayed} presentLabel={presentLabel} />
 
         {preview && experience.length > 2 && (
           <div className="mt-6">
