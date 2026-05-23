@@ -1,66 +1,20 @@
 # Update README.md
 
-Read the current `README.md` and inspect the latest project state, including:
+Read `README.md`, then check: git diff, new/modified files, architecture/dependency/command changes.
 
-- git diff
-- newly added or modified files
-- architecture changes
-- dependency changes
-- tooling/workflow updates
-- setup/run command changes
+Update **only** where something meaningfully changed. Keep it concise, professional, and readable by both developers and recruiters.
 
-Update `README.md` ONLY where meaningful changes occurred.
+## Quality check
+Verify a new developer can:
+1. Clone → install dependencies → configure env vars → run both apps → run tests
 
-## Focus on keeping the README
-
-- concise
-- professional
-- public-facing
-- easy for developers and recruiters to understand
-
-## Review and update these sections only if needed
-
-- Project Overview
-- Features
-- Tech Stack
-- Architecture Summary
-- Folder Structure
-- Prerequisites
-- Installation
-- Environment Variables
-- Running the Project
-- Development Workflow
-- Build/Test Commands
-- Roadmap
-
-## IMPORTANT
-
-Verify that a new developer can:
-
-1. clone the repository
-2. install dependencies
-3. configure environment variables
-4. start the application
-5. run backend/frontend successfully
-6. run tests successfully
-
-If setup or run commands are missing, outdated, or incorrect:
-
-- fix them
-- use actual project paths and scripts
-- avoid placeholder commands
+If any setup/run commands are missing, outdated, or wrong — fix them using actual project paths and scripts.
 
 ## Rules
-
-- Do NOT turn the README into implementation documentation
-- Do NOT include temporary experiments or incomplete features
-- Do NOT duplicate information already documented correctly
-- Do NOT document speculative or future architecture as if it already exists
-- Preserve existing formatting and structure where possible
-- Keep explanations high-level and readable
+- No implementation detail, incomplete features, or speculative architecture
+- No duplicate content
+- Preserve existing formatting where possible
 
 ## After updating, report
-
-1. What sections were updated
-2. Why they needed updating
-3. Any incorrect setup or run instructions that were fixed
+1. Sections changed and why
+2. Any setup/run instructions fixed

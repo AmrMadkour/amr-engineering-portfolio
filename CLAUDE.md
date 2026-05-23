@@ -19,7 +19,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - [x] Step 1c: Critical CSS fix — Tailwind preflight missing; manually added `box-sizing: border-box` + `body { margin: 0 }` to `@layer base`; horizontal overflow fixed; scrollbar hidden
 - [x] Step 2a: Hero section polish — responsive breakpoints, bio padding, greeting layout, color scheme (violet), LinkedIn hover, double-comma fix
 - [x] Step 2b: Home page sections — About, Projects, Experience, Recommendations all implemented; ContactCTA + AIWorkflowTeaser built but not yet wired into home page
-- [ ] Step 2c: Wire ContactCTA (and optionally AIWorkflowTeaser) into home page; Technical Skills section
+- [x] Step 2c: Technical Skills section (animated carousel, icon map, react-icons/si + lucide fallbacks); Projects ↔ Experience linking via `experienceId` (company attribution chips + related-project chips)
+- [ ] Step 2d: Wire ContactCTA (and optionally AIWorkflowTeaser) into home page
 - [ ] Step 3: Projects page
 - [ ] Step 4: Experience page
 - [ ] Step 5: Contact page
@@ -92,7 +93,7 @@ Infrastructure → Application
 ```
 apps/web/app/[locale]/     ← all routes under locale segment
 apps/web/components/       ← stateless reusable UI atoms (Button, Card, Badge)
-apps/web/features/         ← page-level sections (Hero/, About/, ProjectList/, ExperienceTimeline/, RecommendationsCarousel/, ContactCTA/, AIWorkflowTeaser/) — colocate component + logic
+apps/web/features/         ← page-level sections (Hero/, About/, TechnicalSkills/, ProjectList/, ExperienceTimeline/, RecommendationsCarousel/, ContactCTA/, AIWorkflowTeaser/) — colocate component + logic
 apps/web/services/         ← typed fetch() wrappers; called from Server Components only
 apps/web/hooks/            ← client-only hooks; every file is 'use client'
 apps/web/lib/              ← pure utility functions; no React/Next imports
@@ -112,6 +113,8 @@ Two-tier caching:
 ### Content
 
 All portfolio data lives in `content/{locale}/{file}.json`. The backend reads these via `JsonContentRepository` in `Infrastructure/`. Locale is passed as a query param (`?locale=en`); the backend reads the matching locale folder. No database. Content updates require a git push and rebuild.
+
+Content files per locale: `profile.json`, `projects.json`, `experience.json`, `recommendations.json`, `skills.json`. The `skills.json` file is read directly by the frontend via static import (not via the API) — it is not exposed through `IContentRepository`.
 
 MDX pages (`content/{locale}/pages/*.mdx`) processed by `@next/mdx`. `content/` is at the monorepo root; accessed via the `@content/*` tsconfig alias (`../../content/*` relative to `apps/web`).
 
@@ -137,3 +140,7 @@ const mdxPages = {
 **Localization** — `next-intl` handles URL routing (`/en`, `/ar`, `/nl`) and UI strings (`messages/{locale}.json`). Portfolio content strings live separately in `content/{locale}/`.
 
 **No MediatR** — endpoints inject `IContentRepository` directly. For 4 read-only GET endpoints, MediatR adds overhead without benefit. The interface boundary in `Application/` is the CQRS seam if needed later.
+
+**Project ↔ Experience linking** — `Project` has an optional `experienceId: string | null` field (mirrored in `ProjectDto`). Company-owned projects set this to the matching `Experience.id`. `ExperienceSection` builds a `relatedProjectsMap` and passes it to cards as chips; `ProjectsSection` builds an `experienceLookup` map to show `@ Company` attribution on cards.
+
+**Slash commands** — `.claude/commands/run.md` (`/run`) starts API + web + verifies Playwright. `.claude/commands/push.md` (`/push`) stages, commits with a descriptive message, and pushes the current branch.

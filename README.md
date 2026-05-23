@@ -6,6 +6,21 @@ This is not a simple portfolio template. It is engineered as a scalable, modern 
 
 ---
 
+## Features
+
+- **Multi-locale** — English, Arabic (RTL), and Dutch via `next-intl`
+- **Dark / light mode** — system-aware with manual toggle
+- **Hero section** — bio, social links, résumé download
+- **About section** — animated prose panel
+- **Technical Skills** — animated infinite carousel with branded icon badges, grouped by category
+- **Projects** — linked to employer roles; personal and company projects shown with attribution
+- **Experience timeline** — animated; each role shows its related projects as clickable chips
+- **Recommendations carousel** — client testimonials
+- **Two-tier caching** — .NET `IMemoryCache` (15 min) + Next.js ISR (1 hr)
+- **Clean Architecture backend** — enforced layer boundaries, repository pattern over JSON content
+
+---
+
 ## Tech Stack
 
 ### Frontend (`apps/web`)
@@ -15,6 +30,7 @@ This is not a simple portfolio template. It is engineered as a scalable, modern 
 - next-intl (EN / AR / NL localization + RTL)
 - next-themes (dark / light mode)
 - Framer Motion
+- react-icons + lucide-react
 
 ### Backend (`apps/api`)
 - .NET 10 Minimal API
