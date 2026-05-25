@@ -9,5 +9,27 @@
     "date": "2024-06",
     "relationship": "Managed directly",
     "source": "LinkedIn"
+  },
+  {
+    "id": "rec-placeholder-2",
+    "authorName": "Team Lead Name",
+    "authorTitle": "Senior Software Engineer",
+    "authorCompany": "Company Name",
+    "authorAvatarUrl": null,
+    "text": "Placeholder — replace with real LinkedIn recommendation text. Working alongside Amr was a great experience; his technical depth and collaborative mindset make him a standout engineer.",
+    "date": "2024-03",
+    "relationship": "Worked together",
+    "source": "LinkedIn"
+  },
+  {
+    "id": "rec-placeholder-3",
+    "authorName": "Colleague Name",
+    "authorTitle": "Product Manager",
+    "authorCompany": "Company Name",
+    "authorAvatarUrl": null,
+    "text": "Placeholder — replace with real LinkedIn recommendation text. Amr bridges the gap between technical complexity and business goals better than anyone I have worked with.",
+    "date": "2023-11",
+    "relationship": "Cross-functional partner",
+    "source": "LinkedIn"
   }
 ]

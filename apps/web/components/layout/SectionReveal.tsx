@@ -5,9 +5,10 @@ import { useEffect, useRef } from 'react'
 interface Props {
   children: React.ReactNode
   delay?: number
+  className?: string
 }
 
-export function SectionReveal({ children, delay = 0 }: Props) {
+export function SectionReveal({ children, delay = 0, className }: Props) {
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -32,5 +33,5 @@ export function SectionReveal({ children, delay = 0 }: Props) {
     return () => io.disconnect()
   }, [delay])
 
-  return <div ref={ref}>{children}</div>
+  return <div ref={ref} className={className}>{children}</div>
 }

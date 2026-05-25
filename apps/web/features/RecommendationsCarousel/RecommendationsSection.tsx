@@ -2,7 +2,8 @@ import { getTranslations } from 'next-intl/server'
 import type { Recommendation } from '@/types/recommendation'
 import { Section } from '@/components/layout/Section'
 import { Container } from '@/components/layout/Container'
-import { RecommendationsCarousel } from './RecommendationsCarousel'
+import { SectionReveal } from '@/components/layout/SectionReveal'
+import { RecommendationsGrid } from './RecommendationsGrid'
 
 interface RecommendationsSectionProps {
   recommendations: Recommendation[]
@@ -16,11 +17,13 @@ export async function RecommendationsSection({ recommendations }: Recommendation
   return (
     <Section id="recommendations">
       <Container>
-        <div className="mb-10 text-center">
-          <h2 className="mb-2">{t('sectionTitle')}</h2>
-          <p className="text-muted-foreground">{t('sectionSubtitle')}</p>
-        </div>
-        <RecommendationsCarousel recommendations={recommendations} />
+        <SectionReveal>
+          <div className="mb-10 text-center">
+            <h2 className="mb-2">{t('sectionTitle')}</h2>
+            <p className="text-muted-foreground">{t('sectionSubtitle')}</p>
+          </div>
+        </SectionReveal>
+        <RecommendationsGrid recommendations={recommendations} />
       </Container>
     </Section>
   )

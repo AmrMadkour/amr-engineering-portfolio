@@ -6,6 +6,7 @@ import { AboutSection } from '@/features/About/AboutSection'
 import { SkillsSection } from '@/features/TechnicalSkills/SkillsSection'
 import { ExperiencePreviewSection } from '@/features/ExperiencePreview/ExperiencePreviewSection'
 import { RecommendationsSection } from '@/features/RecommendationsCarousel/RecommendationsSection'
+import { SectionReveal } from '@/components/layout/SectionReveal'
 
 type Props = { params: Promise<{ locale: string }> }
 
@@ -20,8 +21,8 @@ export default async function HomePage({ params }: Props) {
   return (
     <main>
       <HeroSection profile={profile} locale={locale} />
-      <AboutSection />
-      <SkillsSection locale={locale} />
+      <SectionReveal><AboutSection /></SectionReveal>
+      <SectionReveal><SkillsSection locale={locale} /></SectionReveal>
       <ExperiencePreviewSection experience={experience} locale={locale} />
       <RecommendationsSection recommendations={recommendations} />
     </main>
