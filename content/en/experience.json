@@ -2,6 +2,8 @@
   {
     "id": "senior-dotnet-engineer-current",
     "slug": "senior-dotnet-engineer-current",
+    "type": "company",
+    "featured": true,
     "company": "Current Employer",
     "role": "Senior .NET Engineer",
     "startDate": "2022-01",
@@ -18,6 +20,8 @@
   {
     "id": "dotnet-engineer-previous",
     "slug": "dotnet-engineer-previous",
+    "type": "company",
+    "featured": true,
     "company": "Previous Employer",
     "role": ".NET Engineer",
     "startDate": "2019-03",
@@ -29,5 +33,23 @@
       "Delivered a white-label portal using Next.js and multi-tenant architecture"
     ],
     "technologies": [".NET 5", "C#", "Entity Framework Core", "PostgreSQL", "React", "Next.js", "TypeScript", "Azure", "SignalR"]
+  },
+  {
+    "id": "amr-portfolio",
+    "slug": "amr-portfolio",
+    "type": "personal",
+    "featured": true,
+    "company": null,
+    "role": null,
+    "startDate": "2026-01",
+    "endDate": null,
+    "description": "A monorepo portfolio platform built as a genuine engineering exercise. Four-layer Clean Architecture .NET 10 Minimal API on the backend; Next.js 15 App Router with ISR, three-locale support (EN/AR/NL), RTL layout, and dark mode on the frontend.",
+    "highlights": [
+      "Designed and enforced Clean Architecture layer boundaries via .csproj project references",
+      "Built a Repository Pattern over JSON content files with IMemoryCache (15-min TTL)",
+      "Implemented three-locale routing with next-intl including full RTL support for Arabic",
+      "Structured as a real-world monorepo with npm workspaces and shared TypeScript packages"
+    ],
+    "technologies": ["Next.js", ".NET 10", "TypeScript", "Tailwind CSS", "Clean Architecture", "next-intl"]
   }
 ]

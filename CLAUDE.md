@@ -18,12 +18,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - [x] Step 1b: Navbar redesign (Showoff floating pill, dotted texture, hover labels, avatar placeholder)
 - [x] Step 1c: Critical CSS fix — Tailwind preflight missing; manually added `box-sizing: border-box` + `body { margin: 0 }` to `@layer base`; horizontal overflow fixed; scrollbar hidden
 - [x] Step 2a: Hero section polish — responsive breakpoints, bio padding, greeting layout, color scheme (violet), LinkedIn hover, double-comma fix
-- [x] Step 2b: Home page sections — About, Projects, Experience, Recommendations all implemented; ContactCTA + AIWorkflowTeaser built but not yet wired into home page
-- [x] Step 2c: Technical Skills section (animated carousel, icon map, react-icons/si + lucide fallbacks); Projects ↔ Experience linking via `experienceId` (company attribution chips + related-project chips)
-- [ ] Step 2d: Wire ContactCTA (and optionally AIWorkflowTeaser) into home page
-- [ ] Step 3: Projects page
-- [ ] Step 4: Experience page
-- [ ] Step 5: Contact page
+- [x] Step 2b: Home page sections — Hero, About, TechnicalSkills, ExperiencePreview (3 featured cards), Recommendations. **Design change:** Projects section removed (experience-first restructure); ContactCTA replaced by standalone Contact page; navbar is Home/Experience/Contact only
+- [x] Step 2c: Technical Skills section (animated carousel, icon map, react-icons/si + lucide fallbacks); Projects ↔ Experience linking via `experienceId`
+- [x] Step 2d (revised): Contact page — standalone `/contact` route with email, LinkedIn, schedule-a-call. ContactCTA not wired to homepage by design.
+- [x] Step 3 (revised): No standalone Projects page — replaced by experience-first approach. `/projects` route still exists but is unlinked.
+- [x] Step 4: Experience page rebuilt — list cards, client-side filtering (Type/Tech/Year), project counts per entry
+- [x] Step 5: Experience detail pages — `/experience/[slug]` dynamic route; company and personal/freelance layouts; embedded projects/use-cases
 
 Full architecture decisions and implementation roadmap: `docs/planning/Stage1/3-ArchitectureReview.md`
 
@@ -93,7 +93,10 @@ Infrastructure → Application
 ```
 apps/web/app/[locale]/     ← all routes under locale segment
 apps/web/components/       ← stateless reusable UI atoms (Button, Card, Badge)
-apps/web/features/         ← page-level sections (Hero/, About/, TechnicalSkills/, ProjectList/, ExperienceTimeline/, RecommendationsCarousel/, ContactCTA/, AIWorkflowTeaser/) — colocate component + logic
+apps/web/features/         ← page-level sections — colocate component + logic:
+                             Hero/, About/, TechnicalSkills/, ExperiencePreview/ (homepage teaser cards),
+                             ExperienceTimeline/ (list cards, filter bar, page client, detail view),
+                             RecommendationsCarousel/, ProjectList/ (unlinked), ContactCTA/, AIWorkflowTeaser/
 apps/web/services/         ← typed fetch() wrappers; called from Server Components only
 apps/web/hooks/            ← client-only hooks; every file is 'use client'
 apps/web/lib/              ← pure utility functions; no React/Next imports
@@ -141,6 +144,8 @@ const mdxPages = {
 
 **No MediatR** — endpoints inject `IContentRepository` directly. For 4 read-only GET endpoints, MediatR adds overhead without benefit. The interface boundary in `Application/` is the CQRS seam if needed later.
 
-**Project ↔ Experience linking** — `Project` has an optional `experienceId: string | null` field (mirrored in `ProjectDto`). Company-owned projects set this to the matching `Experience.id`. `ExperienceSection` builds a `relatedProjectsMap` and passes it to cards as chips; `ProjectsSection` builds an `experienceLookup` map to show `@ Company` attribution on cards.
+**Project ↔ Experience linking** — `Project` has an optional `experienceId: string | null` field (mirrored in `ProjectDto`). Projects link to `Experience.id`. Related projects surface on the experience detail page (`/experience/[slug]`), not as inline chips. Personal/freelance experiences use `experienceId: "<experience-slug>"` too — the portfolio project links to `"amr-portfolio"`.
+
+**Experience schema** — `Experience` now has `type: "company" | "personal" | "freelance"`, `featured: boolean` (controls which 3 cards appear on the homepage preview), and optional `company`/`role` (null for personal/freelance). Both the TypeScript type and C# `ExperienceDto` reflect this.
 
 **Slash commands** — `.claude/commands/run.md` (`/run`) starts API + web + verifies Playwright. `.claude/commands/push.md` (`/push`) stages, commits with a descriptive message, and pushes the current branch.

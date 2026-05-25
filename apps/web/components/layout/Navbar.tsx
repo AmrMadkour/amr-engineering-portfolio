@@ -4,7 +4,7 @@ import { useRef, useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import {
-  House, Briefcase, FolderOpen, Phone,
+  House, Briefcase, Phone,
   Sun, Moon, Globe, ChevronDown, Menu, X,
 } from 'lucide-react'
 import { useTheme } from 'next-themes'
@@ -12,10 +12,9 @@ import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
 
 const NAV_ITEMS = [
-  { key: 'home',       href: '/',           icon: House      },
-  { key: 'experience', href: '/experience', icon: Briefcase  },
-  { key: 'projects',   href: '/projects',   icon: FolderOpen },
-  { key: 'contact',    href: '/contact',    icon: Phone      },
+  { key: 'home',       href: '/',           icon: House     },
+  { key: 'experience', href: '/experience', icon: Briefcase },
+  { key: 'contact',    href: '/contact',    icon: Phone     },
 ] as const
 
 const LOCALES = [

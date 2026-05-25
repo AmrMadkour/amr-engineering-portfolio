@@ -1,8 +1,10 @@
 export interface Experience {
   id: string
   slug: string
-  company: string
-  role: string
+  type: 'company' | 'personal' | 'freelance'
+  featured: boolean
+  company: string | null
+  role: string | null
   startDate: string
   endDate: string | null
   description: string
