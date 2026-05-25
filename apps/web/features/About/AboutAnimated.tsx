@@ -24,7 +24,7 @@ export function AboutAnimated({ title, subtitle, paragraphs }: AboutAnimatedProp
         <p className="text-muted-foreground">{subtitle}</p>
       </motion.div>
 
-      <div className="mx-auto max-w-3xl space-y-5">
+      <div className="mx-auto max-w-4xl space-y-5 text-lg">
         {paragraphs.map((p, i) => (
           <motion.p
             key={i}

@@ -23,7 +23,7 @@ export default async function ExperiencePage({ params }: Props) {
       <Section id="experience">
         <Container>
           <div className="mb-10">
-            <h1 className="mb-2">{t('sectionTitle')}</h1>
+            <h1 className="mb-2 text-2xl font-bold text-foreground">{t('sectionTitle')}</h1>
             <p className="text-muted-foreground">{t('sectionSubtitle')}</p>
           </div>
           <ExperiencePageClient

@@ -48,8 +48,13 @@ export function Navbar({ locale }: NavbarProps) {
     return () => document.removeEventListener('mousedown', onOut)
   }, [langOpen])
 
-  // Close mobile menu on route change
+  // Close mobile menu on route change or when viewport grows past mobile breakpoint
   useEffect(() => { setMenuOpen(false) }, [pathname])
+  useEffect(() => {
+    function onResize() { if (window.innerWidth > 680) setMenuOpen(false) }
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
+  }, [])
 
   function switchLocale(next: string) {
     const segments = pathname.split('/')

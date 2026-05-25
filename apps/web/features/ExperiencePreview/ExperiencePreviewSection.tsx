@@ -20,14 +20,12 @@ export async function ExperiencePreviewSection({ experience, locale }: Props) {
   return (
     <Section id="experience">
       <Container>
-        <div className="mb-10 flex items-end justify-between gap-4">
-          <div>
-            <h2 className="mb-2">{t('sectionTitle')}</h2>
-            <p className="text-muted-foreground">{t('sectionSubtitle')}</p>
-          </div>
+        <div className="mb-10 text-center">
+          <h2 className="mb-2">{t('sectionTitle')}</h2>
+          <p className="mb-4 text-muted-foreground">{t('sectionSubtitle')}</p>
           <Link
             href={`/${locale}/experience`}
-            className="inline-flex shrink-0 items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
           >
             {t('viewAll')}
             <ArrowRight className="size-3.5 rtl:rotate-180" />

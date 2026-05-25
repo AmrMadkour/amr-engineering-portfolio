@@ -59,6 +59,8 @@ export function ExperiencePageClient({ experience, projects, presentLabel, local
         onChange={setFilter}
         availableTechs={availableTechs}
         availableYears={availableYears}
+        resultCount={filtered.length}
+        totalCount={experience.length}
       />
 
       {filtered.length === 0 ? (

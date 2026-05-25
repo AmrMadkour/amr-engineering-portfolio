@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { ArrowRight, Building2, User, Briefcase } from 'lucide-react'
 import type { Experience } from '@/types/experience'
 import { Badge } from '@/components/ui/badge'
+import { formatYearMonth } from '@/lib/formatDate'
 
 const TYPE_CONFIG = {
   company:   { label: null,               icon: Building2, accent: 'from-violet-500/20 to-violet-500/5'  },
@@ -20,7 +21,8 @@ interface Props {
 
 export function ExperienceTeaserCard({ experience, presentLabel, locale }: Props) {
   const config = TYPE_CONFIG[experience.type]
-  const endLabel = experience.endDate ?? presentLabel
+  const startFormatted = formatYearMonth(experience.startDate, locale)
+  const endFormatted = experience.endDate ? formatYearMonth(experience.endDate, locale) : presentLabel
   const TypeIcon = config.icon
 
   return (
@@ -70,7 +72,7 @@ export function ExperienceTeaserCard({ experience, presentLabel, locale }: Props
 
           {/* Duration */}
           <p className="mb-3 text-xs font-medium uppercase tracking-wide text-muted-foreground/70">
-            {experience.startDate} — {endLabel}
+            {startFormatted} — {endFormatted}
           </p>
 
           {/* Summary */}

@@ -3,6 +3,7 @@ import { ArrowLeft, User, Briefcase, ExternalLink, GitFork } from 'lucide-react'
 import type { Experience } from '@/types/experience'
 import type { Project } from '@/types/project'
 import { Badge } from '@/components/ui/badge'
+import { formatYearMonth } from '@/lib/formatDate'
 
 interface Props {
   experience: Experience
@@ -16,8 +17,15 @@ const TYPE_LABEL: Record<string, string> = {
   freelance: 'Freelance',
 }
 
+const TYPE_ACCENT: Record<string, string> = {
+  company:   'from-violet-500/60 to-violet-500/0',
+  personal:  'from-emerald-500/60 to-emerald-500/0',
+  freelance: 'from-amber-500/60 to-amber-500/0',
+}
+
 export function ExperienceDetailView({ experience, relatedProjects, presentLabel, locale }: Props) {
-  const endLabel = experience.endDate ?? presentLabel
+  const startFormatted = formatYearMonth(experience.startDate, locale)
+  const endFormatted = experience.endDate ? formatYearMonth(experience.endDate, locale) : presentLabel
   const isCompany = experience.type === 'company'
 
   return (
@@ -32,41 +40,44 @@ export function ExperienceDetailView({ experience, relatedProjects, presentLabel
         All Experience
       </Link>
 
-      {/* Header */}
-      <div className="mb-8 border-b border-border pb-8">
-        {isCompany ? (
-          <>
-            <p className="mb-1 text-sm font-semibold uppercase tracking-widest text-muted-foreground">
-              {experience.company}
-            </p>
-            <h1 className="mb-3 text-2xl font-bold text-foreground">{experience.role}</h1>
-          </>
-        ) : (
-          <>
-            <div className="mb-2 flex items-center gap-2">
-              {experience.type === 'personal'
-                ? <User size={14} strokeWidth={1.5} className="text-emerald-500" />
-                : <Briefcase size={14} strokeWidth={1.5} className="text-amber-500" />}
-              <Badge
-                variant="outline"
-                className={
-                  experience.type === 'personal'
-                    ? 'text-xs bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20'
-                    : 'text-xs bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20'
-                }
-              >
-                {TYPE_LABEL[experience.type]}
-              </Badge>
-            </div>
-            <h1 className="mb-3 text-2xl font-bold text-foreground">
-              {experience.description.split('.')[0]}
-            </h1>
-          </>
-        )}
+      {/* Header card */}
+      <div className="mb-8 overflow-hidden rounded-2xl border border-border bg-card">
+        <div className={`h-1 w-full bg-gradient-to-r ${TYPE_ACCENT[experience.type]}`} />
+        <div className="p-6">
+          {isCompany ? (
+            <>
+              <p className="mb-1 text-sm font-semibold uppercase tracking-widest text-muted-foreground">
+                {experience.company}
+              </p>
+              <h1 className="mb-3 text-2xl font-bold text-foreground">{experience.role}</h1>
+            </>
+          ) : (
+            <>
+              <div className="mb-2 flex items-center gap-2">
+                {experience.type === 'personal'
+                  ? <User size={14} strokeWidth={1.5} className="text-emerald-500" />
+                  : <Briefcase size={14} strokeWidth={1.5} className="text-amber-500" />}
+                <Badge
+                  variant="outline"
+                  className={
+                    experience.type === 'personal'
+                      ? 'text-xs bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20'
+                      : 'text-xs bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20'
+                  }
+                >
+                  {TYPE_LABEL[experience.type]}
+                </Badge>
+              </div>
+              <h1 className="mb-3 text-2xl font-bold text-foreground">
+                {experience.description.split('.')[0]}
+              </h1>
+            </>
+          )}
 
-        <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-          {experience.startDate} — {endLabel}
-        </p>
+          <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+            {startFormatted} — {endFormatted}
+          </p>
+        </div>
       </div>
 
       {/* Overview */}
@@ -120,7 +131,7 @@ export function ExperienceDetailView({ experience, relatedProjects, presentLabel
             {relatedProjects.map((project) => (
               <div
                 key={project.id}
-                className="rounded-xl border border-border bg-card/50 p-4"
+                className="rounded-xl border border-border bg-card/50 p-4 transition-colors duration-200 hover:border-primary/30 hover:bg-primary/[0.03]"
               >
                 <div className="mb-1.5 flex items-start justify-between gap-3">
                   <h3 className="text-sm font-semibold text-foreground">{project.title}</h3>

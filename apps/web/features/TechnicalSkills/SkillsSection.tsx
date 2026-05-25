@@ -25,7 +25,7 @@ export async function SkillsSection({ locale }: SkillsSectionProps) {
   return (
     <Section id="skills">
       <Container>
-        <div className="mb-10">
+        <div className="mb-10 text-center">
           <h2 className="mb-2">{t('sectionTitle')}</h2>
           <p className="text-muted-foreground">{t('sectionSubtitle')}</p>
         </div>

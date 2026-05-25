@@ -21,10 +21,10 @@ export default async function ContactPage({ params }: Props) {
 
               <a
                 href="mailto:mismadkor14@gmail.com"
-                className="group flex items-center gap-4 rounded-xl border border-border bg-card px-5 py-4 transition-colors hover:border-primary/30 hover:bg-primary/[0.02]"
+                className="group flex items-center gap-4 rounded-xl border border-border bg-card px-5 py-4 transition-colors hover:border-violet-500/30 hover:bg-violet-500/[0.02]"
               >
-                <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary/10">
-                  <Mail size={18} strokeWidth={1.5} className="text-primary" />
+                <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-violet-500/10">
+                  <Mail size={18} strokeWidth={1.5} className="text-violet-600 dark:text-violet-400" />
                 </div>
                 <div>
                   <p className="text-sm font-semibold text-foreground">{t('ctaEmail')}</p>
@@ -36,10 +36,10 @@ export default async function ContactPage({ params }: Props) {
                 href="https://linkedin.com/in/amrmadkour"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-4 rounded-xl border border-border bg-card px-5 py-4 transition-colors hover:border-primary/30 hover:bg-primary/[0.02]"
+                className="group flex items-center gap-4 rounded-xl border border-border bg-card px-5 py-4 transition-colors hover:border-blue-500/30 hover:bg-blue-500/[0.02]"
               >
-                <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary/10">
-                  <ExternalLink size={18} strokeWidth={1.5} className="text-primary" />
+                <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-blue-500/10">
+                  <ExternalLink size={18} strokeWidth={1.5} className="text-blue-600 dark:text-blue-400" />
                 </div>
                 <div>
                   <p className="text-sm font-semibold text-foreground">{t('ctaLinkedIn')}</p>
@@ -51,10 +51,10 @@ export default async function ContactPage({ params }: Props) {
                 href="https://cal.com/amrmadkour"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-4 rounded-xl border border-border bg-card px-5 py-4 transition-colors hover:border-primary/30 hover:bg-primary/[0.02]"
+                className="group flex items-center gap-4 rounded-xl border border-border bg-card px-5 py-4 transition-colors hover:border-emerald-500/30 hover:bg-emerald-500/[0.02]"
               >
-                <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary/10">
-                  <CalendarDays size={18} strokeWidth={1.5} className="text-primary" />
+                <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-emerald-500/10">
+                  <CalendarDays size={18} strokeWidth={1.5} className="text-emerald-600 dark:text-emerald-400" />
                 </div>
                 <div>
                   <p className="text-sm font-semibold text-foreground">{t('ctaBookMeeting')}</p>

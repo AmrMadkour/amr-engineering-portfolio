@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { ArrowRight, Building2, User, Briefcase } from 'lucide-react'
 import type { Experience } from '@/types/experience'
 import { Badge } from '@/components/ui/badge'
+import { formatYearMonth } from '@/lib/formatDate'
 
 const TYPE_BADGE = {
   company:   { label: null,               icon: null,      className: '' },
@@ -17,12 +18,13 @@ interface Props {
 }
 
 export function ExperienceListCard({ experience, presentLabel, locale, projectCount = 0 }: Props) {
-  const endLabel = experience.endDate ?? presentLabel
+  const startFormatted = formatYearMonth(experience.startDate, locale)
+  const endFormatted = experience.endDate ? formatYearMonth(experience.endDate, locale) : presentLabel
   const badge = TYPE_BADGE[experience.type]
 
   return (
     <Link href={`/${locale}/experience/${experience.slug}`} className="group block">
-      <div className="flex gap-5 rounded-xl border border-border bg-card px-5 py-4 transition-colors duration-200 hover:border-primary/30 hover:bg-primary/[0.02]">
+      <div className="flex gap-5 rounded-xl border border-border bg-card px-5 py-4 transition-all duration-200 hover:border-primary/30 hover:bg-primary/5 hover:shadow-sm">
 
         {/* Left — type indicator bar */}
         <div className="mt-1 flex flex-col items-center gap-1 shrink-0">
@@ -56,7 +58,7 @@ export function ExperienceListCard({ experience, presentLabel, locale, projectCo
           )}
 
           <p className="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground/60">
-            {experience.startDate} — {endLabel}
+            {startFormatted} — {endFormatted}
             {projectCount > 0 && (
               <span className="ms-3 normal-case tracking-normal font-normal">
                 · {projectCount} {projectCount === 1 ? 'project' : 'projects'}
