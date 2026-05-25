@@ -48,9 +48,32 @@
 
 ---
 
+## Session — 2026-05-25
+
+### Files changed
+
+- `apps/web/app/globals.css` — hero entrance animation (`@keyframes hero-enter`, staggered classes per element); scroll-reveal CSS (`.s-reveal` / `.s-reveal--in`); recommendation card CSS (replaced carousel CSS); footer CSS (`.footer-*`); removed `scroll-behavior: smooth`; moved scrollbar-hiding outside `@layer`
+- `apps/web/app/[locale]/layout.tsx` — added `FooterSection`; removed `overflow-x: hidden` inline styles from `<html>` and `<body>`
+- `apps/web/app/[locale]/page.tsx` — wrapped `AboutSection` and `SkillsSection` in `SectionReveal`
+- `apps/web/components/layout/SectionReveal.tsx` — new component (CSS + IntersectionObserver, no framer-motion); added `className` prop
+- `apps/web/features/ExperiencePreview/ExperiencePreviewSection.tsx` — header and each card wrapped in `SectionReveal` with stagger
+- `apps/web/features/RecommendationsCarousel/RecommendationsSection.tsx` — replaced carousel with grid; header in `SectionReveal`
+- `apps/web/features/RecommendationsCarousel/RecommendationsGrid.tsx` — NEW; each card in its own `SectionReveal` with 0.15s stagger
+- `apps/web/features/Footer/FooterSection.tsx` — NEW; async Server Component, fetches profile, renders dark footer
+- `content/en/recommendations.json` — added 2 placeholder entries (total 3)
+
+### Decisions
+
+- **framer-motion removed from SectionReveal**: 9 synchronous `IntersectionObserver`s during hydration blocked scroll for ~2s. Replaced with a single CSS class toggle per observer. Only `AboutAnimated` still uses framer-motion (isolated, not the cause).
+- **`overflow-x: hidden` on `<html>` removed**: Chrome forces main-thread scroll path when root element has `overflow-x: hidden`, blocking compositor scroll during React hydration. Kept `overflow-x: hidden` only on `.page-body`.
+- **Recommendations redesign**: old carousel replaced with 3-column card grid. Quote icon (lucide `Quote`) replaces `"` text. Cards are dynamic — works for any count via CSS grid.
+- **Footer uses `GitHubIcon` / `LinkedInIcon` from `@/components/ui/icons`**: lucide-react's installed version does not export `Linkedin` or `Github`. Custom SVG components already existed in the codebase.
+
+---
+
 ## Gotchas
 
-- **lucide-react missing icons**: `Github` and `Linkedin` do not exist in the installed version. Use `GitFork` for repo links and `ExternalLink` for LinkedIn. Check with `node -e "const l = require('./node_modules/lucide-react'); console.log(typeof l.IconName)"` before adding new icons.
+- **lucide-react missing icons**: `Github` and `Linkedin` do not exist in the installed version. Use custom SVGs from `@/components/ui/icons` (`GitHubIcon`, `LinkedInIcon`) for brand icons. Check with `node -e "const l = require('./node_modules/lucide-react'); console.log(typeof l.IconName)"` before adding new icons.
 - **Old components still on disk**: `ExperienceSection`, `ExperienceCard`, `ExperienceAnimatedList`, `ProjectList/*` all still exist but are no longer wired to any active page. Safe to delete once confirmed, but left in place this session.
 - **`/projects` route still exists** at `app/[locale]/projects/page.tsx` — unlinked from navbar but not deleted. Redirect or remove when ready.
 - **`cal.com/amrmadkour` URL** hardcoded in Contact page — confirm this is the correct Calendly/Cal.com handle before going live.
@@ -60,9 +83,9 @@
 
 ## Next
 
-1. **Visual polish** — teaser cards, list cards, and detail pages are functional but need design review (spacing, typography, mobile layout)
-2. **Replace placeholder content** — real company names, descriptions, and highlights in `experience.json`
-3. **Metadata/SEO** — detail pages use the generic site title; add per-route `generateMetadata` exports
-4. **AR/NL translations** — experience + the new personal entry need human review
-5. **Clean up dead code** — remove `ExperienceSection`, `ExperienceCard`, `ExperienceAnimatedList`, `ProjectList/*`, `/projects` route once confirmed unused
-6. **Verify cal.com link** — contact page uses `cal.com/amrmadkour`; confirm handle is correct
+1. **Replace placeholder content** — real recommendation text, real company names/descriptions in `experience.json`; also add 2 placeholder entries to `content/ar/recommendations.json` and `content/nl/recommendations.json` (still only 1 entry each)
+2. **Visual polish pass** — date formatting (`2022-01` → `Jan 2022`), filter bar labels + clear button, experience detail header card, contact page icon colors (plan exists in `.claude/plans/`)
+3. **Metadata/SEO** — detail pages use generic site title; add per-route `generateMetadata`
+4. **AR/NL translations** — experience + recommendation placeholders need human review
+5. **Next.js fetch cache** — `revalidate: 3600` means content changes need either a server restart or cache clear (delete `.next/cache/fetch-cache`) to appear in dev. In prod, redeploy triggers revalidation.
+6. **Clean up dead code** — `ExperienceSection`, `ExperienceCard`, `ExperienceAnimatedList`, `ProjectList/*`, `/projects` route still on disk but unlinked
