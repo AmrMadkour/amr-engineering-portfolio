@@ -17,10 +17,10 @@ interface Props {
 
 export function RecommendationsGrid({ recommendations }: Props) {
   return (
-    <SectionReveal>
-      <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-        {recommendations.map((rec) => (
-          <div key={rec.id} className="rec-card">
+    <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+      {recommendations.map((rec, i) => (
+        <SectionReveal key={rec.id} delay={0.15 + i * 0.15} className="h-full">
+          <div className="rec-card h-full">
             <Quote className="rec-card-icon" aria-hidden="true" />
 
             <p className="rec-card-quote">{rec.text}</p>
@@ -47,8 +47,8 @@ export function RecommendationsGrid({ recommendations }: Props) {
               </div>
             </div>
           </div>
-        ))}
-      </div>
-    </SectionReveal>
+        </SectionReveal>
+      ))}
+    </div>
   )
 }

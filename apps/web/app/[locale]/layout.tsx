@@ -5,6 +5,7 @@ import { getMessages, getTranslations } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import { ThemeProvider } from '@/components/providers/ThemeProvider'
 import { Navbar } from '@/components/layout/Navbar'
+import { FooterSection } from '@/features/Footer/FooterSection'
 import { routing } from '@/i18n/routing'
 import '../globals.css'
 
@@ -64,6 +65,7 @@ export default async function LocaleLayout({ children, params }: Props) {
           <ThemeProvider>
             <Navbar locale={locale} />
             <div className="page-body">{children}</div>
+            <FooterSection locale={locale} />
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>
