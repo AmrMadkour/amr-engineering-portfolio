@@ -2,61 +2,106 @@
   "categories": [
     {
       "id": "backend",
-      "title": "تطوير الخلفية",
+      "title": "تطوير الخلفيات",
       "skills": [
-        ".NET 10",
         "C#",
+        ".NET",
         "ASP.NET Core",
-        "Clean Architecture",
-        "Domain-Driven Design",
-        "Entity Framework Core",
-        "SignalR",
-        "gRPC"
+        "ASP.NET MVC",
+        "Web API",
+        "Entity Framework",
+        "LINQ",
+        "ADO.NET",
+        "REST APIs",
+        "WPF",
+        "MVVM",
+        "Windows Forms"
       ]
     },
     {
       "id": "frontend",
-      "title": "تطوير الواجهة",
+      "title": "تطوير الواجهات الأمامية",
       "skills": [
-        "Next.js",
         "React",
         "TypeScript",
         "JavaScript",
-        "Tailwind CSS",
+        "Next.js",
+        "Angular",
         "HTML5",
-        "CSS"
+        "CSS3",
+        "Tailwind CSS",
+        "Bootstrap",
+        "jQuery"
       ]
     },
     {
       "id": "databases",
-      "title": "قواعد البيانات والتخزين المؤقت",
+      "title": "قواعد البيانات",
       "skills": [
         "SQL Server",
         "PostgreSQL",
+        "MongoDB",
         "Redis",
-        "MongoDB"
+        "Database Design"
       ]
     },
     {
-      "id": "devops",
-      "title": "DevOps والسحابة",
+      "id": "cloud-devops",
+      "title": "السحابة والـ DevOps",
       "skills": [
-        "Docker",
-        "Kubernetes",
+        "AWS Lambda",
+        "API Gateway",
+        "S3",
+        "CloudWatch",
+        "Secrets Manager",
         "Azure",
-        "GitHub Actions",
-        "Git",
-        "Vercel"
+        "Terraform",
+        "CI/CD Pipelines",
+        "Docker",
+        "Git"
       ]
     },
     {
-      "id": "quality",
-      "title": "الجودة والمراقبة",
+      "id": "architecture",
+      "title": "المعمارية والممارسات الهندسية",
       "skills": [
-        "xUnit",
-        "Serilog",
-        "OpenTelemetry",
-        "Spectre.Console"
+        "Clean Architecture",
+        "Microservices",
+        "SOA",
+        "Domain-Driven Design",
+        "SOLID Principles",
+        "Design Patterns",
+        "OOP",
+        "TDD",
+        "BDD",
+        "Unit Testing",
+        "Agile/Scrum"
+      ]
+    },
+    {
+      "id": "tools",
+      "title": "الأدوات والتعاون",
+      "skills": [
+        "Jira",
+        "SonarQube",
+        "Datadog",
+        "Postman",
+        "Swagger",
+        "Bitbucket",
+        "TFS",
+        "Visual Studio",
+        "VS Code"
+      ]
+    },
+    {
+      "id": "ai-productivity",
+      "title": "الذكاء الاصطناعي وإنتاجية المطور",
+      "skills": [
+        "AI-Assisted Development",
+        "Prompt Engineering",
+        "GitHub Copilot",
+        "Claude Code",
+        "LLM Brainstorming"
       ]
     }
   ]

@@ -2,6 +2,7 @@ import { getTranslations } from 'next-intl/server'
 import Link from 'next/link'
 import { Section } from '@/components/layout/Section'
 import { Container } from '@/components/layout/Container'
+import { SectionReveal } from '@/components/layout/SectionReveal'
 
 type Props = { params: Promise<{ locale: string }> }
 
@@ -22,17 +23,19 @@ export default async function SitemapPage({ params }: Props) {
       <Section id="sitemap">
         <Container>
           <div className="mx-auto max-w-2xl py-16">
-            <h1 className="mb-8 text-3xl font-bold text-foreground">{t('sitemap')}</h1>
+            <h1 className="mb-8 text-3xl font-bold text-foreground page-head">{t('sitemap')}</h1>
             <ul className="flex flex-col gap-3">
-              {links.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-lg text-muted-foreground hover:text-violet-400 transition-colors"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
+              {links.map((link, i) => (
+                <SectionReveal key={link.href} delay={i * 0.1}>
+                  <li>
+                    <Link
+                      href={link.href}
+                      className="text-lg text-muted-foreground hover:text-violet-400 transition-colors"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                </SectionReveal>
               ))}
             </ul>
           </div>

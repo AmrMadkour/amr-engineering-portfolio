@@ -5,6 +5,7 @@ import type { Experience } from '@/types/experience'
 import type { Project } from '@/types/project'
 import { ExperienceFilterBar, type ExperienceFilter } from './ExperienceFilterBar'
 import { ExperienceListCard } from './ExperienceListCard'
+import { SectionReveal } from '@/components/layout/SectionReveal'
 
 interface Props {
   experience: Experience[]
@@ -67,14 +68,15 @@ export function ExperiencePageClient({ experience, projects, presentLabel, local
         <p className="py-12 text-center text-sm text-muted-foreground">No results for this filter.</p>
       ) : (
         <div className="flex flex-col gap-3">
-          {filtered.map((exp) => (
-            <ExperienceListCard
-              key={exp.id}
-              experience={exp}
-              presentLabel={presentLabel}
-              locale={locale}
-              projectCount={projectCountMap[exp.id] ?? 0}
-            />
+          {filtered.map((exp, i) => (
+            <SectionReveal key={exp.id} delay={Math.min(i * 0.1, 0.5)}>
+              <ExperienceListCard
+                experience={exp}
+                presentLabel={presentLabel}
+                locale={locale}
+                projectCount={projectCountMap[exp.id] ?? 0}
+              />
+            </SectionReveal>
           ))}
         </div>
       )}

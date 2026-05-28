@@ -18,10 +18,10 @@
     "comingSoon": "Coming Soon"
   },
   "Hero": {
-    "credentialLabel": "Senior .NET Engineer • AI-Integrated Development",
+    "credentialLabel": "Senior Software Developer • .NET & Cloud • AI-Augmented Engineering",
     "greeting": "Hi, I'm",
     "headline": "Building scalable backend systems and modern AI-powered developer experiences.",
-    "subtext": "8+ years delivering high-throughput .NET backends, full-stack products, and AI-integrated developer tooling — from architecture to production.",
+    "subtext": "10+ years delivering .NET backends, microservices, and full-stack solutions across survey platforms, healthcare, and e-commerce — based in the Netherlands.",
     "ctaProjects": "View Projects",
     "ctaContact": "Get In Touch",
     "ctaBookMeeting": "Book a Meeting",
@@ -48,10 +48,10 @@
   },
   "About": {
     "sectionTitle": "About Me",
-    "sectionSubtitle": "8+ years building systems that scale, perform, and last.",
-    "p1": "I'm a Senior .NET Engineer with deep experience across fintech, logistics, and enterprise SaaS. I've led platform migrations, designed event-driven microservices, and shipped products used by hundreds of thousands of users.",
-    "p2": "My core stack is .NET/C# on the backend and Next.js/TypeScript on the frontend, grounded in Clean Architecture and DDD. I think about seams, observability, and reversibility — not as abstract principles, but because they make teams measurably faster over time.",
-    "p3": "Based in the Netherlands. I work in English, Arabic, and Dutch. I'm interested in how AI tooling amplifies individual engineering leverage — this portfolio is an experiment in exactly that."
+    "sectionSubtitle": "10+ years delivering software that works in the real world.",
+    "p1": "I'm a Senior Software Developer with over 10 years of experience building production systems across the Netherlands and Egypt. My work has spanned survey platform modernization at scale (Metrixlab/Toluna), medical application development at ICT Group, food-delivery integrations at Talabat, and internal enterprise tooling — from junior developer all the way to leading cross-functional teams.",
+    "p2": "My core stack is .NET/C# on the backend, with React and TypeScript on the frontend. I've worked with microservices on AWS Lambda, modernized legacy systems from VB6 and MVC to clean service-oriented architectures, and built real-time event pipelines with Kafka. I care about maintainability, integration reliability, and delivering things that actually work under production conditions.",
+    "p3": "Based in Schiedam, the Netherlands. I work in English, Arabic, and Dutch. I'm actively integrating AI-assisted workflows into my daily engineering — using tools like Claude Code and GitHub Copilot to sharpen code quality and move faster without cutting corners."
   },
   "Skills": {
     "sectionTitle": "Technical Expertise",

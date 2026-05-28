@@ -18,10 +18,10 @@
     "comingSoon": "Binnenkort"
   },
   "Hero": {
-    "credentialLabel": "Senior .NET Engineer • AI-geïntegreerde ontwikkeling",
+    "credentialLabel": "Senior Software Developer • .NET & Cloud • AI-ondersteunde engineering",
     "greeting": "Hoi, ik ben",
     "headline": "Schaalbare backendsystemen bouwen en moderne AI-gedreven ontwikkelaarservaringen.",
-    "subtext": "8+ jaar levering van high-throughput .NET backends, full-stack producten en AI-geïntegreerde tooling — van architectuur tot productie.",
+    "subtext": "10+ jaar levering van .NET-backends, microservices en full-stack oplossingen voor surveyplatformen, gezondheidszorg en e-commerce — gevestigd in Nederland.",
     "ctaProjects": "Projecten bekijken",
     "ctaContact": "Neem contact op",
     "ctaBookMeeting": "Meeting boeken",
@@ -48,10 +48,10 @@
   },
   "About": {
     "sectionTitle": "Over mij",
-    "sectionSubtitle": "8+ jaar aan het bouwen van systemen die schalen, presteren en meegaan.",
-    "p1": "Ik ben een Senior .NET Engineer met ruime ervaring in fintech, logistiek en enterprise SaaS. Ik heb platformmigraties geleid, event-driven microservices ontworpen en producten gebouwd die door honderdduizenden gebruikers worden gebruikt.",
-    "p2": "Mijn kernstack is .NET/C# voor de backend en Next.js/TypeScript voor de frontend, gegrond in Clean Architecture en DDD. Ik denk na over koppelingspunten, observeerbaarheid en omkeerbare beslissingen — omdat ze teams op de lange termijn sneller maken.",
-    "p3": "Gevestigd in Nederland. Ik werk in het Engels, Arabisch en Nederlands. Ik ben geïnteresseerd in hoe AI-tooling de productiviteit van individuele engineers vergroot — dit portfolio is een experiment in precies die richting."
+    "sectionSubtitle": "10+ jaar software opleveren die werkt in de echte wereld.",
+    "p1": "Ik ben een Senior Software Developer met ruim 10 jaar ervaring in het bouwen van productiesystemen in Nederland en Egypte. Mijn werk omvat modernisering van surveyplatformen op grote schaal (Metrixlab/Toluna), ontwikkeling van medische applicaties bij ICT Group, bezorgintegraties bij Talabat en interne bedrijfsapplicaties — van junior developer tot het leiden van multidisciplinaire teams.",
+    "p2": "Mijn kernstack is .NET/C# voor de backend, met React en TypeScript voor de frontend. Ik heb gewerkt met microservices op AWS Lambda, legacy-systemen gemigreerd van VB6 en MVC naar schone service-georiënteerde architecturen, en real-time event-pipelines gebouwd met Kafka. Ik hecht waarde aan onderhoudbaarheid, integratiereliabiliteit en het opleveren van software die daadwerkelijk werkt in productieomgevingen.",
+    "p3": "Gevestigd in Schiedam, Nederland. Ik werk in het Engels, Arabisch en Nederlands. Ik integreer actief AI-ondersteunde workflows in mijn dagelijkse engineering — met tools zoals Claude Code en GitHub Copilot om codekwaliteit te verbeteren en sneller te werken zonder concessies te doen."
   },
   "Skills": {
     "sectionTitle": "Technische Expertise",

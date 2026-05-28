@@ -1,8 +1,8 @@
-import Link from 'next/link'
 import { Mail, CalendarDays } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 import { getProfile } from '@/services/profile'
 import { GitHubIcon, LinkedInIcon } from '@/components/ui/icons'
+import { SmartLink } from '@/components/ui/SmartLink'
 
 interface Props {
   locale: string
@@ -37,12 +37,12 @@ export async function FooterSection({ locale }: Props) {
         <div className="footer-cols">
           <div className="footer-col">
             <p className="footer-col-label">{t('quickLinks')}</p>
-            <Link href={`/${locale}/experience`} className="footer-col-value">
+            <SmartLink href={`/${locale}/experience`} className="footer-col-value">
               {tNav('experience')}
-            </Link>
-            <Link href={`/${locale}/contact`} className="footer-col-value">
+            </SmartLink>
+            <SmartLink href={`/${locale}/contact`} className="footer-col-value">
               {tNav('contact')}
-            </Link>
+            </SmartLink>
           </div>
 
           <div className="footer-vdivider" />
@@ -97,9 +97,9 @@ export async function FooterSection({ locale }: Props) {
             © {year} {profile.name}. {t('allRightsReserved')}
           </p>
           <div className="footer-legal-links">
-            <Link href={`/${locale}/privacy-policy`}>{t('privacyPolicy')}</Link>
+            <SmartLink href={`/${locale}/privacy-policy`}>{t('privacyPolicy')}</SmartLink>
             <span aria-hidden="true">•</span>
-            <Link href={`/${locale}/sitemap`}>{t('sitemap')}</Link>
+            <SmartLink href={`/${locale}/sitemap`}>{t('sitemap')}</SmartLink>
           </div>
         </div>
 

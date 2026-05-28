@@ -10,6 +10,7 @@ import {
 import { useTheme } from 'next-themes'
 import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
+import { smoothScrollTop } from '@/lib/smoothScrollTop'
 
 const NAV_ITEMS = [
   { key: 'home',       href: '/',           icon: House     },
@@ -84,7 +85,17 @@ export function Navbar({ locale }: NavbarProps) {
       <nav className="nav-pill">
 
         {/* Left — Identity */}
-        <Link href={`/${locale}`} className="nav-identity">
+        <Link
+          href={`/${locale}`}
+          className="nav-identity"
+          scroll={false}
+          onClick={(e) => {
+            if (pathname === `/${locale}` || pathname === `/${locale}/`) {
+              e.preventDefault()
+              smoothScrollTop()
+            }
+          }}
+        >
           <div className="nav-avatar">
             <span className="nav-avatar-initials">AM</span>
           </div>
@@ -94,7 +105,18 @@ export function Navbar({ locale }: NavbarProps) {
         {/* Center — Desktop nav icons */}
         <div className="nav-icons">
           {NAV_ITEMS.map(({ key, href, icon: Icon }) => (
-            <Link key={key} href={getFullHref(href)} className="nav-icon-link">
+            <Link
+              key={key}
+              href={getFullHref(href)}
+              className="nav-icon-link"
+              scroll={false}
+              onClick={(e) => {
+                if (isNavActive(href)) {
+                  e.preventDefault()
+                  smoothScrollTop()
+                }
+              }}
+            >
               <div className={cn('nav-icon-btn', isNavActive(href) && 'nav-icon-btn--active')}>
                 <Icon size={22} strokeWidth={1.5} />
               </div>
@@ -176,7 +198,14 @@ export function Navbar({ locale }: NavbarProps) {
               key={key}
               href={getFullHref(href)}
               className={cn('nav-mobile-link', isNavActive(href) && 'nav-mobile-link--active')}
-              onClick={() => setMenuOpen(false)}
+              scroll={false}
+              onClick={(e) => {
+                setMenuOpen(false)
+                if (isNavActive(href)) {
+                  e.preventDefault()
+                  smoothScrollTop()
+                }
+              }}
             >
               {t(key)}
             </Link>

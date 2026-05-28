@@ -5,6 +5,7 @@ import { getMessages, getTranslations } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import { ThemeProvider } from '@/components/providers/ThemeProvider'
 import { Navbar } from '@/components/layout/Navbar'
+import { PageTransition } from '@/components/layout/PageTransition'
 import { FooterSection } from '@/features/Footer/FooterSection'
 import { routing } from '@/i18n/routing'
 import '../globals.css'
@@ -64,7 +65,7 @@ export default async function LocaleLayout({ children, params }: Props) {
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider>
             <Navbar locale={locale} />
-            <div className="page-body">{children}</div>
+            <div className="page-body"><PageTransition>{children}</PageTransition></div>
             <FooterSection locale={locale} />
           </ThemeProvider>
         </NextIntlClientProvider>

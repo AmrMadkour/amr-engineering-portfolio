@@ -39,7 +39,7 @@ export async function apiFetch<T>(path: string, locale: string, signal?: AbortSi
   try {
     const url = `${API_BASE}${path}?locale=${locale}`
     const response = await fetchWithRetry(url, {
-      next: { revalidate: 3600 },
+      next: { revalidate: process.env.NODE_ENV === 'development' ? 0 : 3600 },
       signal: combinedSignal,
     })
     return response.json() as Promise<T>

@@ -4,6 +4,7 @@ import type { Experience } from '@/types/experience'
 import type { Project } from '@/types/project'
 import { Badge } from '@/components/ui/badge'
 import { formatYearMonth } from '@/lib/formatDate'
+import { SectionReveal } from '@/components/layout/SectionReveal'
 
 interface Props {
   experience: Experience
@@ -41,6 +42,7 @@ export function ExperienceDetailView({ experience, relatedProjects, presentLabel
       </Link>
 
       {/* Header card */}
+      <SectionReveal delay={0.05}>
       <div className="mb-8 overflow-hidden rounded-2xl border border-border bg-card">
         <div className={`h-1 w-full bg-gradient-to-r ${TYPE_ACCENT[experience.type]}`} />
         <div className="p-6">
@@ -79,15 +81,19 @@ export function ExperienceDetailView({ experience, relatedProjects, presentLabel
           </p>
         </div>
       </div>
+      </SectionReveal>
 
       {/* Overview */}
+      <SectionReveal delay={0.15}>
       <div className="mb-8">
         <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-muted-foreground">Overview</h2>
         <p className="text-base text-foreground/80 leading-relaxed">{experience.description}</p>
       </div>
+      </SectionReveal>
 
       {/* Highlights */}
       {experience.highlights.length > 0 && (
+        <SectionReveal delay={0.25}>
         <div className="mb-8">
           <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
             {isCompany ? 'Key Achievements' : 'What I Built'}
@@ -101,10 +107,12 @@ export function ExperienceDetailView({ experience, relatedProjects, presentLabel
             ))}
           </ul>
         </div>
+        </SectionReveal>
       )}
 
       {/* Tech stack */}
       {experience.technologies.length > 0 && (
+        <SectionReveal delay={0.1}>
         <div className="mb-8">
           <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-muted-foreground">Tech Stack</h2>
           <div className="flex flex-wrap gap-2">
@@ -119,6 +127,7 @@ export function ExperienceDetailView({ experience, relatedProjects, presentLabel
             ))}
           </div>
         </div>
+        </SectionReveal>
       )}
 
       {/* Related projects / use-cases */}
@@ -128,9 +137,9 @@ export function ExperienceDetailView({ experience, relatedProjects, presentLabel
             {isCompany ? 'Projects & Use Cases' : 'What Was Delivered'}
           </h2>
           <div className="flex flex-col gap-3">
-            {relatedProjects.map((project) => (
+            {relatedProjects.map((project, i) => (
+              <SectionReveal key={project.id} delay={i * 0.1}>
               <div
-                key={project.id}
                 className="rounded-xl border border-border bg-card/50 p-4 transition-colors duration-200 hover:border-primary/30 hover:bg-primary/[0.03]"
               >
                 <div className="mb-1.5 flex items-start justify-between gap-3">
@@ -175,6 +184,7 @@ export function ExperienceDetailView({ experience, relatedProjects, presentLabel
                   ))}
                 </div>
               </div>
+              </SectionReveal>
             ))}
           </div>
         </div>

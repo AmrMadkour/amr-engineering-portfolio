@@ -1,38 +1,109 @@
 [
   {
-    "id": "senior-dotnet-engineer-current",
-    "slug": "senior-dotnet-engineer-current",
+    "id": "metrixlab-senior",
+    "slug": "metrixlab-senior",
     "type": "company",
     "featured": true,
-    "company": "TODO: translate — Current Employer",
-    "role": "TODO: translate — Senior .NET Engineer",
-    "startDate": "2022-01",
+    "company": "Metrixlab (Toluna)",
+    "role": "مطور برمجيات أول",
+    "startDate": "2023-07",
     "endDate": null,
-    "description": "TODO: human translation required — see content/en/experience.json",
+    "description": "العمل ضمن فريق متعدد التخصصات لتحديث منصة TIQM (مدير استبيانات Toluna Insight) من بنية MVC القديمة إلى نظام بيئي حديث قائم على الخدمات المصغرة. المساهمة في تطوير الخدمات الخلفية وبنية السحابة وتدفقات الاستبيانات على الواجهة الأمامية — ضمن منتج بحث سوقي واسع النطاق يخدم عملاء عالميين.",
     "highlights": [
-      "TODO: translate highlight 1",
-      "TODO: translate highlight 2",
-      "TODO: translate highlight 3",
-      "TODO: translate highlight 4"
+      "ترحيل TIQM من MVC إلى الخدمات المصغرة ضمن فريق من 3 مطورين أول ومسؤول فريق — يشمل خدمات التنسيق (Cambridge) وإدارة الحلول (Lexicon) وتخزين بيانات المستخدم (Thesaurus)",
+      "تطوير وصيانة الخدمات الخلفية التي تغطي دورة حياة الاستبيان الكاملة: الإنشاء والتحديث والنسخ والاسترجاع والتحقق",
+      "تسليم تدفق استبيان AdReview المخصص باستخدام React وTypeScript دون التأثير على مسارات الاستبيانات القديمة، بالتنسيق مع فريق UI/UX والمعنيين",
+      "دعم البنية التحتية السحابية بدون خوادم على AWS Lambda وAPI Gateway وCloudWatch وS3 مع نشر Terraform وخطوط CI/CD"
     ],
-    "technologies": [".NET 10", "C#", "ASP.NET Core", "SQL Server", "Redis", "Azure Service Bus", "Docker", "Kubernetes", "OpenTelemetry"]
+    "technologies": [".NET 8", "C#", "Microservices", "React", "TypeScript", "AWS Lambda", "API Gateway", "CloudWatch", "S3", "Secrets Manager", "Terraform", "Bitbucket", "Jira", "SonarQube", "Datadog"]
   },
   {
-    "id": "dotnet-engineer-previous",
-    "slug": "dotnet-engineer-previous",
+    "id": "metrixlab-developer",
+    "slug": "metrixlab-developer",
     "type": "company",
     "featured": true,
-    "company": "TODO: translate — Previous Employer",
-    "role": "TODO: translate — .NET Engineer",
-    "startDate": "2019-03",
-    "endDate": "2021-12",
-    "description": "TODO: human translation required — see content/en/experience.json",
+    "company": "Metrixlab",
+    "role": "مطور برمجيات",
+    "startDate": "2020-11",
+    "endDate": "2023-07",
+    "description": "المساهمة في مسارين رئيسيين: منصة Dashboard — ثلاثة أدوات متصلة (Admin وScorecard وVisual Library) يستخدمها المعنيون لإدارة بيانات مشاريع العملاء ومؤشرات الأداء والإعلانات والاستبيانات — ومنصة Consumer قائمة على Kafka لمعالجة أحداث DMP في الوقت الفعلي. العمل عبر واجهات API الخلفية وطبقات بيانات SQL ومكونات واجهة المستخدم.",
     "highlights": [
-      "TODO: translate highlight 1",
-      "TODO: translate highlight 2",
-      "TODO: translate highlight 3"
+      "دعم ثلاثة أدوات dashboard متصلة (Admin وScorecard وVisual Library) تتعامل مع إدارة مؤشرات الأداء ورفع بطاقات النتائج وعرض البيانات للعملاء",
+      "بناء منصة استهلاك أحداث قائمة على Kafka من الصفر — استيعاب أحداث DMP من AKHQ ومعالجتها وتحويلها وتغذية منصة Dashboard بها في الوقت الفعلي",
+      "تطوير وصيانة الميزات عبر خط معالجة الأحداث الكامل بما يشمل الخدمات الخلفية وحفظ البيانات وعرضها على الواجهة",
+      "تسليم تحسينات مستمرة وميزات جديدة للمنصة ضمن دورة إصدار الفريق"
     ],
-    "technologies": [".NET 5", "C#", "Entity Framework Core", "PostgreSQL", "React", "Next.js", "TypeScript", "Azure", "SignalR"]
+    "technologies": [".NET 4", ".NET Core", "REST API", "ASP.NET MVC", "Knockout.js", "SQL Server", "Entity Framework", "Kafka", "AKHQ", "TDD", "Azure DevOps"]
+  },
+  {
+    "id": "ict-group",
+    "slug": "ict-group",
+    "type": "company",
+    "featured": false,
+    "company": "ICT Group N.V.",
+    "role": "مهندس برمجيات",
+    "startDate": "2018-09",
+    "endDate": "2020-09",
+    "description": "العمل على مجموعة متنوعة من المشاريع في مكتب ICT Group في إيندهوفن، تشمل تحديث برامج طبية وتطوير نماذج أولية للواقع المختلط وأبحاث البيانات اللامركزية. اكتساب خبرة واسعة في تكاملات أنظمة الرعاية الصحية وتجارب إنترنت الأشياء المتصلة بالسحابة وتقنيات ويب W3C الناشئة — ضمن فرق تطوير Agile.",
+    "highlights": [
+      "تطوير وتحديث نظام Meditop الطبي — ترحيل تطبيق VB6 القديم إلى C#/.NET مع REST APIs وتكامل HL7 لرسائل الرعاية الصحية وتكامل Leadtools للتصوير الطبي",
+      "بناء نموذج أولي للواقع المختلط باستخدام HoloLens: روبوت أسئلة وأجوبة مدعوم بالصوت نُشر على Azure Bot Service مع مشاهد Unity لتصور الردود الافتراضية بشكل غامر",
+      "تطوير نموذج أولي لخادم Solid اللامركزي تطبيقاً لمبادئ W3C Linked Data ونحو Turtle للتمثيل الدلالي للبيانات",
+      "العمل في سبرينتات Agile لتسليم ميزات إنتاجية لسير عمل الرعاية الصحية ونماذج أولية تجريبية في مجالات الواقع المختلط وأبحاث البيانات"
+    ],
+    "technologies": [".NET", "C#", "REST API", "MVVM", "SQL Server", "Entity Framework", "HL7", "Serial Communication", "Leadtools", "ASP.NET Core", "Azure Bot Service", "Unity", "Microsoft HoloLens"]
+  },
+  {
+    "id": "talabat",
+    "slug": "talabat",
+    "type": "company",
+    "featured": false,
+    "company": "طلبات",
+    "role": "مهندس برمجيات",
+    "startDate": "2018-03",
+    "endDate": "2018-07",
+    "description": "المساهمة في الأنظمة الخلفية في طلبات — منصة توصيل طعام رائدة في منطقة الخليج وجزء من مجموعة Delivery Hero. التركيز على تكامل قوائم المطاعم وسير عمل نشر الطلبات التي تربط منصة طلبات بأنظمة المطاعم الشريكة المتنوعة التي تعمل بتنسيقات بيانات مختلفة.",
+    "highlights": [
+      "معالجة بيانات قوائم المطاعم بتنسيقات XML وJSON — إلغاء التسلسل إلى كائنات طلبات الداخلية وتحويلها إلى هياكل موحدة متوافقة مع المنصة",
+      "بناء نماذج تكامل عامة وقابلة لإعادة الاستخدام لتأهيل عملاء مطاعم متعددين بتنسيقات قوائم وأنظمة بيانات مختلفة",
+      "تطوير تدفقات نشر الطلبات: استرجاع الطلبات المؤكدة من قاعدة بيانات طلبات وتسلسلها وإرسالها إلى أنظمة المطاعم الخارجية",
+      "تحسين موثوقية التكامل وقابلية التوسع عبر شبكة مطاعم الشركاء"
+    ],
+    "technologies": ["ASP.NET Core API", "C#", "SQL Server", "LINQ", "XML", "JSON", "Postman", "TFS"]
+  },
+  {
+    "id": "nahdet-misr",
+    "slug": "nahdet-misr",
+    "type": "company",
+    "featured": false,
+    "company": "نهضة مصر",
+    "role": "مطور .NET",
+    "startDate": "2016-05",
+    "endDate": "2018-02",
+    "description": "صيانة وتطوير مجموعة من 5 تطبيقات أعمال داخلية تغطي عمليات الموارد البشرية والرواتب والشؤون الطبية والحضور والإنشاءات لإحدى كبرى شركات النشر والتعليم في مصر. العمل عبر تطبيقات ASP.NET الإلكترونية وتطبيقات Windows Forms المكتبية لتحسين الوظائف والاستقرار وسير عمل الأعمال اليومية.",
+    "highlights": [
+      "دعم 5 أنظمة داخلية أساسية — الموارد البشرية والرواتب والشؤون الطبية والحضور والإنشاءات — المستخدمة يومياً عبر المؤسسة",
+      "تسليم ميزات جديدة وإصلاح الأخطاء لكل من تطبيقات الويب (ASP.NET Web Forms) وتطبيقات سطح المكتب (Windows Forms)",
+      "المساهمة في تحسينات الأداء واستقرار النظام والدعم المستمر للمنصة عبر جميع نطاقات الأعمال"
+    ],
+    "technologies": ["ASP.NET Web Forms", "Windows Forms", "C#", "SQL Server", "ADO.NET"]
+  },
+  {
+    "id": "smart-innovation",
+    "slug": "smart-innovation",
+    "type": "company",
+    "featured": false,
+    "company": "Smart Innovation",
+    "role": "مطور .NET",
+    "startDate": "2015-03",
+    "endDate": "2016-04",
+    "description": "أول دور مهني في تطوير البرمجيات — بناء مواقع ويب وتطبيقات إلكترونية متعددة للعملاء عبر قطاعات أعمال وصناعات مختلفة. المشاركة في دورة التطوير الكاملة من جمع المتطلبات إلى التنفيذ والاختبار والدعم بعد الإطلاق.",
+    "highlights": [
+      "تطوير تطبيقات ويب متعددة وأدوات داخلية للعملاء عبر نطاقات أعمال وقطاعات صناعية متنوعة",
+      "المشاركة في جمع المتطلبات والتنفيذ والاختبار والصيانة المستمرة لكل مشروع مسلَّم",
+      "بناء خبرة أساسية في تطوير ويب .NET وSQL Server وتطوير تطبيقات سطح المكتب تحت إشراف مهندسين أكثر خبرة"
+    ],
+    "technologies": ["ASP.NET Web Forms", "Windows Forms", "C#", "SQL Server", "ADO.NET"]
   },
   {
     "id": "amr-portfolio",
@@ -43,13 +114,13 @@
     "role": null,
     "startDate": "2026-01",
     "endDate": null,
-    "description": "TODO: human translation required — see content/en/experience.json",
+    "description": "منصة معرض أعمال هندسي مبنية كتمرين هندسي حقيقي. واجهة برمجية خلفية بـ .NET 10 Minimal API بأربع طبقات Clean Architecture؛ وواجهة أمامية بـ Next.js 15 App Router مع ISR ودعم ثلاث لغات (EN/AR/NL) وتخطيط RTL ووضع مظلم.",
     "highlights": [
-      "TODO: translate highlight 1",
-      "TODO: translate highlight 2",
-      "TODO: translate highlight 3",
-      "TODO: translate highlight 4"
+      "تصميم وتطبيق حدود طبقات Clean Architecture عبر مراجع مشاريع .csproj",
+      "بناء نمط Repository على ملفات محتوى JSON مع IMemoryCache (مدة صلاحية 15 دقيقة)",
+      "تنفيذ توجيه ثلاثي اللغات مع next-intl بما يشمل دعم RTL الكامل للغة العربية",
+      "هيكلة المشروع كـ monorepo حقيقي بـ npm workspaces وحزم TypeScript مشتركة"
     ],
-    "technologies": ["Next.js", ".NET 10", "TypeScript", "Tailwind CSS", "Clean Architecture", "next-intl"]
+    "technologies": ["Next.js", ".NET 10", "TypeScript", "Tailwind CSS", "Clean Architecture", "next-intl", "C#"]
   }
 ]
