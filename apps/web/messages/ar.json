@@ -71,6 +71,12 @@
     "ctaBookMeeting": "احجز اجتماعاً"
   },
   "Footer": {
+    "passion": "شغوف بالبنية النظيفة والهندسة المعززة بالذكاء الاصطناعي وبناء أنظمة تدوم.",
+    "quickLinks": "روابط سريعة",
+    "connect": "تواصل معي",
+    "allRightsReserved": "جميع الحقوق محفوظة.",
+    "privacyPolicy": "سياسة الخصوصية",
+    "sitemap": "خريطة الموقع",
     "copyright": "© {year} عمرو مدكور",
     "builtWith": "مبني بـ Next.js و .NET 10"
   },

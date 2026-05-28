@@ -71,6 +71,12 @@
     "ctaBookMeeting": "Book a Meeting"
   },
   "Footer": {
+    "passion": "Passionate about clean architecture, AI-augmented engineering, and systems built to last.",
+    "quickLinks": "Quick Links",
+    "connect": "Connect with me",
+    "allRightsReserved": "All rights reserved.",
+    "privacyPolicy": "Privacy Policy",
+    "sitemap": "Sitemap",
     "copyright": "© {year} Amr Madkour",
     "builtWith": "Built with Next.js and .NET 10"
   },
