@@ -130,12 +130,30 @@
 
 ---
 
+## Session — 2026-05-28 (contact page enhancements)
+
+### Files changed
+
+- `apps/web/app/[locale]/contact/page.tsx` — full redesign: 5 contact cards (added GitHub + Location), fixed cal.com URL, two-column grid layout (cards left, photo right), photo height locked to match cards column via `items-stretch` + `lg:h-full`
+- `apps/web/public/amr-madkour.jpg` — user's photo added (447×515px portrait)
+- `apps/web/messages/{en,ar,nl}.json` — added `Contact.ctaGitHub` and `Contact.ctaLocation` keys
+
+### Decisions
+
+- **cal.com URL fixed**: contact page had `cal.com/amrmadkour` (no duration); corrected to `cal.com/amr-madkour/30min` matching Hero and ContactCTA.
+- **Two-column layout**: photo moved from below-cards standalone banner to right column of a `lg:grid-cols-2` grid. On mobile stacks vertically (cards → photo). Photo column uses `items-stretch` + `lg:h-full` + `lg:aspect-auto` so its height exactly matches the cards column on desktop.
+- **Image sizing**: `max-w-sm` → `max-w-md` (448px, ~1:1 with 447px source) to avoid upscaling. `quality={95}`. On mobile: `aspect-[447/515]` preserved; desktop: `aspect-auto lg:h-full` fills grid row height.
+- **Profile data fetched in contact page**: page now calls `getProfile(locale)` (same service as HeroSection) to populate name + title in the photo overlay.
+
+---
+
 ## Gotchas
 
 - **lucide-react missing icons**: `Github` and `Linkedin` do not exist in the installed version. Use custom SVGs from `@/components/ui/icons` (`GitHubIcon`, `LinkedInIcon`) for brand icons. Check with `node -e "const l = require('./node_modules/lucide-react'); console.log(typeof l.IconName)"` before adding new icons.
 - **Old components still on disk**: `ExperienceSection`, `ExperienceCard`, `ExperienceAnimatedList`, `ProjectList/*` all still exist but are no longer wired to any active page. Safe to delete once confirmed, but left in place this session.
 - **`/projects` route still exists** at `app/[locale]/projects/page.tsx` — unlinked from navbar but not deleted. Redirect or remove when ready.
-- **`cal.com/amrmadkour` URL** hardcoded in Contact page — confirm this is the correct Calendly/Cal.com handle before going live.
+- **`SectionReveal` with Playwright**: IntersectionObserver doesn't fire reliably in Playwright's headless browser. Force-reveal hidden elements via `document.querySelectorAll('.s-reveal').forEach(el => el.classList.add('s-reveal--in'))` to screenshot them. Real browsers work fine.
+- **Contact page photo**: source is 447×515px — going wider than `max-w-md` (448px) will upscale and degrade quality. Do not increase beyond that unless a higher-res photo is provided.
 - **AR/NL experience.json** — all TODO placeholders are now resolved; full translations written this session.
 - **Skill category IDs changed** — `"devops"` → `"cloud-devops"`, `"quality"` removed, new `"architecture"` / `"tools"` / `"ai-productivity"` added. If any component filters by category ID string, update accordingly (none found currently).
 
@@ -143,7 +161,8 @@
 
 ## Next
 
-1. **Recommendations** — placeholder text still in `content/{en,ar,nl}/recommendations.json`; user will fill with real LinkedIn recommendations when ready.
+1. **Recommendations** — placeholder text still in `content/{en,ar,nl}/recommendations.json`; replace with real LinkedIn recommendations.
+
 2. **Metadata/SEO** — detail pages use generic site title; add per-route `generateMetadata` for experience slug pages.
 3. **Visual polish pass** — date formatting (`2022-01` → `Jan 2022`), filter bar labels + clear button, experience detail header card, contact page icon colors.
 4. **Clean up dead code** — `ExperienceSection`, `ExperienceCard`, `ExperienceAnimatedList`, `ProjectList/*`, `/projects` route still on disk but unlinked.

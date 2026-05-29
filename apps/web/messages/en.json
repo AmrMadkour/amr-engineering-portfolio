@@ -68,7 +68,9 @@
     "subtext": "I'm open to senior engineering roles, technical consulting, and architecture reviews.",
     "ctaEmail": "Send an Email",
     "ctaLinkedIn": "LinkedIn",
-    "ctaBookMeeting": "Book a Meeting"
+    "ctaGitHub": "GitHub",
+    "ctaBookMeeting": "Book a Meeting",
+    "ctaLocation": "Schiedam, Netherlands"
   },
   "Footer": {
     "passion": "Passionate about clean architecture, AI-augmented engineering, and systems built to last.",
