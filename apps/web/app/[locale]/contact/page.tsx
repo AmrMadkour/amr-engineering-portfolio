@@ -31,7 +31,7 @@ export default async function ContactPage({ params }: Props) {
 
                 <SectionReveal delay={0.1}>
                   <a
-                    href="mailto:mismadkor14@gmail.com"
+                    href={`mailto:${profile.email}`}
                     className="group flex items-center gap-4 rounded-xl border border-border bg-card px-5 py-4 transition-colors hover:border-violet-500/30 hover:bg-violet-500/[0.02]"
                   >
                     <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-violet-500/10">
@@ -39,61 +39,67 @@ export default async function ContactPage({ params }: Props) {
                     </div>
                     <div>
                       <p className="text-sm font-semibold text-foreground">{t('ctaEmail')}</p>
-                      <p className="text-xs text-muted-foreground">mismadkor14@gmail.com</p>
+                      <p className="text-xs text-muted-foreground">{profile.email}</p>
                     </div>
                   </a>
                 </SectionReveal>
 
-                <SectionReveal delay={0.2}>
-                  <a
-                    href="https://linkedin.com/in/amrmadkour"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group flex items-center gap-4 rounded-xl border border-border bg-card px-5 py-4 transition-colors hover:border-blue-500/30 hover:bg-blue-500/[0.02]"
-                  >
-                    <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-blue-500/10">
-                      <LinkedInIcon className="text-blue-600 dark:text-blue-400 text-[18px]" />
-                    </div>
-                    <div>
-                      <p className="text-sm font-semibold text-foreground">{t('ctaLinkedIn')}</p>
-                      <p className="text-xs text-muted-foreground">linkedin.com/in/amrmadkour</p>
-                    </div>
-                  </a>
-                </SectionReveal>
+                {profile.linkedInUrl && (
+                  <SectionReveal delay={0.2}>
+                    <a
+                      href={profile.linkedInUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex items-center gap-4 rounded-xl border border-border bg-card px-5 py-4 transition-colors hover:border-blue-500/30 hover:bg-blue-500/[0.02]"
+                    >
+                      <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-blue-500/10">
+                        <LinkedInIcon className="text-blue-600 dark:text-blue-400 text-[18px]" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-semibold text-foreground">{t('ctaLinkedIn')}</p>
+                        <p className="text-xs text-muted-foreground">{profile.linkedInUrl.replace('https://', '')}</p>
+                      </div>
+                    </a>
+                  </SectionReveal>
+                )}
 
-                <SectionReveal delay={0.3}>
-                  <a
-                    href="https://github.com/AmrMadkour"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group flex items-center gap-4 rounded-xl border border-border bg-card px-5 py-4 transition-colors hover:border-slate-500/30 hover:bg-slate-500/[0.02]"
-                  >
-                    <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-slate-500/10">
-                      <GitHubIcon className="text-slate-700 dark:text-slate-300 text-[18px]" />
-                    </div>
-                    <div>
-                      <p className="text-sm font-semibold text-foreground">{t('ctaGitHub')}</p>
-                      <p className="text-xs text-muted-foreground">github.com/AmrMadkour</p>
-                    </div>
-                  </a>
-                </SectionReveal>
+                {profile.gitHubUrl && (
+                  <SectionReveal delay={0.3}>
+                    <a
+                      href={profile.gitHubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex items-center gap-4 rounded-xl border border-border bg-card px-5 py-4 transition-colors hover:border-slate-500/30 hover:bg-slate-500/[0.02]"
+                    >
+                      <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-slate-500/10">
+                        <GitHubIcon className="text-slate-700 dark:text-slate-300 text-[18px]" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-semibold text-foreground">{t('ctaGitHub')}</p>
+                        <p className="text-xs text-muted-foreground">{profile.gitHubUrl.replace('https://', '')}</p>
+                      </div>
+                    </a>
+                  </SectionReveal>
+                )}
 
-                <SectionReveal delay={0.4}>
-                  <a
-                    href="https://cal.com/amr-madkour/30min"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group flex items-center gap-4 rounded-xl border border-border bg-card px-5 py-4 transition-colors hover:border-emerald-500/30 hover:bg-emerald-500/[0.02]"
-                  >
-                    <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-emerald-500/10">
-                      <CalendarDays size={18} strokeWidth={1.5} className="text-emerald-600 dark:text-emerald-400" />
-                    </div>
-                    <div>
-                      <p className="text-sm font-semibold text-foreground">{t('ctaBookMeeting')}</p>
-                      <p className="text-xs text-muted-foreground">Schedule a 30-min intro call</p>
-                    </div>
-                  </a>
-                </SectionReveal>
+                {profile.schedulingUrl && (
+                  <SectionReveal delay={0.4}>
+                    <a
+                      href={profile.schedulingUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex items-center gap-4 rounded-xl border border-border bg-card px-5 py-4 transition-colors hover:border-emerald-500/30 hover:bg-emerald-500/[0.02]"
+                    >
+                      <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-emerald-500/10">
+                        <CalendarDays size={18} strokeWidth={1.5} className="text-emerald-600 dark:text-emerald-400" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-semibold text-foreground">{t('ctaBookMeeting')}</p>
+                        <p className="text-xs text-muted-foreground">Schedule a 30-min intro call</p>
+                      </div>
+                    </a>
+                  </SectionReveal>
+                )}
 
                 <SectionReveal delay={0.5}>
                   <a

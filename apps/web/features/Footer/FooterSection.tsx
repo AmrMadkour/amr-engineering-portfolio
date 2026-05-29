@@ -79,15 +79,17 @@ export async function FooterSection({ locale }: Props) {
               >
                 <Mail size={16} strokeWidth={1.5} />
               </a>
-              <a
-                href="https://cal.com/amr-madkour/30min"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Book a meeting"
-                className="footer-social-btn"
-              >
-                <CalendarDays size={16} strokeWidth={1.5} />
-              </a>
+              {profile.schedulingUrl && (
+                <a
+                  href={profile.schedulingUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Book a meeting"
+                  className="footer-social-btn"
+                >
+                  <CalendarDays size={16} strokeWidth={1.5} />
+                </a>
+              )}
             </div>
           </div>
         </div>
@@ -98,8 +100,6 @@ export async function FooterSection({ locale }: Props) {
           </p>
           <div className="footer-legal-links">
             <SmartLink href={`/${locale}/privacy-policy`}>{t('privacyPolicy')}</SmartLink>
-            <span aria-hidden="true">•</span>
-            <SmartLink href={`/${locale}/sitemap`}>{t('sitemap')}</SmartLink>
           </div>
         </div>
 

@@ -8,5 +8,6 @@ public sealed record ProfileDto(
     string? GitHubUrl,
     string? LinkedInUrl,
     string? ResumeUrl,
+    string? SchedulingUrl,
     IReadOnlyList<string> Skills
 );

@@ -78,7 +78,6 @@
     "connect": "Verbinding maken",
     "allRightsReserved": "Alle rechten voorbehouden.",
     "privacyPolicy": "Privacybeleid",
-    "sitemap": "Sitemap",
     "copyright": "© {year} Amr Madkour",
     "builtWith": "Gebouwd met Next.js en .NET 10"
   },

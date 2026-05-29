@@ -75,15 +75,17 @@ export async function HeroSection({ profile, locale }: HeroSectionProps) {
             >
               <Mail size={20} strokeWidth={1.5} />
             </a>
-            <a
-              href="https://cal.com/amr-madkour/30min"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hero-social-btn"
-              aria-label="Book a meeting"
-            >
-              <CalendarDays size={20} strokeWidth={1.5} />
-            </a>
+            {profile.schedulingUrl && (
+              <a
+                href={profile.schedulingUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hero-social-btn"
+                aria-label="Book a meeting"
+              >
+                <CalendarDays size={20} strokeWidth={1.5} />
+              </a>
+            )}
           </div>
         </div>
 

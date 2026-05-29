@@ -78,7 +78,6 @@
     "connect": "Connect with me",
     "allRightsReserved": "All rights reserved.",
     "privacyPolicy": "Privacy Policy",
-    "sitemap": "Sitemap",
     "copyright": "© {year} Amr Madkour",
     "builtWith": "Built with Next.js and .NET 10"
   },

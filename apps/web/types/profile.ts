@@ -6,5 +6,6 @@ export interface Profile {
   gitHubUrl: string | null
   linkedInUrl: string | null
   resumeUrl: string | null
+  schedulingUrl: string | null
   skills: string[]
 }
