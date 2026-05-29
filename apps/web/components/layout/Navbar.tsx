@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef, useState, useEffect } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import {
@@ -31,12 +32,19 @@ export function Navbar({ locale }: NavbarProps) {
   const router   = useRouter()
   const { resolvedTheme, setTheme } = useTheme()
 
-  const [mounted,  setMounted]    = useState(false)
-  const [langOpen, setLangOpen]   = useState(false)
-  const [menuOpen, setMenuOpen]   = useState(false)
+  const [mounted,   setMounted]   = useState(false)
+  const [langOpen,  setLangOpen]  = useState(false)
+  const [menuOpen,  setMenuOpen]  = useState(false)
+  const [scrolled,  setScrolled]  = useState(false)
   const langRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => { setMounted(true) }, [])
+
+  useEffect(() => {
+    function onScroll() { setScrolled(window.scrollY > 60) }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   // Close language dropdown on outside click
   useEffect(() => {
@@ -79,7 +87,7 @@ export function Navbar({ locale }: NavbarProps) {
   const currentLocale = LOCALES.find((l) => l.code === locale)
 
   return (
-    <header className="nav-header">
+    <header className={cn('nav-header', scrolled && 'nav-header--scrolled')}>
 
       {/* ── Main bar ── */}
       <nav className="nav-pill">
@@ -97,7 +105,14 @@ export function Navbar({ locale }: NavbarProps) {
           }}
         >
           <div className="nav-avatar">
-            <span className="nav-avatar-initials">AM</span>
+            <Image
+              src="/amr-madkour-2.jpg"
+              alt="Amr Madkour"
+              width={52}
+              height={52}
+              className="nav-avatar-img"
+              priority
+            />
           </div>
           <p className="nav-name">Amr Madkour</p>
         </Link>
