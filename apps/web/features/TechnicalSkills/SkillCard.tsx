@@ -5,18 +5,22 @@ import {
   MonitorSmartphone,
   Database,
   Cloud,
-  ShieldCheck,
+  Layers,
+  Wrench,
+  Sparkles,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import type { SkillCategory } from '@/types/skills'
 import { SkillIcon } from './SkillIcon'
 
 const CATEGORY_META: Record<string, { icon: LucideIcon; gradient: string; accent: string }> = {
-  backend:  { icon: Server,          gradient: 'from-violet-600/20 to-violet-500/5',  accent: '#7C3AED' },
-  frontend: { icon: MonitorSmartphone, gradient: 'from-blue-600/20 to-blue-500/5',   accent: '#2563EB' },
-  databases:{ icon: Database,        gradient: 'from-orange-600/20 to-orange-500/5', accent: '#EA580C' },
-  devops:   { icon: Cloud,           gradient: 'from-sky-600/20 to-sky-500/5',        accent: '#0284C7' },
-  quality:  { icon: ShieldCheck,     gradient: 'from-emerald-600/20 to-emerald-500/5', accent: '#059669' },
+  backend:        { icon: Server,           gradient: 'from-violet-600/20 to-violet-500/5',   accent: '#7C3AED' },
+  frontend:       { icon: MonitorSmartphone, gradient: 'from-blue-600/20 to-blue-500/5',      accent: '#2563EB' },
+  databases:      { icon: Database,         gradient: 'from-orange-600/20 to-orange-500/5',  accent: '#EA580C' },
+  'cloud-devops': { icon: Cloud,            gradient: 'from-sky-600/20 to-sky-500/5',         accent: '#0284C7' },
+  architecture:   { icon: Layers,           gradient: 'from-purple-600/20 to-purple-500/5',  accent: '#7C3AED' },
+  tools:          { icon: Wrench,           gradient: 'from-slate-600/20 to-slate-500/5',    accent: '#475569' },
+  'ai-productivity': { icon: Sparkles,      gradient: 'from-amber-600/20 to-amber-500/5',    accent: '#D97706' },
 }
 
 interface SkillCardProps {

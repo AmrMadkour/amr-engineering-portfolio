@@ -4,18 +4,12 @@
       "id": "backend",
       "title": "تطوير الخلفيات",
       "skills": [
+        ".NET 10",
         "C#",
-        ".NET",
-        "ASP.NET Core",
-        "ASP.NET MVC",
-        "Web API",
         "Entity Framework",
-        "LINQ",
-        "ADO.NET",
-        "REST APIs",
-        "WPF",
-        "MVVM",
-        "Windows Forms"
+        "REST API",
+        "Microservices",
+        "SQL Server"
       ]
     },
     {
@@ -23,26 +17,15 @@
       "title": "تطوير الواجهات الأمامية",
       "skills": [
         "React",
+        "Angular",
         "TypeScript",
         "JavaScript",
-        "Next.js",
-        "Angular",
         "HTML5",
         "CSS3",
-        "Tailwind CSS",
         "Bootstrap",
-        "jQuery"
-      ]
-    },
-    {
-      "id": "databases",
-      "title": "قواعد البيانات",
-      "skills": [
-        "SQL Server",
-        "PostgreSQL",
-        "MongoDB",
-        "Redis",
-        "Database Design"
+        "jQuery",
+        "JSON",
+        "XML"
       ]
     },
     {
@@ -51,29 +34,21 @@
       "skills": [
         "AWS Lambda",
         "API Gateway",
-        "S3",
-        "CloudWatch",
-        "Secrets Manager",
-        "Azure",
+        "Azure DevOps",
         "Terraform",
         "CI/CD Pipelines",
-        "Docker",
-        "Git"
+        "Git",
+        "Bitbucket"
       ]
     },
     {
       "id": "architecture",
-      "title": "المعمارية والممارسات الهندسية",
+      "title": "المعمارية والجودة",
       "skills": [
         "Clean Architecture",
-        "Microservices",
-        "SOA",
-        "Domain-Driven Design",
-        "SOLID Principles",
+        "Service Oriented Architecture",
         "Design Patterns",
-        "OOP",
-        "TDD",
-        "BDD",
+        "SOLID Principles",
         "Unit Testing",
         "Agile/Scrum"
       ]
@@ -87,8 +62,6 @@
         "Datadog",
         "Postman",
         "Swagger",
-        "Bitbucket",
-        "TFS",
         "Visual Studio",
         "VS Code"
       ]
@@ -97,11 +70,10 @@
       "id": "ai-productivity",
       "title": "الذكاء الاصطناعي وإنتاجية المطور",
       "skills": [
-        "AI-Assisted Development",
-        "Prompt Engineering",
         "GitHub Copilot",
         "Claude Code",
-        "LLM Brainstorming"
+        "Prompt Engineering",
+        "LLM Research & Brainstorming"
       ]
     }
   ]

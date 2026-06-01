@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { Mail, CalendarDays, Download } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 import { GitHubIcon, LinkedInIcon } from '@/components/ui/icons'
@@ -31,7 +32,7 @@ export async function HeroSection({ profile, locale }: HeroSectionProps) {
           <p className="hero-bio">{t('subtext')}</p>
 
           <div className="hero-ctas">
-            <Link href={`/${locale}/projects`} className="hero-btn-primary">
+            <Link href={`/${locale}/experience`} className="hero-btn-primary">
               {t('ctaProjects')} →
             </Link>
             <Link href={`/${locale}/contact`} className="hero-btn-secondary">
@@ -92,7 +93,14 @@ export async function HeroSection({ profile, locale }: HeroSectionProps) {
         {/* ── Right / Avatar ── */}
         <div className="hero-avatar-col">
           <div className="hero-avatar">
-            <span className="hero-avatar-initials">AM</span>
+            <Image
+              src="/amr-madkour-2.jpg"
+              alt={profile.name}
+              width={280}
+              height={280}
+              className="hero-avatar-img"
+              priority
+            />
           </div>
         </div>
 

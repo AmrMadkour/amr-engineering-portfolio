@@ -19,11 +19,18 @@ interface Props {
   locale: string
 }
 
+function toCompleteSentences(text: string, maxSentences = 2): string {
+  const parts = text.split(/\.\s+/)
+  const taken = parts.slice(0, maxSentences).join('. ')
+  return taken.endsWith('.') ? taken : taken + '.'
+}
+
 export function ExperienceTeaserCard({ experience, presentLabel, locale }: Props) {
   const config = TYPE_CONFIG[experience.type]
   const startFormatted = formatYearMonth(experience.startDate, locale)
   const endFormatted = experience.endDate ? formatYearMonth(experience.endDate, locale) : presentLabel
   const TypeIcon = config.icon
+  const overview = toCompleteSentences(experience.description)
 
   return (
     <Link href={`/${locale}/experience/${experience.slug}`} className="group block h-full">
@@ -76,13 +83,13 @@ export function ExperienceTeaserCard({ experience, presentLabel, locale }: Props
           </p>
 
           {/* Summary */}
-          <p className="mb-5 text-sm text-muted-foreground leading-relaxed line-clamp-3 flex-1">
-            {experience.description}
+          <p className="text-sm text-muted-foreground leading-relaxed flex-1">
+            {overview}
           </p>
 
-          {/* Key tech chips — top 4 only */}
-          <div className="flex flex-wrap gap-1.5">
-            {experience.technologies.slice(0, 4).map((tech) => (
+          {/* Key tech chips — top 8 */}
+          <div className="mt-6 flex flex-wrap gap-1.5">
+            {experience.technologies.slice(0, 8).map((tech) => (
               <Badge
                 key={tech}
                 variant="outline"
@@ -91,9 +98,9 @@ export function ExperienceTeaserCard({ experience, presentLabel, locale }: Props
                 {tech}
               </Badge>
             ))}
-            {experience.technologies.length > 4 && (
+            {experience.technologies.length > 8 && (
               <Badge variant="outline" className="text-xs bg-background/60 border-border/60 text-muted-foreground">
-                +{experience.technologies.length - 4}
+                +{experience.technologies.length - 8}
               </Badge>
             )}
           </div>

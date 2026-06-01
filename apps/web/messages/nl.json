@@ -21,8 +21,8 @@
     "credentialLabel": "Senior Software Developer • .NET & Cloud • AI-ondersteunde engineering",
     "greeting": "Hoi, ik ben",
     "headline": "Schaalbare backendsystemen bouwen en moderne AI-gedreven ontwikkelaarservaringen.",
-    "subtext": "10+ jaar levering van .NET-backends, microservices en full-stack oplossingen voor surveyplatformen, gezondheidszorg en e-commerce — gevestigd in Nederland.",
-    "ctaProjects": "Projecten bekijken",
+    "subtext": "Gepassioneerd door het bouwen van schaalbare applicaties, schone architecturen en gebruikersgerichte oplossingen. Ik geniet van het oplossen van complexe problemen en het omzetten van ideeën in betrouwbare, onderhoudbare software. Momenteel vergroot ik mijn expertise in AI-ondersteunde ontwikkeling en moderne engineering-workflows.",
+    "ctaProjects": "Mijn Werk",
     "ctaContact": "Neem contact op",
     "ctaBookMeeting": "Meeting boeken",
     "ctaGitHub": "GitHub",
@@ -48,10 +48,10 @@
   },
   "About": {
     "sectionTitle": "Over mij",
-    "sectionSubtitle": "10+ jaar software opleveren die werkt in de echte wereld.",
-    "p1": "Ik ben een Senior Software Developer met ruim 10 jaar ervaring in het bouwen van productiesystemen in Nederland en Egypte. Mijn werk omvat modernisering van surveyplatformen op grote schaal (Metrixlab/Toluna), ontwikkeling van medische applicaties bij ICT Group, bezorgintegraties bij Talabat en interne bedrijfsapplicaties — van junior developer tot het leiden van multidisciplinaire teams.",
-    "p2": "Mijn kernstack is .NET/C# voor de backend, met React en TypeScript voor de frontend. Ik heb gewerkt met microservices op AWS Lambda, legacy-systemen gemigreerd van VB6 en MVC naar schone service-georiënteerde architecturen, en real-time event-pipelines gebouwd met Kafka. Ik hecht waarde aan onderhoudbaarheid, integratiereliabiliteit en het opleveren van software die daadwerkelijk werkt in productieomgevingen.",
-    "p3": "Gevestigd in Schiedam, Nederland. Ik werk in het Engels, Arabisch en Nederlands. Ik integreer actief AI-ondersteunde workflows in mijn dagelijkse engineering — met tools zoals Claude Code en GitHub Copilot om codekwaliteit te verbeteren en sneller te werken zonder concessies te doen."
+    "sectionSubtitle": "Architect van nature. Engineer van vakmanschap.",
+    "p1": "Als Senior Software Engineer denk ik in systemen en begin ik met architectuur. Ik geloof in het bouwen van software die niet alleen functioneel is, maar schaalbaar, onderhoudbaar en gebouwd om te blijven. Elk probleem dat ik aanpak krijgt dezelfde behandeling: grondig begrijpen, goed ontwerpen en van begin tot eind eigenaarschap nemen.",
+    "p2": "Ik heb gewerkt met diverse, multidisciplinaire teams in meerdere sectoren, van grootschalige enterprise platforms tot healthcare, e-commerce en marktonderzoek. Ik leer graag van de mensen om me heen en deel wat ik onderweg oppik, of het nu via code reviews is, samen aan een probleem werken, of gewoon een goed gesprek. Ik geloof dat de beste teams worden gebouwd op open kennisdeling en samen groeien.",
+    "p3": "Mijn kernkracht ligt in backend- en cloudarchitectuur, maar ik definieer mezelf niet door een specifieke stack. De beste engineer is niet degene die de meeste tools kent. Het is degene die elk tool kan oppakken, goed begrijpen en er iets waardevols mee bouwen. Ik integreer actief AI-ondersteunde workflows in mijn dagelijkse praktijk, niet als snelkoppeling, maar om de lat voor kwaliteit en snelheid hoger te leggen."
   },
   "Skills": {
     "sectionTitle": "Technische Expertise",

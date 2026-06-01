@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { Mail, CalendarDays } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 import { getProfile } from '@/services/profile'
@@ -6,15 +7,6 @@ import { SmartLink } from '@/components/ui/SmartLink'
 
 interface Props {
   locale: string
-}
-
-function getInitials(name: string) {
-  return name
-    .split(' ')
-    .map((n) => n[0])
-    .slice(0, 2)
-    .join('')
-    .toUpperCase()
 }
 
 export async function FooterSection({ locale }: Props) {
@@ -28,7 +20,14 @@ export async function FooterSection({ locale }: Props) {
       <div className="footer-inner">
 
         <div className="footer-identity">
-          <div className="footer-avatar">{getInitials(profile.name)}</div>
+          <Image
+            src="/amr-madkour-2.jpg"
+            alt={profile.name}
+            width={88}
+            height={88}
+            className="footer-avatar"
+            style={{ objectFit: 'cover', objectPosition: 'center' }}
+          />
           <p className="footer-name">{profile.name}</p>
           <p className="footer-tagline">{profile.title}</p>
           <p className="footer-passion">{t('passion')}</p>

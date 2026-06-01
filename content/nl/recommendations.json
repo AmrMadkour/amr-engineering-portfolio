@@ -1,13 +1,35 @@
 [
   {
-    "id": "rec-placeholder-1",
-    "authorName": "TODO: translate — Colleague Name",
-    "authorTitle": "TODO: translate — Engineering Manager",
-    "authorCompany": "TODO: translate — Company Name",
-    "authorAvatarUrl": null,
-    "text": "TODO: human translation required — see content/en/recommendations.json",
+    "id": "rec-wendy-boonstra",
+    "authorName": "Wendy Boonstra",
+    "authorTitle": "Technical Program Manager",
+    "authorCompany": "Toluna",
+    "authorAvatarUrl": "/avatars/wendy-boonstra.jpg",
+    "text": "I had the pleasure of working with Amr in our scrum team and experienced him as a friendly, supportive, and committed colleague. He contributed positively to the team dynamic, was always willing to help others, and approached collaboration in a constructive way. I sincerely wish him all the best in his next step and hope he finds an environment where he can continue to grow and contribute.",
     "date": "2024-06",
-    "relationship": "TODO: translate — Managed directly",
+    "relationship": "Worked together",
+    "source": "LinkedIn"
+  },
+  {
+    "id": "rec-moinudeen-rahmathulla",
+    "authorName": "Moinudeen Rahmathulla",
+    "authorTitle": "Senior Software Engineer",
+    "authorCompany": "MetrixLab",
+    "authorAvatarUrl": "/avatars/moinudeen-rahmathulla.jpg",
+    "text": "Amr is such an amazing guy, very intelligent and he is very helpful colleague. He is empathetic, patient and a really good developer to have in the team.",
+    "date": "2024-03",
+    "relationship": "Worked together",
+    "source": "LinkedIn"
+  },
+  {
+    "id": "rec-mostafa-metwally",
+    "authorName": "Mostafa Metwally",
+    "authorTitle": "Sr. UX Designer",
+    "authorCompany": "Smart Innovation Technology",
+    "authorAvatarUrl": "/avatars/mostafa-metwally.jpg",
+    "text": "Amr is efficient, works well and quickly, and is good at organizing his work in the way that gets the best results. He is intelligent and really improving a lot!",
+    "date": "2023-11",
+    "relationship": "Worked together",
     "source": "LinkedIn"
   }
 ]

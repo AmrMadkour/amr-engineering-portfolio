@@ -10,6 +10,12 @@ const TYPE_BADGE = {
   freelance: { label: 'Freelance',        icon: Briefcase, className: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20' },
 }
 
+function toCompleteSentences(text: string, maxSentences = 2): string {
+  const parts = text.split(/\.\s+/)
+  const taken = parts.slice(0, maxSentences).join('. ')
+  return taken.endsWith('.') ? taken : taken + '.'
+}
+
 interface Props {
   experience: Experience
   presentLabel: string
@@ -66,13 +72,13 @@ export function ExperienceListCard({ experience, presentLabel, locale, projectCo
             )}
           </p>
 
-          <p className="mb-3 text-sm text-muted-foreground leading-relaxed line-clamp-2">
-            {experience.description}
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            {toCompleteSentences(experience.description)}
           </p>
 
-          <div className="flex flex-wrap items-center justify-between gap-2">
+          <div className="mt-4 flex flex-wrap items-center justify-between gap-2">
             <div className="flex flex-wrap gap-1.5">
-              {experience.technologies.slice(0, 5).map((tech) => (
+              {experience.technologies.slice(0, 8).map((tech) => (
                 <Badge
                   key={tech}
                   variant="outline"
@@ -81,9 +87,9 @@ export function ExperienceListCard({ experience, presentLabel, locale, projectCo
                   {tech}
                 </Badge>
               ))}
-              {experience.technologies.length > 5 && (
+              {experience.technologies.length > 8 && (
                 <Badge variant="outline" className="text-xs bg-primary/5 border-primary/15 text-muted-foreground">
-                  +{experience.technologies.length - 5}
+                  +{experience.technologies.length - 8}
                 </Badge>
               )}
             </div>

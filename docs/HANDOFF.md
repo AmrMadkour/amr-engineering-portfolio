@@ -159,12 +159,57 @@
 
 ---
 
+---
+
+## Session — 2026-05-29
+
+### Files changed
+
+- `apps/web/app/globals.css` — navbar scrolled opacity reduced (dark: 0.08→0.25, light: 0.10→0.28); default blur 20px→12px; scrolled blur 14px→3px (content now clearly readable through glass); transition 0.3s→0.15s; added `.hero-avatar-img` CSS (`object-fit: cover; object-position: center`)
+- `apps/web/features/Hero/HeroSection.tsx` — replaced `<span>AM</span>` initials with real photo via `next/image` (`/amr-madkour-2.jpg`, 280×280)
+- `content/{en,nl}/profile.json` — `title`: "Senior Software Developer" → "Senior Software Engineer"
+- `content/ar/profile.json` — `title`: "مطور برمجيات أول" → "مهندس برمجيات أول"
+- `apps/web/messages/{en,ar,nl}.json` — `Hero.subtext` replaced with 3-sentence bio (no years, no domains, ends on AI angle)
+
+### Decisions
+
+- **Navbar glass opacity tuned twice**: first pass (blur 14px) made content under navbar unreadable. Second pass dropped blur to 3px — content shows through crisply while tint still separates the bar.
+- **Hero photo cropping**: `object-position: center top` cropped off face; changed to `center` to show full face in the circle.
+
+---
+
+---
+
+## Session — 2026-06-01
+
+### Files changed
+
+- `apps/web/features/ExperienceTimeline/ExperienceListCard.tsx` — added `toCompleteSentences()` helper; removed `line-clamp-3`; skills 5→8; added `mt-4` gap between description and skills
+- `apps/web/features/ExperiencePreview/ExperienceTeaserCard.tsx` — same `toCompleteSentences()` pattern; skills 4→8; removed `line-clamp-4`; `mb-5`→`mt-6` on skills row; `line-clamp-3`→`line-clamp-4` (then removed entirely)
+- `apps/web/features/Footer/FooterSection.tsx` — replaced initials `<div>` with `<Image src="/amr-madkour-2.jpg">` (same photo as Hero); removed `getInitials()` function; added `next/image` import
+- `apps/web/public/avatars/wendy-boonstra.jpg` — new
+- `apps/web/public/avatars/moinudeen-rahmathulla.jpg` — new
+- `apps/web/public/avatars/mostafa-metwally.jpg` — new
+- `content/{en,ar,nl}/recommendations.json` — replaced all placeholders with 3 real LinkedIn recommendations (Wendy Boonstra / Toluna, Moinudeen Rahmathulla / MetrixLab, Mostafa Metwally / Smart Innovation Technology)
+- `content/en/experience.json` — all 7 descriptions rewritten: direct tone, no AI patterns, 2 complete sentences each ending with a period
+
+### Decisions
+
+- **`toCompleteSentences()` added to both card types**: splits on `. ` boundary so descriptions always end at a sentence boundary — never with a CSS `…` mid-word cutoff. 2-sentence max keeps cards scannable.
+- **Footer photo**: reused `/amr-madkour-2.jpg` (same as Hero) to keep a consistent face across the page. `footer-avatar` CSS class already handles size (88×88) and circular border — no CSS changes needed.
+- **Recommendation avatars in `public/avatars/`**: kept separate from `public/` root to avoid clutter as more photos are added.
+- **Mostafa's company**: corrected to "Smart Innovation Technology" (was incorrectly set to MetrixLab).
+
+### Gotchas
+
+- **API content cache**: the .NET `IMemoryCache` (15-min TTL) means edited JSON files are invisible until the dotnet process restarts. Kill via `netstat -ano | Select-String ":5088"` to get PID, then `Stop-Process`. Use `$apiPid` — `$PID` is read-only in PowerShell and will throw.
+- **AR/NL experience descriptions**: still EN text in all 3 locale files. Only `content/en/experience.json` was rewritten this session. Translations pending.
+
+---
+
 ## Next
 
-1. **Recommendations** — placeholder text still in `content/{en,ar,nl}/recommendations.json`; replace with real LinkedIn recommendations.
-
-2. **Metadata/SEO** — detail pages use generic site title; add per-route `generateMetadata` for experience slug pages.
-3. **Visual polish pass** — date formatting (`2022-01` → `Jan 2022`), filter bar labels + clear button, experience detail header card, contact page icon colors.
+1. **Translate experience descriptions** — `content/{ar,nl}/experience.json` descriptions are still English; needs human or AI-reviewed translation.
+2. **Hero CTA button** — still links to `/projects`; change href → `/experience`, label → "View My Work" in `HeroSection.tsx` and `messages/{en,ar,nl}.json` key `ctaProjects`.
+3. **Metadata/SEO** — add per-route `generateMetadata` for experience slug pages.
 4. **Clean up dead code** — `ExperienceSection`, `ExperienceCard`, `ExperienceAnimatedList`, `ProjectList/*`, `/projects` route still on disk but unlinked.
-5. **`cal.com/amrmadkour` URL** hardcoded in Contact page — confirm correct handle before going live.
-6. **Next.js fetch cache** — content changes need server restart or `.next/cache/fetch-cache` delete to appear in dev. In prod, redeploy triggers revalidation.
