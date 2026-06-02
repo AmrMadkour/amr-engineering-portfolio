@@ -14,26 +14,26 @@ interface Props {
   locale: string
 }
 
-const KEY_TECHS = [
-  '.NET', 'C#', 'Next.js', 'TypeScript', 'React',
-  'Azure', 'Docker', 'Kubernetes', 'SQL Server', 'PostgreSQL',
-]
+const DOMAIN_ORDER = ['backend', 'fullstack', 'cloud', 'frontend']
 
-function extractYear(dateStr: string) {
-  return dateStr.split('-')[0]
+function getEra(startDate: string): string {
+  const year = parseInt(startDate.slice(0, 4))
+  if (year <= 2019) return 'early'
+  if (year <= 2022) return 'mid'
+  return 'recent'
 }
 
 export function ExperiencePageClient({ experience, projects, presentLabel, locale }: Props) {
-  const [filter, setFilter] = useState<ExperienceFilter>({ type: 'all', tech: null, year: null })
+  const [filter, setFilter] = useState<ExperienceFilter>({ type: 'all', domain: null, era: null })
 
-  const availableTechs = useMemo(() => {
-    const all = new Set(experience.flatMap((e) => e.technologies))
-    return KEY_TECHS.filter((t) => all.has(t))
+  const availableDomains = useMemo(() => {
+    const present = new Set(experience.map((e) => e.domain).filter(Boolean))
+    return DOMAIN_ORDER.filter((d) => present.has(d))
   }, [experience])
 
-  const availableYears = useMemo(() => {
-    const years = new Set(experience.map((e) => extractYear(e.startDate)))
-    return Array.from(years).sort((a, b) => Number(b) - Number(a))
+  const availableEras = useMemo(() => {
+    const present = new Set(experience.map((e) => getEra(e.startDate)))
+    return (['early', 'mid', 'recent'] as const).filter((era) => present.has(era))
   }, [experience])
 
   const projectCountMap = useMemo(() => {
@@ -47,8 +47,8 @@ export function ExperiencePageClient({ experience, projects, presentLabel, local
   const filtered = useMemo(() => {
     return experience.filter((e) => {
       if (filter.type !== 'all' && e.type !== filter.type) return false
-      if (filter.tech && !e.technologies.includes(filter.tech)) return false
-      if (filter.year && extractYear(e.startDate) !== filter.year) return false
+      if (filter.domain && e.domain !== filter.domain) return false
+      if (filter.era && getEra(e.startDate) !== filter.era) return false
       return true
     })
   }, [experience, filter])
@@ -58,8 +58,8 @@ export function ExperiencePageClient({ experience, projects, presentLabel, local
       <ExperienceFilterBar
         filter={filter}
         onChange={setFilter}
-        availableTechs={availableTechs}
-        availableYears={availableYears}
+        availableDomains={availableDomains}
+        availableEras={availableEras}
         resultCount={filtered.length}
         totalCount={experience.length}
       />

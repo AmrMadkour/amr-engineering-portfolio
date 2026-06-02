@@ -10,4 +10,5 @@ export interface Experience {
   description: string
   highlights: string[]
   technologies: string[]
+  domain: string | null
 }

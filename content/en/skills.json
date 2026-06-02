@@ -32,8 +32,7 @@
       "id": "cloud-devops",
       "title": "Cloud & DevOps",
       "skills": [
-        "AWS Lambda",
-        "API Gateway",
+        "AWS Serverless",
         "Azure DevOps",
         "Terraform",
         "CI/CD Pipelines",

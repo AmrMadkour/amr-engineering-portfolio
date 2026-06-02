@@ -4,20 +4,20 @@ import { cn } from '@/lib/utils'
 
 export type ExperienceFilter = {
   type: 'all' | 'company' | 'personal' | 'freelance'
-  tech: string | null
-  year: string | null
+  domain: string | null
+  era: string | null
 }
 
 interface Props {
   filter: ExperienceFilter
   onChange: (f: ExperienceFilter) => void
-  availableTechs: string[]
-  availableYears: string[]
+  availableDomains: string[]
+  availableEras: string[]
   resultCount: number
   totalCount: number
 }
 
-const DEFAULT_FILTER: ExperienceFilter = { type: 'all', tech: null, year: null }
+const DEFAULT_FILTER: ExperienceFilter = { type: 'all', domain: null, era: null }
 
 const TYPE_OPTIONS: { value: ExperienceFilter['type']; label: string }[] = [
   { value: 'all',       label: 'All'      },
@@ -26,15 +26,28 @@ const TYPE_OPTIONS: { value: ExperienceFilter['type']; label: string }[] = [
   { value: 'freelance', label: 'Freelance'},
 ]
 
+const DOMAIN_LABELS: Record<string, string> = {
+  backend:  'Backend',
+  fullstack: 'Full-Stack',
+  cloud:    'Cloud',
+  frontend: 'Frontend',
+}
+
+const ERA_LABELS: Record<string, string> = {
+  early:  'Early Career',
+  mid:    'Mid Career',
+  recent: 'Recent',
+}
+
 const pillBase = 'rounded-full border px-3 py-1 text-xs font-medium transition-colors duration-150 cursor-pointer select-none whitespace-nowrap'
 const pillOff  = 'border-border bg-card text-muted-foreground hover:border-primary/30 hover:text-foreground'
 const pillOn   = 'border-primary bg-primary/10 text-primary'
 
 function isFiltered(filter: ExperienceFilter) {
-  return filter.type !== 'all' || filter.tech !== null || filter.year !== null
+  return filter.type !== 'all' || filter.domain !== null || filter.era !== null
 }
 
-export function ExperienceFilterBar({ filter, onChange, availableTechs, availableYears, resultCount, totalCount }: Props) {
+export function ExperienceFilterBar({ filter, onChange, availableDomains, availableEras, resultCount, totalCount }: Props) {
   const filtered = isFiltered(filter)
 
   return (
@@ -73,48 +86,48 @@ export function ExperienceFilterBar({ filter, onChange, availableTechs, availabl
         </div>
       </div>
 
-      {/* Tech filter */}
-      {availableTechs.length > 0 && (
+      {/* Domain / Focus filter */}
+      {availableDomains.length > 0 && (
         <div className="flex items-center gap-3">
-          <span className="w-10 shrink-0 text-xs font-semibold uppercase tracking-wider text-muted-foreground/60">Stack</span>
+          <span className="w-10 shrink-0 text-xs font-semibold uppercase tracking-wider text-muted-foreground/60">Focus</span>
           <div className="flex gap-1.5 overflow-x-auto pb-0.5 [&::-webkit-scrollbar]:hidden">
             <button
-              className={cn(pillBase, filter.tech === null ? pillOn : pillOff)}
-              onClick={() => onChange({ ...filter, tech: null })}
+              className={cn(pillBase, filter.domain === null ? pillOn : pillOff)}
+              onClick={() => onChange({ ...filter, domain: null })}
             >
               All
             </button>
-            {availableTechs.map((tech) => (
+            {availableDomains.map((d) => (
               <button
-                key={tech}
-                className={cn(pillBase, filter.tech === tech ? pillOn : pillOff)}
-                onClick={() => onChange({ ...filter, tech: filter.tech === tech ? null : tech })}
+                key={d}
+                className={cn(pillBase, filter.domain === d ? pillOn : pillOff)}
+                onClick={() => onChange({ ...filter, domain: filter.domain === d ? null : d })}
               >
-                {tech}
+                {DOMAIN_LABELS[d] ?? d}
               </button>
             ))}
           </div>
         </div>
       )}
 
-      {/* Year filter */}
-      {availableYears.length > 0 && (
+      {/* Era filter */}
+      {availableEras.length > 0 && (
         <div className="flex items-center gap-3">
-          <span className="w-10 shrink-0 text-xs font-semibold uppercase tracking-wider text-muted-foreground/60">Year</span>
+          <span className="w-10 shrink-0 text-xs font-semibold uppercase tracking-wider text-muted-foreground/60">Era</span>
           <div className="flex gap-1.5 overflow-x-auto pb-0.5 [&::-webkit-scrollbar]:hidden">
             <button
-              className={cn(pillBase, filter.year === null ? pillOn : pillOff)}
-              onClick={() => onChange({ ...filter, year: null })}
+              className={cn(pillBase, filter.era === null ? pillOn : pillOff)}
+              onClick={() => onChange({ ...filter, era: null })}
             >
               All
             </button>
-            {availableYears.map((year) => (
+            {availableEras.map((era) => (
               <button
-                key={year}
-                className={cn(pillBase, filter.year === year ? pillOn : pillOff)}
-                onClick={() => onChange({ ...filter, year: filter.year === year ? null : year })}
+                key={era}
+                className={cn(pillBase, filter.era === era ? pillOn : pillOff)}
+                onClick={() => onChange({ ...filter, era: filter.era === era ? null : era })}
               >
-                {year}
+                {ERA_LABELS[era] ?? era}
               </button>
             ))}
           </div>

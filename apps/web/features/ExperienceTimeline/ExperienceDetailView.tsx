@@ -169,7 +169,7 @@ export function ExperienceDetailView({ experience, relatedProjects, presentLabel
                     )}
                   </div>
                 </div>
-                <p className="mb-2.5 text-sm text-muted-foreground leading-relaxed line-clamp-2">
+                <p className="mb-2.5 text-sm text-muted-foreground leading-relaxed">
                   {project.description}
                 </p>
                 <div className="flex flex-wrap gap-1.5">

@@ -90,8 +90,7 @@ const SKILL_ICON_MAP: Record<string, IconEntry> = {
   'redis':                         { icon: SiRedis,         color: '#fff', bg: '#DC382D' },
 
   /* ── Cloud & DevOps ── */
-  'aws lambda':                    { icon: Zap,             color: '#fff', bg: '#FF9900', isLucide: true },
-  'api gateway':                   { icon: Globe,           color: '#fff', bg: '#FF9900', isLucide: true },
+  'aws serverless':                 { src: '/icons/aws-serverless.svg', color: '#fff', bg: '#FF9900' },
   'azure devops':                  { src: '/icons/azure-devops.png', blend: true, color: '#fff', bg: '#0078D4' },
   'terraform':                     { icon: SiTerraform,     color: '#fff', bg: '#7B42BC' },
   'ci/cd pipelines':               { icon: SiGithubactions, color: '#fff', bg: '#2088FF' },

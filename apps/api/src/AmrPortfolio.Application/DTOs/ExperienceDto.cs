@@ -11,5 +11,6 @@ public sealed record ExperienceDto(
     string? EndDate,
     string Description,
     IReadOnlyList<string> Highlights,
-    IReadOnlyList<string> Technologies
+    IReadOnlyList<string> Technologies,
+    string? Domain
 );
