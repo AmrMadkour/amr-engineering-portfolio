@@ -13,9 +13,8 @@ This is not a simple portfolio template. It is engineered as a scalable, modern 
 - **Hero section** — bio, social links, résumé download
 - **About section** — animated prose panel
 - **Technical Skills** — animated infinite carousel with branded icon badges, grouped by category
-- **Projects** — linked to employer roles; personal and company projects shown with attribution
-- **Experience timeline** — animated; each role shows its related projects as clickable chips
-- **Recommendations carousel** — client testimonials
+- **Experience page** — filterable list (Type / Focus / Era); each role links to a detail page showing related projects as embedded cards
+- **Recommendations** — three-column grid of real LinkedIn recommendations with avatars
 - **Two-tier caching** — .NET `IMemoryCache` (15 min) + Next.js ISR (1 hr)
 - **Clean Architecture backend** — enforced layer boundaries, repository pattern over JSON content
 

@@ -20,7 +20,7 @@ interface SkillsSectionProps {
 
 export async function SkillsSection({ locale }: SkillsSectionProps) {
   const t = await getTranslations('Skills')
-  const data = SKILLS_DATA[locale] ?? SKILLS_DATA.en
+  const data: SkillsData = (SKILLS_DATA[locale] ?? SKILLS_DATA.en) as SkillsData
 
   return (
     <Section id="skills">

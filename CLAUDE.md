@@ -13,7 +13,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 **Phase 1.3 (Frontend Foundation) — COMPLETE**
 **Phase 1.4 (Content Scaffold) — COMPLETE**
 **Phase 1.5 (CI/CD Scaffold — minimal skeleton) — COMPLETE**
-**Phase 2 (UI Implementation) — IN PROGRESS**
+**Phase 2 (UI Implementation) — COMPLETE**
 - [x] Step 1a: Tailwind v4 → v3 migration (monorepo content scanning fix)
 - [x] Step 1b: Navbar redesign (Showoff floating pill, dotted texture, hover labels, avatar placeholder)
 - [x] Step 1c: Critical CSS fix — Tailwind preflight missing; manually added `box-sizing: border-box` + `body { margin: 0 }` to `@layer base`; horizontal overflow fixed; scrollbar hidden
@@ -22,8 +22,19 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - [x] Step 2c: Technical Skills section (animated carousel, icon map, react-icons/si + lucide fallbacks); Projects ↔ Experience linking via `experienceId`
 - [x] Step 2d (revised): Contact page — standalone `/contact` route with email, LinkedIn, schedule-a-call. ContactCTA not wired to homepage by design.
 - [x] Step 3 (revised): No standalone Projects page — replaced by experience-first approach. `/projects` route still exists but is unlinked.
-- [x] Step 4: Experience page rebuilt — list cards, client-side filtering (Type/Tech/Year), project counts per entry
+- [x] Step 4: Experience page rebuilt — list cards, client-side filtering (Type/Focus/Era), project counts per entry
 - [x] Step 5: Experience detail pages — `/experience/[slug]` dynamic route; company and personal/freelance layouts; embedded projects/use-cases
+
+**Phase 2 Cleanup (pre-Phase 3) — PENDING**
+- [ ] Delete dead files: `ExperienceSection`, `ExperienceCard`, `ExperienceAnimatedList`, `ProjectList/*`, `/projects` route, `public/icons/aws.svg`
+- [ ] SEO: add `generateMetadata` to `/experience/[slug]/page.tsx` (and other routes)
+- [ ] Translate AR/NL experience + project descriptions (currently EN text in all locales)
+
+**Phase 3 (AI Integration) — NOT STARTED**
+- [ ] `IChatService` interface in `Application/`
+- [ ] Semantic Kernel implementation in `Infrastructure/`
+- [ ] `POST /v1/chat` endpoint with SSE streaming in `Api/`
+- [ ] RAG: portfolio JSON as vector context
 
 Full architecture decisions and implementation roadmap: `docs/planning/Stage1/3-ArchitectureReview.md`
 
@@ -146,6 +157,6 @@ const mdxPages = {
 
 **Project ↔ Experience linking** — `Project` has an optional `experienceId: string | null` field (mirrored in `ProjectDto`). Projects link to `Experience.id`. Related projects surface on the experience detail page (`/experience/[slug]`), not as inline chips. Personal/freelance experiences use `experienceId: "<experience-slug>"` too — the portfolio project links to `"amr-portfolio"`.
 
-**Experience schema** — `Experience` now has `type: "company" | "personal" | "freelance"`, `featured: boolean` (controls which 3 cards appear on the homepage preview), and optional `company`/`role` (null for personal/freelance). Both the TypeScript type and C# `ExperienceDto` reflect this.
+**Experience schema** — `Experience` now has `type: "company" | "personal" | "freelance"`, `featured: boolean` (controls which 3 cards appear on the homepage preview), `domain: "backend" | "fullstack" | "cloud" | "frontend" | null` (drives the Focus filter on the experience page), and optional `company`/`role` (null for personal/freelance). All fields are mirrored in the TypeScript type and C# `ExperienceDto`.
 
 **Slash commands** — `.claude/commands/run.md` (`/run`) starts API + web + verifies Playwright. `.claude/commands/push.md` (`/push`) stages, commits with a descriptive message, and pushes the current branch.

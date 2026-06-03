@@ -22,7 +22,7 @@ export function SectionReveal({ children, delay = 0, className }: Props) {
 
     const io = new IntersectionObserver(
       ([entry]) => {
-        if (!entry.isIntersecting) return
+        if (!entry?.isIntersecting) return
         if (delay) el.style.transitionDelay = `${delay}s`
         el.classList.add('s-reveal--in')
         io.disconnect()

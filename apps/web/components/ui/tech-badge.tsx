@@ -73,7 +73,7 @@ const FALLBACK_COLORS = [
 function hashColor(name: string): string {
   let h = 0
   for (const c of name) h = (h * 31 + c.charCodeAt(0)) & 0xffffffff
-  return FALLBACK_COLORS[Math.abs(h) % FALLBACK_COLORS.length]
+  return FALLBACK_COLORS[Math.abs(h) % FALLBACK_COLORS.length] ?? '#6366f1'
 }
 
 function getInitials(name: string): string {

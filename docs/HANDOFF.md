@@ -207,9 +207,56 @@
 
 ---
 
+---
+
+## Session — 2026-06-02
+
+### Files changed
+
+- `content/en/skills.json` — replaced "AWS Lambda" + "API Gateway" with single "AWS Serverless" skill
+- `apps/web/features/TechnicalSkills/SkillIcon.tsx` — removed `aws lambda`/`api gateway` entries; added `aws serverless` → `/icons/aws-serverless.svg`
+- `apps/web/public/icons/aws-serverless.svg` — official AWS Lambda λ icon (white on orange, from Simple Icons)
+- `apps/web/public/icons/aws.svg` — Amazon brand wordmark SVG (committed but **not used** in any icon map; safe to delete)
+- `apps/web/features/ExperienceTimeline/ExperienceFilterBar.tsx` — replaced Tech/Stack + Year filters with Focus (domain) + Era filters
+- `apps/web/features/ExperienceTimeline/ExperiencePageClient.tsx` — removed `KEY_TECHS`; added `getEra()` helper; filter state `tech/year` → `domain/era`
+- `apps/api/src/AmrPortfolio.Application/DTOs/ExperienceDto.cs` — added `string? Domain` parameter
+- `apps/web/types/experience.ts` — added `domain: string | null`
+- `content/{en,ar,nl}/experience.json` — added `"domain"` field to every entry (backend/fullstack)
+- `apps/web/features/ExperienceTimeline/ExperienceDetailView.tsx` — removed `line-clamp-2` from project description paragraph
+- `content/en/experience.json` + `content/en/projects.json` — removed all em-dashes (—) from prose; replaced with commas, colons, or restructured sentences
+- `apps/web/next.config.ts` — added `images: { qualities: [75, 85, 90, 95, 100] }` to silence Next.js 16 warning
+
+### Decisions
+
+- **Focus filter (domain) over Tech filter**: per-technology filtering was not meaningful since the same stack spans unrelated roles. Domain (Backend / Full-Stack) maps to actual specialization areas. `domain` is a new explicit field in JSON rather than derived from techs — keeps it stable and overridable.
+- **Era filter over Year filter**: fixed three buckets (Early Career ≤2019 / Mid Career ≤2022 / Recent ≥2023) never grow, unlike individual year pills which would accumulate with each new entry.
+- **AWS Serverless icon**: used the AWS Lambda λ icon from Simple Icons — represents serverless compute specifically, not the Amazon marketing brand logo. Stored as SVG in `/public/icons/` (same pattern as azure-devops, visual-studio).
+
+---
+
+## Gotchas
+
+- **lucide-react missing icons**: `Github` and `Linkedin` do not exist in the installed version. Use custom SVGs from `@/components/ui/icons` (`GitHubIcon`, `LinkedInIcon`) for brand icons. Check with `node -e "const l = require('./node_modules/lucide-react'); console.log(typeof l.IconName)"` before adding new icons.
+- **Old components still on disk**: `ExperienceSection`, `ExperienceCard`, `ExperienceAnimatedList`, `ProjectList/*` all still exist but are no longer wired to any active page. Safe to delete once confirmed, but left in place this session.
+- **`/projects` route still exists** at `app/[locale]/projects/page.tsx` — unlinked from navbar but not deleted. Redirect or remove when ready.
+- **`SectionReveal` with Playwright**: IntersectionObserver doesn't fire reliably in Playwright's headless browser. Force-reveal hidden elements via `document.querySelectorAll('.s-reveal').forEach(el => el.classList.add('s-reveal--in'))` to screenshot them. Real browsers work fine.
+- **Contact page photo**: source is 447×515px — going wider than `max-w-md` (448px) will upscale and degrade quality. Do not increase beyond that unless a higher-res photo is provided.
+- **API content cache**: .NET `IMemoryCache` (15-min TTL) means edited JSON files are invisible until the dotnet process restarts. Kill via `Get-NetTCPConnection -LocalPort 5088 -State Listen` to get PID, then `Stop-Process`.
+- **`aws.svg` in `/public/icons/`** — committed but unused. The icon map uses `aws-serverless.svg`. Can be deleted.
+- **`domain` field in AR/NL experience.json**: values are English strings (`"backend"`, `"fullstack"`) intentionally — they are filter keys, not display labels. Display labels live in `ExperienceFilterBar.tsx` (`DOMAIN_LABELS`).
+
+---
+
 ## Next
 
-1. **Translate experience descriptions** — `content/{ar,nl}/experience.json` descriptions are still English; needs human or AI-reviewed translation.
-2. **Hero CTA button** — still links to `/projects`; change href → `/experience`, label → "View My Work" in `HeroSection.tsx` and `messages/{en,ar,nl}.json` key `ctaProjects`.
-3. **Metadata/SEO** — add per-route `generateMetadata` for experience slug pages.
-4. **Clean up dead code** — `ExperienceSection`, `ExperienceCard`, `ExperienceAnimatedList`, `ProjectList/*`, `/projects` route still on disk but unlinked.
+> Phase 2 is functionally complete. Three cleanup items remain before Phase 3 starts.
+
+**Phase 2 cleanup (small, do together):**
+1. **Dead code removal** — delete `features/ExperienceSection/`, `features/ExperienceCard/`, `features/ExperienceAnimatedList/`, `features/ProjectList/`, `app/[locale]/projects/page.tsx`, `public/icons/aws.svg`
+2. **SEO metadata** — add `generateMetadata` to `app/[locale]/experience/[slug]/page.tsx` (title = role @ company, description = first sentence of experience.description)
+3. **AR/NL translations** — `content/{ar,nl}/experience.json` and `content/{ar,nl}/projects.json` descriptions are still English text
+
+**Note:** Hero CTA was already fixed (`href` is `/experience`; key name `ctaProjects` is a legacy name but harmless).
+
+**Phase 3 (AI Integration) — next major phase:**
+- `IChatService` in `Application/`, Semantic Kernel in `Infrastructure/`, `POST /v1/chat` SSE endpoint, RAG over portfolio JSON
