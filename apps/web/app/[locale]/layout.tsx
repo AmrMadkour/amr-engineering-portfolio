@@ -7,6 +7,7 @@ import { ThemeProvider } from '@/components/providers/ThemeProvider'
 import { Navbar } from '@/components/layout/Navbar'
 import { PageTransition } from '@/components/layout/PageTransition'
 import { FooterSection } from '@/features/Footer/FooterSection'
+import { ChatWidgetLoader } from '@/features/ChatWidget/ChatWidgetLoader'
 import { routing } from '@/i18n/routing'
 import '../globals.css'
 
@@ -67,6 +68,7 @@ export default async function LocaleLayout({ children, params }: Props) {
             <Navbar locale={locale} />
             <div className="page-body"><PageTransition>{children}</PageTransition></div>
             <FooterSection locale={locale} />
+            <ChatWidgetLoader locale={locale} />
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>

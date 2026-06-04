@@ -247,16 +247,166 @@
 
 ---
 
+## Session — 2026-06-03 (Phase 3 — "Ask Amr" AI Agent)
+
+### Overview
+
+Added a floating AI agent widget to the portfolio. This is **not just a chatbot** — it is a tool-using agent built on Google Gemini 2.0 Flash (function calling). The agent answers questions about Amr AND takes real actions: navigating pages, opening Cal.com booking, LinkedIn, GitHub, and downloading the resume. It auto-detects English/Arabic/Dutch from message content and responds in the same language.
+
+### Architecture decision: Gemini over Semantic Kernel
+
+The original Phase 3 plan specified Semantic Kernel + OpenAI. We replaced this with:
+- **Google Gemini 2.0 Flash** — free tier (1M tokens/day), superior Arabic/Dutch support, native function calling
+- **Mscc.GenerativeAI** NuGet package — direct Gemini SDK, no orchestration layer overhead
+- **No vector database** — portfolio JSON (~3K tokens total) fits in one context window; system prompt is rebuilt per-request from cached `IContentRepository` data (15-min TTL)
+
+### Files changed
+
+**Backend — Application layer**
+- `Application/DTOs/ChatDto.cs` — `ChatMessageDto`, `ChatRequestDto`, `PageContextDto`
+- `Application/Interfaces/IChatService.cs` — `IChatService` + `ChatEventDto` discriminated union (`TextDeltaEvent`, `ActionEvent`)
+
+**Backend — Infrastructure layer**
+- `Infrastructure/AmrPortfolio.Infrastructure.csproj` — added `Mscc.GenerativeAI`
+- `Infrastructure/AI/GeminiChatService.cs` — builds system prompt from `IContentRepository`, defines 5 Gemini tool declarations, streams text deltas + action events
+- `Infrastructure/DependencyInjection.cs` — extended to accept `IConfiguration`, registers `IChatService`
+
+**Backend — API layer**
+- `Api/Endpoints/ChatEndpoints.cs` — `POST /v1/chat` SSE endpoint; streams `{"type":"delta","content":"..."}` and `{"type":"action","name":"...","payload":{...}}` events; validates message length (1–2000 chars)
+- `Api/Program.cs` — registers chat endpoint; passes `builder.Configuration` to `AddInfrastructure()`
+
+**Frontend**
+- `features/ChatWidget/useChatStream.ts` — SSE reading hook; `fetch()` + `ReadableStream`; sends last-10-message history cap; `AbortController` cleanup
+- `features/ChatWidget/ChatActionHandler.ts` — executes agent actions via `router.push` / `window.open`
+- `features/ChatWidget/ChatMessage.tsx` — individual message bubble (user violet right, assistant card left); typing dots + streaming cursor
+- `features/ChatWidget/ChatWindow.tsx` — glassmorphism panel; framer-motion slide-up; auto-scroll; RTL-aware
+- `features/ChatWidget/ChatBubble.tsx` — fixed `Sparkles` FAB, violet glow, framer-motion hover/tap
+- `features/ChatWidget/ChatWidget.tsx` — root client component; page context from `usePathname()`; closes on outside click
+- `features/ChatWidget/ChatWidgetLoader.tsx` — async Server Component; fetches profile (needed by action handler), renders `<ChatWidget>`; returns `null` on API failure
+- `app/globals.css` — `/* === Chat Widget === */` block: all `.chat-*` classes, keyframes, dark/light overrides, mobile breakpoint
+- `app/[locale]/layout.tsx` — added `<ChatWidgetLoader locale={locale} />` inside `<ThemeProvider>`
+- `apps/api/src/AmrPortfolio.Api/AmrPortfolio.Api.csproj` — added `<UserSecretsId>amr-portfolio-api</UserSecretsId>`
+- `tests/AmrPortfolio.UnitTests/.../JsonContentRepositoryTests.cs` — fixed stale DTO constructors (missing `SchedulingUrl`, `ExperienceId`, `Domain` params)
+
+**i18n**
+- `messages/{en,ar,nl}.json` — added `ChatWidget` namespace (title, placeholder, greeting, greetingExperience, errorMessage, poweredBy)
+
+### Agent tools (Gemini function calling)
+
+| Tool | Trigger examples | Frontend action |
+|---|---|---|
+| `navigate_to_page` | "show me backend work", "tell me about TIQM" | `router.push(/experience?domain=backend)` |
+| `open_booking` | "book a call", "schedule a meeting" | `window.open(profile.schedulingUrl)` |
+| `open_linkedin` | "connect on LinkedIn" | `window.open(profile.linkedInUrl)` |
+| `open_github` | "your GitHub" | `window.open(profile.gitHubUrl)` |
+| `download_resume` | "get your CV", "download resume" | `window.open(profile.resumeUrl)` |
+
+### Multilingual strategy
+
+Gemini system prompt instructs: detect user message language → respond in same language. `ChatRequestDto.Locale` is sent as a fallback hint for ambiguous short inputs ("Hi", "OK"). No extra libraries needed — Gemini 2.0 Flash handles EN/AR/NL natively.
+
+### SSE event format
+
+```
+data: {"type":"delta","content":"The TIQM project..."}
+data: {"type":"action","name":"navigate_to_page","payload":{"slug":"metrixlab-senior"}}
+data: [DONE]
+```
+
+### API key setup (one-time, per developer machine)
+
+Key is stored in **.NET User Secrets** (never committed). To set or update:
+```bash
+cd apps/api/src/AmrPortfolio.Api
+dotnet user-secrets set "Gemini:ApiKey" "AIzaSy..."
+dotnet user-secrets set "Gemini:ModelId" "gemini-2.0-flash"
+```
+Get a key at https://aistudio.google.com → Get API key. Key format must start with `AIzaSy...`.
+
+### z-index hierarchy (no conflicts)
+
+| Element | z-index |
+|---|---|
+| Navbar | 40 |
+| Language dropdown | 50 |
+| Chat FAB + Window | 60 |
+
+### Gotchas
+
+- **`Content` namespace conflict** — `Mscc.GenerativeAI.Content` collides with the .NET `Content` namespace. Aliased with `using GeminiContent = Mscc.GenerativeAI.Content;` in `GeminiChatService.cs`.
+- **C# iterator restrictions** — Cannot `yield` inside a `catch` block (CS1631) or inside a `try` block that has a `catch` clause (CS1626). Streaming error handling uses manual `GetAsyncEnumerator()` iteration: `try { MoveNextAsync() } catch { }` with `yield` outside the catch.
+- **`.env` file not loaded by .NET** — The `apps/api/.env` and `.env.example` files are documentation only; .NET doesn't read them. All config comes from `appsettings.json` or user secrets. Do not put real values in `.env.example` — it's committed to git.
+- **`AQ.` key format IS valid** — Earlier sessions wrongly flagged it as invalid. Newer Google AI Studio keys start with `AQ.`, not `AIzaSy`. Do not confuse format with validity.
+- **Streaming exception reaches GlobalExceptionHandler** — Before the fix, a Gemini auth error caused a 500 JSON response even though SSE headers had already been sent. Fixed by catching inside the iterator.
+- **API process locks DLLs on rebuild** — `dotnet build` fails with MSB3026 if the API is running. Kill with: `$apiPid = (netstat -ano | Select-String ":5088.*LISTENING")[0] -split "\s+" | Select-Object -Last 1; Stop-Process -Id $apiPid -Force`
+
+---
+
+---
+
+## Session — 2026-06-04
+
+### Files changed
+
+- `apps/api/src/AmrPortfolio.Infrastructure/AI/GeminiChatService.cs` — added `ClassifyGeminiError()` helper; `streamError` type `Exception?` → `string?`; 429/auth errors now surface a human-readable message instead of generic fallback
+- `apps/api/.env.example` — removed real API key that was sitting in working copy (never committed); fixed key name `mini__ApiKey` → `Gemini__ApiKey`; replaced value with `YOUR_GEMINI_API_KEY_HERE`
+
+### Decisions
+
+- **`gemini-flash-latest` replaces `gemini-2.0-flash`** — new Google Cloud project has free-tier quota for `gemini-flash-latest` only; `gemini-2.0-flash` returns 429 with `limit: 0`. Model updated via `dotnet user-secrets set "Gemini:ModelId" "gemini-flash-latest"`.
+- **Quota is per Google Cloud project, not per API key** — creating a new key in the same project does not reset quota. Required a fresh project.
+
+### Gotchas
+
+- **`Mscc.GenerativeAI` can't parse 429 responses** — the library throws `GeminiApiException` wrapping `JsonException` (not a meaningful quota error). Root cause: Gemini's error body has a nested `"error":{...}` wrapper the library doesn't expect. `ClassifyGeminiError()` works around this by inspecting the exception message string.
+- **Gemini API key not in git** — the key was in the working copy of `.env.example` only, never committed. Quota was exhausted by Phase 3 development testing, not scraping.
+- **`gemini-2.0-flash` quota** — shows `limit: 0` on the new free-tier project. Use `gemini-flash-latest` until billing is enabled or a paid-tier project is set up.
+
+---
+
+---
+
+## Session — 2026-06-04 (AI widget audit + hardening)
+
+### Files changed
+
+**Backend**
+- `Infrastructure/AI/GeminiChatService.cs` — 45s timeout via linked `CancellationTokenSource`; one silent retry on `GeminiApiException`; `ClassifyGeminiError` now returns error codes (not strings) and made `internal`; renamed `gotRateLimited` → `shouldRetry`; removed stale inline comment
+- `Application/Interfaces/IChatService.cs` — added `ErrorEvent(string Code)` + `ChatErrorCodes` constants (`rateLimited`, `unavailable`, `timeout`, `configError`, `unknown`)
+- `Api/Endpoints/ChatEndpoints.cs` — serialises `ErrorEvent` as `{type:"error",code:...}`; added locale whitelist validation (`en`/`ar`/`nl`) to prevent path traversal
+- `Infrastructure/DependencyInjection.cs` — default model changed `"gemini-2.0-flash"` → `"gemini-flash-latest"`
+- `apps/api/.env.example` — full Gemini setup guide (key creation, user-secrets commands, quota limits, production env vars)
+
+**Frontend**
+- `features/ChatWidget/ChatWindow.tsx` — quick-action chips refactored: labels now come from i18n (`t('quickActions.*')`), AI messages stay in code; `locale` prop removed (no longer needed); `QUICK_ACTIONS` object replaced with `QUICK_ACTION_DEFS` array
+- `features/ChatWidget/ChatWidget.tsx` — `translateErrorCode` switch wired to i18n error keys; removed `locale` prop from `ChatWindow` call
+- `features/ChatWidget/useChatStream.ts` — `messages` removed from `sendMessage` dep array (was recreating callback on every streaming chunk); added `messagesRef` pattern; added `translateErrorCode` option; `errorMessage` now i18n-sourced
+- `features/ChatWidget/AssistantAvatar.tsx` — NEW: illustrated SVG face replaces Sparkles icon
+- `features/ChatWidget/ChatBubble.tsx`, `ChatMessage.tsx`, `ChatWindow.tsx` — use `AssistantAvatar` instead of `Sparkles`
+- `apps/web/messages/{en,ar,nl}.json` — added `quickActions.*` and `errors.*` keys under `ChatWidget`; removed dead `poweredBy` key; `greeting` shortened to one line
+
+### Decisions
+
+- **Error codes over strings in SSE** — backend sends `{type:"error",code:"rateLimited"}`, frontend translates via i18n. Zero hardcoded English in C#.
+- **Quick action chips: direct actions bypass AI** — Experience/Resume/BookCall chips call `handleChatAction` directly; only "Amr's background" goes through Gemini. Reliable even when Gemini is rate-limited.
+- **System prompt: intent-based tool use** — replaced keyword matching (`ONLY when user says 'show me'`) with intent reasoning rules. AI now decides navigate vs text based on whether the user wants to explore vs get a quick answer.
+- **Illustrated SVG avatar** — replaces Sparkles icon; coded inline, no external file dependency.
+
+### Gotchas
+
+- **`gemini-flash-latest` quota exhausted** during this session. Fix: create new Google Cloud project → new API key → `dotnet user-secrets set "Gemini:ApiKey" "NEW_KEY"`. See `.env.example` for full guide.
+- **Locale path traversal** — `JsonContentRepository` builds file paths with the `locale` param from the request body. Now validated at the endpoint level (`en`/`ar`/`nl` only).
+- **`sendMessage` dep array** — including `messages` caused the callback to recreate on every streaming delta. Fixed with `messagesRef`.
+- **`clearMessages`** exported from `useChatStream` but not yet wired to any UI button. Useful for a future "clear chat" feature.
+
+---
+
 ## Next
 
-> Phase 2 is functionally complete. Three cleanup items remain before Phase 3 starts.
-
-**Phase 2 cleanup (small, do together):**
-1. **Dead code removal** — delete `features/ExperienceSection/`, `features/ExperienceCard/`, `features/ExperienceAnimatedList/`, `features/ProjectList/`, `app/[locale]/projects/page.tsx`, `public/icons/aws.svg`
-2. **SEO metadata** — add `generateMetadata` to `app/[locale]/experience/[slug]/page.tsx` (title = role @ company, description = first sentence of experience.description)
-3. **AR/NL translations** — `content/{ar,nl}/experience.json` and `content/{ar,nl}/projects.json` descriptions are still English text
-
-**Note:** Hero CTA was already fixed (`href` is `/experience`; key name `ctaProjects` is a legacy name but harmless).
-
-**Phase 3 (AI Integration) — next major phase:**
-- `IChatService` in `Application/`, Semantic Kernel in `Infrastructure/`, `POST /v1/chat` SSE endpoint, RAG over portfolio JSON
+- **Push current branch** to remote (awaiting user review)
+- **Fix Gemini quota**: new Google Cloud project + new API key (see `.env.example`)
+- **Add `react-markdown`** to render Gemini markdown (bold, bullets) in chat bubbles
+- **Rate limiting** on `POST /v1/chat` (`AddRateLimiter` in Program.cs — fixed window, per-IP)
+- **Unit tests** for `GeminiChatService.ClassifyGeminiError` and `ChatErrorCodes` (method is now `internal`)
+- **Phase 2 cleanup**: delete `ExperienceSection`, `ExperienceCard`, `ExperienceAnimatedList`, `ProjectList/*`, `/projects` route, `public/icons/aws.svg`
+- **AR/NL content translations**: `content/{ar,nl}/experience.json` and `content/{ar,nl}/projects.json` still have EN text

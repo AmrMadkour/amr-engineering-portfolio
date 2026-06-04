@@ -15,6 +15,7 @@ This is not a simple portfolio template. It is engineered as a scalable, modern 
 - **Technical Skills** — animated infinite carousel with branded icon badges, grouped by category
 - **Experience page** — filterable list (Type / Focus / Era); each role links to a detail page showing related projects as embedded cards
 - **Recommendations** — three-column grid of real LinkedIn recommendations with avatars
+- **AI chat assistant** — "Ask Amr" floating widget powered by Google Gemini; answers questions about experience, skills, and projects; navigates the site, opens booking/LinkedIn/GitHub/résumé via function calling; streams responses via SSE; auto-detects EN/AR/NL
 - **Two-tier caching** — .NET `IMemoryCache` (15 min) + Next.js ISR (1 hr)
 - **Clean Architecture backend** — enforced layer boundaries, repository pattern over JSON content
 
@@ -35,10 +36,11 @@ This is not a simple portfolio template. It is engineered as a scalable, modern 
 - .NET 10 Minimal API
 - Clean Architecture (Domain / Application / Infrastructure / Api)
 - Serilog (structured logging)
-- Swagger / OpenAPI
+- Swagger / OpenAPI via Scalar
 - FluentValidation
 - IMemoryCache
 - xUnit
+- Mscc.GenerativeAI (Google Gemini — AI chat, function calling, SSE streaming)
 
 ### Infrastructure
 - npm workspaces monorepo
@@ -98,12 +100,20 @@ npm install
 ```bash
 # Frontend
 cp apps/web/.env.local.example apps/web/.env.local
-
-# Backend
-cp apps/api/.env.example apps/api/.env
+# Edit apps/web/.env.local and set NEXT_PUBLIC_API_URL=http://localhost:5088
 ```
 
-Edit each file and fill in the values.
+The backend is configured via **.NET User Secrets** (never committed to git):
+
+```bash
+cd apps/api/src/AmrPortfolio.Api
+
+# Gemini API key — get one at https://aistudio.google.com → Get API key
+dotnet user-secrets set "Gemini:ApiKey" "YOUR_KEY_HERE"
+dotnet user-secrets set "Gemini:ModelId" "gemini-flash-latest"
+```
+
+See `apps/api/.env.example` for all available backend options and free-tier quota limits.
 
 ### 3. Run the frontend
 

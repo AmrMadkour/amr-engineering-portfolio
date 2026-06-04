@@ -19,6 +19,7 @@ public sealed class ContentRepositoryContractTests
             GitHubUrl: "https://github.com/amr",
             LinkedInUrl: "https://linkedin.com/in/amr",
             ResumeUrl: null,
+            SchedulingUrl: "https://cal.com/amr",
             Skills: ["C#", ".NET", "TypeScript"]);
 
         _repo.GetProfileAsync("en", Arg.Any<CancellationToken>()).Returns(expected);
@@ -36,7 +37,7 @@ public sealed class ContentRepositoryContractTests
         var expected = new List<ProjectDto>
         {
             new("portfolio", "amr-portfolio", "AMR Portfolio", "Portfolio platform", ["Next.js", ".NET"],
-                "https://example.com", "https://github.com/amr/portfolio", "2026-01", null, true)
+                "https://example.com", "https://github.com/amr/portfolio", "2026-01", null, true, null)
         };
 
         _repo.GetProjectsAsync("en", Arg.Any<CancellationToken>()).Returns(expected.AsReadOnly());
@@ -52,8 +53,8 @@ public sealed class ContentRepositoryContractTests
     {
         var expected = new List<ExperienceDto>
         {
-            new("exp-1", "senior-engineer-acme", "Acme Corp", "Senior Engineer", "2022-01", null,
-                "Led backend services.", ["Reduced latency by 40%"], ["C#", "Kubernetes"])
+            new("exp-1", "senior-engineer-acme", "company", true, "Acme Corp", "Senior Engineer",
+                "2022-01", null, "Led backend services.", ["Reduced latency by 40%"], ["C#", "Kubernetes"], "backend")
         };
 
         _repo.GetExperienceAsync("en", Arg.Any<CancellationToken>()).Returns(expected.AsReadOnly());

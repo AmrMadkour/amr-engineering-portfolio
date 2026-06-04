@@ -85,5 +85,23 @@
     "title": "Page Not Found",
     "description": "The page you are looking for does not exist.",
     "backHome": "Back to Home"
+  },
+  "ChatWidget": {
+    "title": "Ask Amr",
+    "placeholder": "Ask me anything about Amr...",
+    "greeting": "Hi! What would you like to know?",
+    "errorMessage": "Something went wrong. Please try again.",
+    "quickActions": {
+      "background": "Amr's background",
+      "experience": "Experience timeline",
+      "resume": "Download resume",
+      "bookCall": "Book a call"
+    },
+    "errors": {
+      "rateLimited": "Too many requests — please wait a moment and try again.",
+      "unavailable": "The AI is temporarily unavailable. Please try again in a moment.",
+      "timeout": "The request timed out. Please try again.",
+      "configError": "The AI is not configured correctly. Please contact Amr directly."
+    }
   }
 }

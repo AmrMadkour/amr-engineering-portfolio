@@ -36,10 +36,10 @@ try
     builder.Services.AddProblemDetails();
     builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 
-    // Infrastructure — IContentRepository + IMemoryCache
+    // Infrastructure — IContentRepository + IMemoryCache + IChatService
     var contentPath = builder.Configuration["ContentPath"]
         ?? Path.Combine(builder.Environment.ContentRootPath, "..", "..", "..", "..", "content");
-    builder.Services.AddInfrastructure(Path.GetFullPath(contentPath));
+    builder.Services.AddInfrastructure(Path.GetFullPath(contentPath), builder.Configuration);
 
     var app = builder.Build();
 
@@ -64,6 +64,7 @@ try
     v1.MapProjectsEndpoints();
     v1.MapExperienceEndpoints();
     v1.MapRecommendationsEndpoints();
+    v1.MapChatEndpoints();
 
     app.Run();
 }

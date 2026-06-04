@@ -30,11 +30,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - [ ] SEO: add `generateMetadata` to `/experience/[slug]/page.tsx` (and other routes)
 - [ ] Translate AR/NL experience + project descriptions (currently EN text in all locales)
 
-**Phase 3 (AI Integration) — NOT STARTED**
-- [ ] `IChatService` interface in `Application/`
-- [ ] Semantic Kernel implementation in `Infrastructure/`
-- [ ] `POST /v1/chat` endpoint with SSE streaming in `Api/`
-- [ ] RAG: portfolio JSON as vector context
+**Phase 3 (AI Integration) — COMPLETE**
+- [x] `IChatService` + `ErrorEvent`/`ChatErrorCodes` in `Application/`
+- [x] `GeminiChatService` in `Infrastructure/AI/` — `gemini-flash-latest` via `Mscc.GenerativeAI`, function calling, SSE streaming, 45s timeout, 1 silent retry on `GeminiApiException`
+- [x] `POST /v1/chat` SSE endpoint — locale whitelist validation, streams `delta`/`action`/`error` events
+- [x] Context: full portfolio JSON loaded per-request from `IContentRepository` (fits in one context window, no vector DB needed)
+- [x] `ChatWidget` frontend — floating FAB, illustrated avatar, quick-action chips (3 direct, 1 AI), i18n error codes, RTL-aware
+- [ ] `react-markdown` in chat bubbles (Gemini markdown renders as raw text currently)
+- [ ] Rate limiting on `POST /v1/chat` (`AddRateLimiter` in Program.cs)
+- [ ] Unit tests for `GeminiChatService.ClassifyGeminiError` (method is `internal`)
 
 Full architecture decisions and implementation roadmap: `docs/planning/Stage1/3-ArchitectureReview.md`
 
@@ -71,6 +75,20 @@ cp apps/web/.env.local.example apps/web/.env.local
 cp apps/api/.env.example apps/api/.env
 ```
 
+### Gemini API key (required for the AI chat widget)
+The key is stored in **.NET User Secrets** — never committed to git.
+```bash
+cd apps/api/src/AmrPortfolio.Api
+
+# Set (or update) the key — get one at https://aistudio.google.com → Get API key
+dotnet user-secrets set "Gemini:ApiKey" "YOUR_KEY_HERE"
+dotnet user-secrets set "Gemini:ModelId" "gemini-flash-latest"
+
+# Verify
+dotnet user-secrets list
+```
+**Quota exhausted?** Create a new Google Cloud project and generate a fresh key — quota is per-project, not per-key. See `apps/api/.env.example` for full details and free-tier limits.
+
 ---
 
 ## Architecture
@@ -93,8 +111,8 @@ Infrastructure → Application
 ```
 
 - `Domain/` — placeholder; no entities yet (all data is DTO-shaped JSON, no rich domain model needed at this stage)
-- `Application/` — repository interface (`IContentRepository`), DTOs (`ProfileDto`, `ProjectDto`, `ExperienceDto`, `RecommendationDto`)
-- `Infrastructure/` — implements interfaces; reads JSON from `content/`; wraps `IMemoryCache`
+- `Application/` — `IContentRepository`, `IChatService`, DTOs (`ProfileDto`, `ProjectDto`, `ExperienceDto`, `RecommendationDto`, `ChatRequestDto`, `ChatEventDto` hierarchy with `TextDeltaEvent`/`ActionEvent`/`ErrorEvent`), `ChatErrorCodes` constants
+- `Infrastructure/` — `JsonContentRepository` (JSON file reads + `IMemoryCache`), `GeminiChatService` (Gemini 2.0 Flash via `Mscc.GenerativeAI`)
 - `Api/` — Minimal API routes, middleware, DI wiring, Scalar/OpenAPI, CORS
 
 `Infrastructure` never references `Api`. `Domain` has no NuGet dependencies.
@@ -107,7 +125,8 @@ apps/web/components/       ← stateless reusable UI atoms (Button, Card, Badge)
 apps/web/features/         ← page-level sections — colocate component + logic:
                              Hero/, About/, TechnicalSkills/, ExperiencePreview/ (homepage teaser cards),
                              ExperienceTimeline/ (list cards, filter bar, page client, detail view),
-                             RecommendationsCarousel/, ProjectList/ (unlinked), ContactCTA/, AIWorkflowTeaser/
+                             RecommendationsCarousel/, Footer/, ChatWidget/,
+                             ProjectList/ (unlinked), ContactCTA/, AIWorkflowTeaser/ (dead — pending cleanup)
 apps/web/services/         ← typed fetch() wrappers; called from Server Components only
 apps/web/hooks/            ← client-only hooks; every file is 'use client'
 apps/web/lib/              ← pure utility functions; no React/Next imports
@@ -153,10 +172,12 @@ const mdxPages = {
 
 **Localization** — `next-intl` handles URL routing (`/en`, `/ar`, `/nl`) and UI strings (`messages/{locale}.json`). Portfolio content strings live separately in `content/{locale}/`.
 
-**No MediatR** — endpoints inject `IContentRepository` directly. For 4 read-only GET endpoints, MediatR adds overhead without benefit. The interface boundary in `Application/` is the CQRS seam if needed later.
+**No MediatR** — endpoints inject repository/service interfaces directly. For 4 read-only GET endpoints + 1 POST chat endpoint, MediatR adds overhead without benefit. The interface boundary in `Application/` is the CQRS seam if needed later.
 
 **Project ↔ Experience linking** — `Project` has an optional `experienceId: string | null` field (mirrored in `ProjectDto`). Projects link to `Experience.id`. Related projects surface on the experience detail page (`/experience/[slug]`), not as inline chips. Personal/freelance experiences use `experienceId: "<experience-slug>"` too — the portfolio project links to `"amr-portfolio"`.
 
 **Experience schema** — `Experience` now has `type: "company" | "personal" | "freelance"`, `featured: boolean` (controls which 3 cards appear on the homepage preview), `domain: "backend" | "fullstack" | "cloud" | "frontend" | null` (drives the Focus filter on the experience page), and optional `company`/`role` (null for personal/freelance). All fields are mirrored in the TypeScript type and C# `ExperienceDto`.
+
+**Chat error codes** — `GeminiChatService` never returns human-readable strings. It yields `ErrorEvent(string Code)` with a `ChatErrorCodes` constant. The frontend (`ChatWidget.tsx`) translates codes via `messages/{locale}.json` `ChatWidget.errors.*` keys. Adding a new error type = add a constant + add a translation key; no C# strings to change.
 
 **Slash commands** — `.claude/commands/run.md` (`/run`) starts API + web + verifies Playwright. `.claude/commands/push.md` (`/push`) stages, commits with a descriptive message, and pushes the current branch.

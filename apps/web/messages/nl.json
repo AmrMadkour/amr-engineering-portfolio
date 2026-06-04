@@ -85,5 +85,23 @@
     "title": "Pagina niet gevonden",
     "description": "De pagina die u zoekt bestaat niet.",
     "backHome": "Terug naar home"
+  },
+  "ChatWidget": {
+    "title": "Vraag Amr",
+    "placeholder": "Vraag me alles over Amr...",
+    "greeting": "Hoi! Wat wil je weten?",
+    "errorMessage": "Er is iets misgegaan. Probeer het opnieuw.",
+    "quickActions": {
+      "background": "Amr's achtergrond",
+      "experience": "Ervaringstijdlijn",
+      "resume": "Download cv",
+      "bookCall": "Gesprek inplannen"
+    },
+    "errors": {
+      "rateLimited": "Te veel verzoeken — wacht even en probeer het opnieuw.",
+      "unavailable": "De AI is tijdelijk niet beschikbaar. Probeer het over een moment opnieuw.",
+      "timeout": "Het verzoek is verlopen. Probeer het opnieuw.",
+      "configError": "De AI is niet correct geconfigureerd. Neem rechtstreeks contact op met Amr."
+    }
   }
 }
