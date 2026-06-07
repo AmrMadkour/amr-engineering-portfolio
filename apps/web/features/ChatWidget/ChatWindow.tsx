@@ -43,10 +43,10 @@ export function ChatWindow({ messages, isStreaming, onSend, onDirectAction, onCl
   const scrollRef = useRef<HTMLDivElement>(null)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
 
-  const quickActions: QuickAction[] = QUICK_ACTION_DEFS.map(def => ({
+  const quickActions = QUICK_ACTION_DEFS.map(({ key, ...def }) => ({
     ...def,
-    label: t(`quickActions.${def.key}` as Parameters<typeof t>[0]),
-  }))
+    label: t(`quickActions.${key}` as Parameters<typeof t>[0]),
+  })) as QuickAction[]
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: 'smooth' })

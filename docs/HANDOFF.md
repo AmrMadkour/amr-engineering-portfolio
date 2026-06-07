@@ -407,6 +407,101 @@ Get a key at https://aistudio.google.com → Get API key. Key format must start 
 - **Fix Gemini quota**: new Google Cloud project + new API key (see `.env.example`)
 - **Add `react-markdown`** to render Gemini markdown (bold, bullets) in chat bubbles
 - **Rate limiting** on `POST /v1/chat` (`AddRateLimiter` in Program.cs — fixed window, per-IP)
-- **Unit tests** for `GeminiChatService.ClassifyGeminiError` and `ChatErrorCodes` (method is now `internal`)
-- **Phase 2 cleanup**: delete `ExperienceSection`, `ExperienceCard`, `ExperienceAnimatedList`, `ProjectList/*`, `/projects` route, `public/icons/aws.svg`
-- **AR/NL content translations**: `content/{ar,nl}/experience.json` and `content/{ar,nl}/projects.json` still have EN text
+---
+
+## Next Session — Ordered Backlog
+
+### Immediate (Phase 2/3 finish line)
+1. **Fix Gemini quota** — create new Google Cloud project → new API key → `dotnet user-secrets set "Gemini:ApiKey" "NEW_KEY"`. Widget is currently broken without this.
+2. **Delete dead files** — `features/ExperienceSection/`, `features/ExperienceCard/`, `features/ExperienceAnimatedList/`, `features/ProjectList/`, `app/[locale]/projects/page.tsx`, `public/icons/aws.svg`
+3. **AR/NL content translations** — `content/{ar,nl}/experience.json` + `content/{ar,nl}/projects.json` still have English prose
+
+### Phase 3 remaining
+4. **`react-markdown`** — install + wrap assistant message content in `<ReactMarkdown>` inside `ChatMessage.tsx`. Gemini often returns `**bold**` and `- bullets` that render as raw text.
+5. **Rate limiting** on `POST /v1/chat` — `builder.Services.AddRateLimiter(...)` + `app.UseRateLimiter()` in `Program.cs`. Fixed window per IP, ~10 req/min. Prevents quota abuse.
+
+### Phase 4 — Production Polish
+6. **SEO** — add `generateMetadata` to `/experience/[slug]/page.tsx`, `/contact/page.tsx`, home `page.tsx`
+7. **Deployment** — wire Vercel (frontend) + Render (backend); set `NEXT_PUBLIC_API_URL`, `AllowedOrigins`, `Gemini__ApiKey` as platform env vars; enable CI/CD deploy hooks in `.github/workflows/deploy.yml`
+8. **Core Web Vitals** — Lighthouse CI audit; check LCP, CLS, INP on home + experience pages
+9. **Accessibility** — axe-core sweep; focus on chat widget keyboard nav + Arabic RTL
+10. **Frontend tests** — Vitest + React Testing Library; start with `useChatStream` hook and `ChatWindow` chips
+
+---
+
+---
+
+## Session — 2026-06-06 (Phase 4 PLAN — DRAFT, awaiting approval)
+
+> **STATUS: DRAFT — AWAITING USER REVIEW. DO NOT IMPLEMENT.**
+> This is a saved plan for review only. No code, no commands until the user explicitly approves after reading. When approved, start with **Group A** — it must be fully green before any deployment work. This supersedes the older "Next Session — Ordered Backlog" above where they overlap.
+
+### Phase 4 — Production Launch: Quality Gate → Deployment → CI/CD → SEO
+
+**Context.** The portfolio is feature-complete (Phases 1–3) but runs only on localhost — not deployed, not crawlable, and with no real safety net: **zero frontend tests**, no coverage thresholds, **no code-smell or duplication detection**. This phase, strictly in order: (1) build a **quality foundation** with enforced test coverage + smell/duplication analysis (local + CI), (2) **deploy** (Next.js→Vercel, .NET 10 API→Render, free, auto-SSL), (3) **automate + SEO** — gated CI/CD (deploy only if the quality gate passes) plus per-page metadata, JSON-LD Person, OG image, complete sitemap to rank for "Amr Madkour".
+
+**Quality approach — no self-hosted server.** Instead of SonarQube/SonarCloud (needs hosting or a public repo to be free), use **build-time analyzers**: backend `SonarAnalyzer.CSharp` (Sonar's C# ruleset as Roslyn analyzers) + Coverlet; frontend `eslint-plugin-sonarjs` + `jscpd` (duplication) + Vitest coverage. Runs in IDE, CLI, and CI; free; private-repo friendly.
+
+**Locked decisions:** Deploy gating = **Gated** (failing gate blocks deploy). Quality = **comprehensive** (coverage + smells + duplication), enforced in CI. Domain = custom name domain supplied later (plan is domain-agnostic via `NEXT_PUBLIC_SITE_URL` / `AllowedOrigins`; launch on platform subdomains, swap later). SSL = automatic/free on both platforms (no cert work).
+
+**Already in place (do NOT rebuild):** backend `coverlet.collector` + `NSubstitute`; CORS + rate limiting + `/health`; root layout metadata + `robots.ts`; CI/CD workflow **stubs** (`.github/workflows/{ci,deploy}.yml` — wire, don't create); `react-markdown`. **Missing:** all frontend tests, smell/duplication detection, `Directory.Build.props`, Dockerfile; sitemap only lists locale roots; per-page metadata + JSON-LD + OG image.
+
+**Gotcha:** API reads `content/` from the **monorepo root** via relative path (`Program.cs:58-59`), overridable by `ContentPath` env — the Dockerfile must build from repo-root context and copy `content/` in.
+
+---
+
+#### Group A — Code Quality & Test Coverage Foundation ⟵ IMPLEMENT FIRST (must be fully green before Group B)
+- **A1 Frontend test infra** — add Vitest + `@vitest/coverage-v8` + RTL + jsdom to `apps/web`; `vitest.config.ts` with v8 coverage, reporters text/html/lcov, **enforced thresholds** (start lines/fns/stmts ≥70%, branches ≥60%, ratchet up); scripts `test`/`test:watch`/`test:coverage` + root passthroughs.
+- **A2 Frontend tests** — highest-value logic first: `useChatStream.ts` (SSE parse, history cap, abort), `ChatWindow` chips (direct vs AI), `lib/smoothScrollTop.ts`, `toCompleteSentences()`, `services/` wrappers. Meet A1 thresholds with meaningful tests.
+- **A3 Frontend smell + duplication** — add `eslint-plugin-sonarjs` to `packages/eslint-config` (cognitive-complexity, no-duplicate-string, no-identical-functions…); add `jscpd` + `.jscpd.json` scanning app/features/components/lib, **fail >~3–5% duplication**; `quality` script chaining lint→typecheck→quality:dupes.
+- **A4 Backend coverage** — enforce Coverlet threshold on `dotnet test` (`/p:Threshold=70 /p:ThresholdType=line` or runsettings); add `ReportGenerator` dotnet tool (HTML+console summary) via `dotnet-tools.json`; `coverage.runsettings` scoping to `AmrPortfolio.*`.
+- **A5 Backend tests** — `[assembly: InternalsVisibleTo("AmrPortfolio.UnitTests")]`; cover `GeminiChatService.ClassifyGeminiError` (rate-limit/auth/timeout branches), `JsonContentRepository` (locale, cache, missing-file), endpoint validation (locale whitelist, message length). Use `NSubstitute`.
+- **A6 Backend smell + duplication (build-time)** — root `apps/api/Directory.Build.props`: `SonarAnalyzer.CSharp` (PrivateAssets=all), `AnalysisLevel=latest-Recommended`, `EnforceCodeStyleInBuild=true`, `TreatWarningsAsErrors=true` (tune via `.editorconfig` severity map so clean code still builds). `dotnet format --verify-no-changes` keeps style.
+- **A7 Define the Quality Gate** (single source of truth, documented in `CLAUDE.md`): all tests pass; coverage ≥ threshold (FE+BE); 0 ESLint errors incl. sonarjs; 0 build warnings; duplication ≤ threshold; 0 Sonar BLOCKER/CRITICAL; `dotnet format` clean.
+- **A8 Local one-command gate** — root `quality:all` running FE quality+coverage and BE test+coverage+format. **Optional** pre-push hook (Husky FE / shell BE) — mark optional, non-blocking.
+- **A9 Wire `ci.yml`** (replace stub) — runs on PR→main/AmrMadkour-develop **and** push→main; **no deploy**. FE job (Node 20): ci → lint(+sonarjs) → typecheck → jscpd → test:coverage → build, upload coverage artifact. BE job (.NET 10): restore → format-verify → build -c Release (SonarAnalyzer + warnings-as-errors) → test w/ Coverlet threshold, upload artifact. Both must pass — this green check gates Group F.
+
+#### Group B — Backend Containerization & Deployment (Render)
+- **B1 Dockerfile** — `apps/api/Dockerfile` multi-stage `sdk:10.0`→`aspnet:10.0` (pin 10.0; too new for Render native). **Build context = monorepo root** so root `content/` is reachable; copy `apps/api/` + `content/`; set `ContentPath` in container; `.dockerignore` (node_modules/bin/obj/logs); bind `ASPNETCORE_URLS=http://+:$PORT`. Verify locally: build (root ctx) → run → `/health` + `/v1/profile?locale=en`.
+- **B2 Render service** — Web Service, GitHub-connected, env=Docker, Dockerfile `apps/api/Dockerfile`, context=root, health `/health`. Env: `ASPNETCORE_ENVIRONMENT=Production`, `AllowedOrigins=<vercel-origin>`, `Gemini__ApiKey`, `Gemini__ModelId=gemini-flash-latest`, `ContentPath`. **Disable auto-deploy** (gated); Deploy Hook → GitHub secret `RENDER_DEPLOY_HOOK`. ~50s cold start; optional UptimeRobot ping `/health` ~14min.
+
+#### Group C — Frontend Deployment (Vercel)
+- **C1 Vercel project** — import repo; **Root Directory = `apps/web`**; Next.js auto-detected; install from root (workspaces). Env (Prod+Preview): `NEXT_PUBLIC_API_URL=<render-url>`, `NEXT_PUBLIC_SITE_URL=<vercel-url-for-now>`. **Disable auto-deploy on main** (gated); Deploy Hook → GitHub secret `VERCEL_DEPLOY_HOOK`; keep per-PR Preview deploys ON.
+- **C2 Env & CORS wiring** — set Render `AllowedOrigins` to exact Vercel origin; confirm `services/` reads `NEXT_PUBLIC_API_URL`; document vars in both `.env*.example`.
+
+#### Group D — Security & SSL
+- **D1** — SSL: nothing to do (Vercel+Render auto Let's Encrypt incl. custom domains, HTTPS enforced; verify padlock). Secrets: `Gemini__ApiKey` only in Render env; `.env*` gitignored; `git grep` confirms no key tracked. CORS: explicit origin never `*`; Scalar/OpenAPI stays dev-only (`Program.cs:69-73`). Optional/non-blocking: security headers (X-Content-Type-Options, Referrer-Policy, CSP, HSTS) via `next.config.ts headers()`.
+
+#### Group E — SEO (after site is live)
+- **E1 Per-page metadata** — `generateMetadata` on `contact/page.tsx`, `experience/page.tsx`, and **dynamic** `experience/[slug]/page.tsx` (title/desc from role+company+description via `getExperience(locale)`). Turns ~20 generic-titled pages into unique, name-bearing, indexable ones.
+- **E2 i18n + title fix** — add per-route keys to `messages/{en,ar,nl}.json`; fix inconsistency: layout says "Senior .NET Engineer", profile says "Senior Software Engineer" — align on one (recommend "Senior Software Engineer").
+- **E3 JSON-LD Person** (highest name-search lever) — inject `Person` in `layout.tsx`/`components/seo/PersonJsonLd.tsx` from `profile.json`: name, jobTitle, url, image, `sameAs:[linkedInUrl, gitHubUrl]`. Enables Google Knowledge Panel + entity linking.
+- **E4 OG/Twitter image** — 1200×630 via `app/opengraph-image.tsx` (`ImageResponse`, branded) + wire `openGraph.images` + `twitter summary_large_image`. Fallback: reuse `public/amr-madkour.jpg`.
+- **E5 Sitemap + canonical/hreflang** — extend `sitemap.ts` with `/contact`, `/experience`, and dynamically every `/experience/[slug]` per locale; add `lib/seo.ts` for correct per-path canonical+hreflang (so `/en/contact`→`/ar/contact`), used in each `generateMetadata`.
+
+#### Group F — Gated Deploy Automation (`deploy.yml`)
+- **F1** (replace stub) — trigger push→main; run the same Quality Gate as prerequisite steps (self-contained) OR `workflow_run` on `ci.yml`. On all-green: `curl -X POST $VERCEL_DEPLOY_HOOK` + `$RENDER_DEPLOY_HOOK`. Any failure → non-zero exit, **no hook fires**, nothing deploys.
+
+#### Group G — Custom Domain (when user supplies it)
+- **G1** — add domain in Vercel → registrar DNS → free SSL auto. Optional `api.<domain>` on Render. Update `NEXT_PUBLIC_SITE_URL` + Render `AllowedOrigins`. If already indexed on `.vercel.app`: old→new redirect + Search Console re-submit.
+
+#### Group H — Off-site Discoverability (manual)
+- **H1** — verify domain in **Google Search Console**, submit `sitemap.xml` (optional Bing). Ensure LinkedIn + GitHub link back to the live site (reciprocal `sameAs`). Request homepage indexing; ranking builds over days–weeks.
+
+#### Execution order
+`Group A (A1→A9, fully green) → B → C → D → E → F → G → H`. Deployment cannot begin until the quality gate is green.
+
+#### Verification highlights
+- **Gate (local):** one command runs FE lint+sonarjs+jscpd+typecheck+coverage and BE format+build+test+coverage; introduce a deliberate duplicate/over-complex fn → confirm it **fails**.
+- **Gate (CI):** PR with a violation → `ci.yml` fails, merge blocked; clean PR → green.
+- **Docker (local):** build (root ctx) → run → `/health` + `/v1/profile?locale=en`.
+- **Render/Vercel:** `<render>/health` warm; Scalar NOT in prod; `/en /ar /nl` load content (CORS proof); chat streams (Gemini proof).
+- **Gated deploy:** failing commit→no deploy; clean→hooks fire→site updates.
+- **SEO:** view-source detail page → unique title/meta/OG/JSON-LD Person; Google Rich Results Test; sitemap lists all routes+slugs; Lighthouse SEO ~100.
+- **Security:** padlock both domains; no key in `git grep`; CORS rejects foreign origin.
+
+#### Open items / notes
+- Coverage thresholds start moderate (FE 70/60, BE 70 line), ratchet up — keeps the gate achievable on first pass.
+- `SonarAnalyzer` + `TreatWarningsAsErrors` needs one `.editorconfig` calibration pass so clean code still builds.
+- Custom domain not yet provided — Groups A–F + H proceed on `.vercel.app`; G swaps it in with zero code changes.
+- No self-hosted SonarQube/SonarCloud — build-time analyzers replace it (free, private-repo friendly). SonarLint IDE plugin = optional bonus.

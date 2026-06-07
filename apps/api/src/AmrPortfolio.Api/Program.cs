@@ -1,6 +1,8 @@
+using System.Threading.RateLimiting;
 using AmrPortfolio.Api.Endpoints;
 using AmrPortfolio.Api.Middleware;
 using AmrPortfolio.Infrastructure;
+using Microsoft.AspNetCore.RateLimiting;
 using Scalar.AspNetCore;
 using Serilog;
 
@@ -36,6 +38,22 @@ try
     builder.Services.AddProblemDetails();
     builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 
+    // Rate limiting — 10 requests/min per IP on /v1/chat
+    builder.Services.AddRateLimiter(options =>
+    {
+        options.AddPolicy("chat", httpContext =>
+            RateLimitPartition.GetFixedWindowLimiter(
+                partitionKey: httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown",
+                factory: _ => new FixedWindowRateLimiterOptions
+                {
+                    PermitLimit = 10,
+                    Window = TimeSpan.FromMinutes(1),
+                    QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
+                    QueueLimit = 0
+                }));
+        options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+    });
+
     // Infrastructure — IContentRepository + IMemoryCache + IChatService
     var contentPath = builder.Configuration["ContentPath"]
         ?? Path.Combine(builder.Environment.ContentRootPath, "..", "..", "..", "..", "content");
@@ -46,6 +64,7 @@ try
     app.UseExceptionHandler();
     app.UseSerilogRequestLogging();
     app.UseCors();
+    app.UseRateLimiter();
 
     if (app.Environment.IsDevelopment())
     {

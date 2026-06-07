@@ -56,6 +56,7 @@ public static class ChatEndpoints
         .WithName("StreamChat")
         .WithSummary("Streams an AI assistant response via Server-Sent Events.")
         .Accepts<ChatRequestDto>("application/json")
+        .RequireRateLimiting("chat")
         .ExcludeFromDescription();
 
         return group;
