@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowLeft, User, Briefcase, ExternalLink, GitFork } from 'lucide-react'
+import { ArrowLeft, User, Briefcase, ExternalLink, GitFork, ArrowRight } from 'lucide-react'
 import type { Experience } from '@/types/experience'
 import type { Project } from '@/types/project'
 import { Badge } from '@/components/ui/badge'
@@ -24,18 +24,25 @@ const TYPE_ACCENT: Record<string, string> = {
   freelance: 'from-amber-500/60 to-amber-500/0',
 }
 
+const DOMAIN_BADGE: Record<string, { label: string; className: string }> = {
+  backend:  { label: 'Backend',    className: 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20' },
+  fullstack:{ label: 'Full-Stack', className: 'bg-violet-500/10 text-violet-600 dark:text-violet-400 border-violet-500/20' },
+  cloud:    { label: 'Cloud',      className: 'bg-sky-500/10 text-sky-600 dark:text-sky-400 border-sky-500/20' },
+  frontend: { label: 'Frontend',   className: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20' },
+}
+
 export function ExperienceDetailView({ experience, relatedProjects, presentLabel, locale }: Props) {
   const startFormatted = formatYearMonth(experience.startDate, locale)
   const endFormatted = experience.endDate ? formatYearMonth(experience.endDate, locale) : presentLabel
   const isCompany = experience.type === 'company'
 
   return (
-    <div className="mx-auto max-w-3xl">
+    <div className="mx-auto max-w-4xl">
 
       {/* Back link */}
       <Link
         href={`/${locale}/experience`}
-        className="mb-8 inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
+        className="mb-8 inline-flex items-center gap-2 rounded-lg border border-border bg-card px-3 py-1.5 text-sm text-muted-foreground transition-all hover:border-primary/30 hover:bg-primary/5 hover:text-foreground"
       >
         <ArrowLeft size={14} strokeWidth={1.5} className="rtl:rotate-180" />
         All Experience
@@ -71,14 +78,24 @@ export function ExperienceDetailView({ experience, relatedProjects, presentLabel
                 </Badge>
               </div>
               <h1 className="mb-3 text-2xl font-bold text-foreground">
-                {experience.description.split('.')[0]}
+                {experience.role ?? experience.description.split('.')[0]}
               </h1>
             </>
           )}
 
-          <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-            {startFormatted} — {endFormatted}
-          </p>
+          <div className="flex flex-wrap items-center gap-3">
+            <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+              {startFormatted} — {endFormatted}
+            </p>
+            {(() => {
+              const badge = experience.domain ? DOMAIN_BADGE[experience.domain] : undefined
+              return badge ? (
+                <Badge variant="outline" className={`text-xs ${badge.className}`}>
+                  {badge.label}
+                </Badge>
+              ) : null
+            })()}
+          </div>
         </div>
       </div>
       </SectionReveal>
@@ -189,6 +206,24 @@ export function ExperienceDetailView({ experience, relatedProjects, presentLabel
           </div>
         </div>
       )}
+
+      {/* Bottom CTA — closes the content→blank→footer gap */}
+      <div className="mt-12 flex items-center justify-between border-t border-border pt-8">
+        <Link
+          href={`/${locale}/experience`}
+          className="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-4 py-2 text-sm text-muted-foreground transition-all hover:border-primary/30 hover:bg-primary/5 hover:text-foreground"
+        >
+          <ArrowLeft size={14} strokeWidth={1.5} className="rtl:rotate-180" />
+          Back to Experience
+        </Link>
+        <Link
+          href={`/${locale}/contact`}
+          className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
+        >
+          Get In Touch
+          <ArrowRight size={14} strokeWidth={1.5} className="rtl:rotate-180" />
+        </Link>
+      </div>
 
     </div>
   )

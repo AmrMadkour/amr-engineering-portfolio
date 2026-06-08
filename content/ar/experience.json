@@ -118,7 +118,7 @@
     "featured": true,
     "domain": "fullstack",
     "company": null,
-    "role": null,
+    "role": "AMR Engineering Portfolio",
     "startDate": "2026-01",
     "endDate": null,
     "description": "منصة معرض أعمال هندسي مبنية كتمرين هندسي حقيقي. واجهة برمجية خلفية بـ .NET 10 Minimal API بأربع طبقات Clean Architecture؛ وواجهة أمامية بـ Next.js 15 App Router مع ISR ودعم ثلاث لغات (EN/AR/NL) وتخطيط RTL ووضع مظلم.",

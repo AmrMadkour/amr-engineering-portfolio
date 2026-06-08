@@ -37,14 +37,14 @@ export function ExperienceListCard({ experience, presentLabel, locale, projectCo
           {experience.type === 'company'
             ? <Building2 size={15} strokeWidth={1.5} className="text-muted-foreground/50" />
             : badge.icon
-              ? <badge.icon size={15} strokeWidth={1.5} className="text-muted-foreground/50" />
+              ? <badge.icon size={15} strokeWidth={1.5} className="text-violet-500" />
               : null}
           <div className="mt-1 w-px flex-1 min-h-[2rem] bg-border/50" />
         </div>
 
         {/* Right — content */}
         <div className="flex-1 min-w-0">
-          <div className="mb-1 flex flex-wrap items-center gap-2">
+          <div className="mb-1 flex flex-wrap items-center gap-2 exp-card-header">
             {experience.type === 'company' ? (
               <>
                 <span className="text-sm font-semibold text-foreground">{experience.role}</span>
@@ -59,11 +59,11 @@ export function ExperienceListCard({ experience, presentLabel, locale, projectCo
 
           {experience.type !== 'company' && (
             <p className="mb-1 text-sm font-medium text-foreground line-clamp-1">
-              {experience.description.split('.')[0]}
+              {experience.role ?? experience.description.split('.')[0]}
             </p>
           )}
 
-          <p className="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground/60">
+          <p className="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground/60 exp-card-date">
             {startFormatted} — {endFormatted}
             {projectCount > 0 && (
               <span className="ms-3 normal-case tracking-normal font-normal">
@@ -72,11 +72,11 @@ export function ExperienceListCard({ experience, presentLabel, locale, projectCo
             )}
           </p>
 
-          <p className="text-sm text-muted-foreground leading-relaxed">
+          <p className="text-sm text-muted-foreground leading-relaxed exp-card-desc">
             {toCompleteSentences(experience.description)}
           </p>
 
-          <div className="mt-4 flex flex-wrap items-center justify-between gap-2">
+          <div className="mt-4 flex flex-wrap items-center justify-between gap-2 exp-card-tech">
             <div className="flex flex-wrap gap-1.5">
               {experience.technologies.slice(0, 8).map((tech) => (
                 <Badge

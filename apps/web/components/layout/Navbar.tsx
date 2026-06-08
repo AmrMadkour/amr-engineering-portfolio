@@ -1,7 +1,6 @@
 'use client'
 
 import { useRef, useState, useEffect } from 'react'
-import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import {
@@ -87,6 +86,7 @@ export function Navbar({ locale }: NavbarProps) {
   const currentLocale = LOCALES.find((l) => l.code === locale)
 
   return (
+    <>
     <header className={cn('nav-header', scrolled && 'nav-header--scrolled')}>
 
       {/* ── Main bar ── */}
@@ -104,17 +104,7 @@ export function Navbar({ locale }: NavbarProps) {
             }
           }}
         >
-          <div className="nav-avatar">
-            <Image
-              src="/amr-madkour-2.jpg"
-              alt="Amr Madkour"
-              width={52}
-              height={52}
-              className="nav-avatar-img"
-              priority
-            />
-          </div>
-          <p className="nav-name">Amr Madkour</p>
+          <p className="nav-name"><span className="nav-name-first">Amr</span> Madkour</p>
         </Link>
 
         {/* Center — Desktop nav icons */}
@@ -205,29 +195,30 @@ export function Navbar({ locale }: NavbarProps) {
         </div>
       </nav>
 
-      {/* ── Mobile menu panel ── */}
-      {menuOpen && (
-        <div className="nav-mobile-panel">
-          {NAV_ITEMS.map(({ key, href }) => (
-            <Link
-              key={key}
-              href={getFullHref(href)}
-              className={cn('nav-mobile-link', isNavActive(href) && 'nav-mobile-link--active')}
-              scroll={false}
-              onClick={(e) => {
-                setMenuOpen(false)
-                if (isNavActive(href)) {
-                  e.preventDefault()
-                  smoothScrollTop()
-                }
-              }}
-            >
-              {t(key)}
-            </Link>
-          ))}
-        </div>
-      )}
-
     </header>
+
+    {/* ── Mobile menu drawer — outside <header> so it gets a global z-index ── */}
+    {menuOpen && (
+      <div className="nav-mobile-panel">
+        {NAV_ITEMS.map(({ key, href }) => (
+          <Link
+            key={key}
+            href={getFullHref(href)}
+            className={cn('nav-mobile-link', isNavActive(href) && 'nav-mobile-link--active')}
+            scroll={false}
+            onClick={(e) => {
+              setMenuOpen(false)
+              if (isNavActive(href)) {
+                e.preventDefault()
+                smoothScrollTop()
+              }
+            }}
+          >
+            {t(key)}
+          </Link>
+        ))}
+      </div>
+    )}
+    </>
   )
 }

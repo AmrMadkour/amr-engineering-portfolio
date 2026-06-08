@@ -1,6 +1,7 @@
 import { getTranslations } from 'next-intl/server'
 import { Section } from '@/components/layout/Section'
 import { Container } from '@/components/layout/Container'
+import { SectionReveal } from '@/components/layout/SectionReveal'
 import { SkillsCarousel } from './SkillsCarousel'
 import type { SkillsData } from '@/types/skills'
 
@@ -25,10 +26,12 @@ export async function SkillsSection({ locale }: SkillsSectionProps) {
   return (
     <Section id="skills">
       <Container>
-        <div className="mb-10 text-center">
-          <h2 className="mb-2">{t('sectionTitle')}</h2>
-          <p className="text-muted-foreground">{t('sectionSubtitle')}</p>
-        </div>
+        <SectionReveal>
+          <div className="mb-10 text-center">
+            <h2 className="mb-2 section-heading">{t('sectionTitle')}</h2>
+            <p className="text-muted-foreground section-subheading">{t('sectionSubtitle')}</p>
+          </div>
+        </SectionReveal>
       </Container>
       <Container>
         <SkillsCarousel categories={data.categories} />

@@ -34,7 +34,11 @@ export function ExperienceTeaserCard({ experience, presentLabel, locale }: Props
 
   return (
     <Link href={`/${locale}/experience/${experience.slug}`} className="group block h-full">
-      <div className="relative h-full overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-0.5">
+      <div className={`relative h-full overflow-hidden rounded-2xl border bg-card transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 ${
+        experience.type === 'company'
+          ? 'border-border hover:border-primary/40 hover:shadow-primary/5'
+          : 'border-emerald-500/30 hover:border-emerald-500/60 hover:shadow-emerald-500/5'
+      }`}>
 
         {/* Gradient top band */}
         <div className={`h-1 w-full bg-gradient-to-r ${config.accent.replace('/20', '/60').replace('/5', '/0')}`} />
@@ -45,7 +49,7 @@ export function ExperienceTeaserCard({ experience, presentLabel, locale }: Props
         <div className="relative p-6 flex flex-col h-full">
 
           {/* Header row */}
-          <div className="mb-4 flex items-start justify-between gap-3">
+          <div className="mb-4 flex items-start justify-between gap-3 exp-card-header">
             <div className="flex-1 min-w-0">
               {experience.type === 'company' ? (
                 <>
@@ -65,7 +69,7 @@ export function ExperienceTeaserCard({ experience, presentLabel, locale }: Props
                     </p>
                   </div>
                   <h3 className="text-base font-semibold text-foreground leading-snug">
-                    {experience.description.split('.')[0]}
+                    {experience.role ?? experience.description.split('.')[0]}
                   </h3>
                 </>
               )}
@@ -78,17 +82,17 @@ export function ExperienceTeaserCard({ experience, presentLabel, locale }: Props
           </div>
 
           {/* Duration */}
-          <p className="mb-3 text-xs font-medium uppercase tracking-wide text-muted-foreground/70">
+          <p className="mb-3 text-xs font-medium uppercase tracking-wide text-muted-foreground/70 exp-card-date">
             {startFormatted} — {endFormatted}
           </p>
 
           {/* Summary */}
-          <p className="text-sm text-muted-foreground leading-relaxed flex-1">
+          <p className="text-sm text-muted-foreground leading-relaxed flex-1 exp-card-desc">
             {overview}
           </p>
 
           {/* Key tech chips — top 8 */}
-          <div className="mt-6 flex flex-wrap gap-1.5">
+          <div className="mt-6 flex flex-wrap gap-1.5 exp-card-tech">
             {experience.technologies.slice(0, 8).map((tech) => (
               <Badge
                 key={tech}

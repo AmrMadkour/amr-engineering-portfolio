@@ -9,7 +9,7 @@
     "role": "Senior Software Developer",
     "startDate": "2023-07",
     "endDate": null,
-    "description": "Part of a cross-functional team rebuilding the TIQM survey platform from a legacy MVC system into a distributed microservice architecture. Work spans backend services, AWS cloud infrastructure, and React-based survey flows across a market research product used worldwide.",
+    "description": "Part of a cross-functional team of four senior developers rebuilding the TIQM survey platform — a worldwide market-research product — from a legacy MVC system into a distributed microservice architecture. Work spans backend services, AWS cloud infrastructure, and React-based survey flows covering the full survey lifecycle.",
     "highlights": [
       "Led migration of TIQM from MVC to microservices alongside three senior developers, splitting responsibilities across Cambridge (orchestration), Lexicon (solution management), and Thesaurus (user metadata) services",
       "Built and maintained backend services covering the full survey lifecycle: creation, update, duplication, retrieval, and validation",
@@ -28,14 +28,14 @@
     "role": "Software Developer",
     "startDate": "2020-11",
     "endDate": "2023-07",
-    "description": "Worked across two platform tracks: the Dashboard Platform (three tools for managing client KPIs, ads, and survey data) and a Kafka-based Consumer Platform built to process real-time DMP events. Delivered features across backend APIs, SQL data layers, and frontend components.",
+    "description": "Engineered features across two platform tracks: the Dashboard Platform (three internal tools managing client KPIs, ad performance, and survey data) and a greenfield Kafka-based Consumer Platform processing real-time DMP events end-to-end. Maintained and scaled backend APIs, SQL data layers, and frontend components across the full release cycle.",
     "highlights": [
       "Supported three connected dashboard tools (Admin, Scorecard, Visual Library) handling KPI management, scorecard uploads, and client-facing data visualization",
       "Built a Kafka-based event-consumption platform from scratch: consumed DMP events from AKHQ, applied processing and transformation logic, and fed the results to the dashboard in real time",
       "Developed and maintained features across the full event-processing pipeline including backend services, data persistence, and frontend display",
       "Delivered ongoing feature work and platform improvements as part of the team's regular release cycle"
     ],
-    "technologies": [".NET 4", ".NET Core", "REST API", "ASP.NET MVC", "Knockout.js", "SQL Server", "Entity Framework", "Kafka", "AKHQ", "TDD", "Azure DevOps"]
+    "technologies": [".NET Framework 4.x", ".NET Core", "REST API", "ASP.NET MVC", "Knockout.js", "SQL Server", "Entity Framework", "Kafka", "AKHQ", "TDD", "Azure DevOps"]
   },
   {
     "id": "ict-group",
@@ -66,7 +66,7 @@
     "role": "Software Engineer",
     "startDate": "2018-03",
     "endDate": "2018-07",
-    "description": "Worked on backend integration systems at Talabat, a food delivery platform operating across the Gulf region and part of Delivery Hero. Built restaurant menu ingestion flows and order dispatch pipelines to connect Talabat's platform with external restaurant systems across different data formats.",
+    "description": "Joined as part of a targeted short-term integration engagement at Talabat, a food delivery platform operating across the Gulf region under Delivery Hero. Built restaurant menu ingestion flows and order dispatch pipelines to connect Talabat's core platform with external restaurant systems across multiple data formats and partner schemas.",
     "highlights": [
       "Processed restaurant menu data in XML and JSON, deserializing into internal Talabat models and transforming to platform-compatible structures",
       "Built reusable integration models to onboard multiple restaurant clients with different menu formats and data schemas",
@@ -118,7 +118,7 @@
     "featured": true,
     "domain": "fullstack",
     "company": null,
-    "role": null,
+    "role": "AMR Engineering Portfolio",
     "startDate": "2026-01",
     "endDate": null,
     "description": "A personal engineering project built to practice real-world architecture, not just produce a polished page. The backend is a four-layer Clean Architecture .NET 10 Minimal API; the frontend is Next.js 15 App Router with three-locale support, RTL, and dark mode.",

@@ -401,6 +401,120 @@ Get a key at https://aistudio.google.com → Get API key. Key format must start 
 
 ---
 
+---
+
+---
+
+## Session — 2026-06-08 (UX + Content Polish — COMPLETE)
+
+### Overview
+
+Full UX audit + content polish executed. All "Must" and "Should" items from the saved plan implemented and verified via Playwright (1440px + 390px). Plan is now closed.
+
+### Files changed
+
+**`apps/web/app/globals.css`**
+- Hero avatar 280px → 320px desktop; hover `scale(1.04)` + glow pulse added
+- `.hero-title` opacity 0.75 → 0.85; size clamp raised (17–24px → 18–26px)
+- `.hero-socials` — subtle `border-top` divider + `padding-top: 20px` above social icons
+- `.nav-name-first { color: var(--primary) }` — colors first name in navbar
+- Hero bio: `line-clamp-4` on ≤860px mobile breakpoint
+- Footer top padding 64px → 40px
+
+**`apps/web/app/[locale]/layout.tsx`**
+- Added `<noscript><style>` override for `.s-reveal` — sections stay visible without JS (NEW-2)
+
+**`apps/web/components/layout/Navbar.tsx`**
+- `<p class="nav-name">Amr Madkour</p>` → `<span class="nav-name-first">Amr</span> Madkour` (UX-9)
+
+**`apps/web/features/Hero/HeroSection.tsx`**
+- Hero photo `width`/`height` props 280 → 320 (UX-1)
+
+**`apps/web/features/ExperiencePreview/ExperienceTeaserCard.tsx`**
+- Company vs personal colored border distinction (UX-10)
+- Personal card title: `experience.role ?? description.split('.')[0]` (NEW-1)
+- Card stagger tightened 0.1 + i*0.1s (UX-27)
+
+**`apps/web/features/ExperiencePreview/ExperiencePreviewSection.tsx`**
+- Stagger delay tightened (UX-27)
+
+**`apps/web/features/ExperienceTimeline/ExperienceListCard.tsx`**
+- Personal icon color `text-muted-foreground/50` → `text-violet-500` (UX-13)
+- Personal title: `experience.role ?? description.split('.')[0]` (NEW-1)
+
+**`apps/web/features/ExperienceTimeline/ExperienceFilterBar.tsx`**
+- Active pill: `border-primary bg-primary/10 text-primary` → `border-primary bg-primary text-white` (UX-12)
+
+**`apps/web/features/ExperienceTimeline/ExperienceDetailView.tsx`**
+- Max-width `max-w-3xl` → `max-w-4xl` (UX-14)
+- Back link restyled as button with hover state (UX-15)
+- Domain badge added inline with date in header (UX-16)
+- End CTA row added: Back to Experience (left) + Get In Touch (right, primary) (UX-17)
+- Personal title: `experience.role ?? description.split('.')[0]` (NEW-1)
+- Fixed TypeScript narrowing on `DOMAIN_BADGE` index access
+
+**`apps/web/features/TechnicalSkills/SkillIcon.tsx`**
+- Added: Kafka, HL7, Next.js, Tailwind CSS, AWS S3, API Gateway, GitHub Actions, TDD icons
+- Removed: jQuery entry; `SiAmazons3` import (doesn't exist in package) → `Database` lucide fallback
+
+**`apps/web/features/Footer/FooterSection.tsx`**
+- Added Home as first Quick Link (UX-24)
+
+**`apps/web/app/[locale]/contact/page.tsx`**
+- Email subtitle → `t('ctaEmailSub')` "Send a message directly" instead of raw gmail (UX-18)
+- LinkedIn subtitle → "Connect on LinkedIn" instead of raw URL (UX-19)
+- Added `generateMetadata` (SE-19)
+
+**`apps/web/app/[locale]/experience/page.tsx`**
+- Added `generateMetadata` (SE-19)
+
+**`apps/web/app/[locale]/experience/[slug]/page.tsx`**
+- Added `generateMetadata` with dynamic role+company title (SE-19)
+
+**`apps/web/messages/{en,ar,nl}.json`**
+- `Metadata.title` / `Metadata.description` — "Senior .NET Engineer" → "Senior Software Engineer" (SE-18)
+- `Contact.headline` → "Let's Work Together" (UX-20)
+- `Contact.ctaEmail` → "Email me"; added `Contact.ctaEmailSub` (UX-18)
+- `Footer.home` added (UX-24)
+
+**`content/en/skills.json`**
+- Removed: jQuery
+- Added: Kafka, Next.js, Tailwind CSS, TDD, HL7, AWS S3, API Gateway, GitHub Actions
+
+**`content/{ar,nl}/skills.json`**
+- Same structural changes, category titles in respective languages
+
+**`content/en/experience.json`**
+- Metrixlab Senior: enriched description with real scale signals (SE-10)
+- Metrixlab Developer: stronger verbs, ".NET Framework 4.x" (SE-11, SE-12)
+- Talabat: short-term engagement framing (SE-13)
+- `amr-portfolio`: `role: null` → `"role": "AMR Engineering Portfolio"` (NEW-1)
+
+**`content/{ar,nl}/experience.json`**
+- `amr-portfolio` role fix applied to all locales (NEW-1)
+
+**`content/en/projects.json`**
+- Added: `nahdet-misr-hr-payroll` — HR & Payroll Management System (SE-14)
+- Added: `smart-innovation-client-platforms` — Client Web Applications & Internal Tools (SE-15)
+
+**`content/{ar,nl}/projects.json`**
+- Same two new projects with AR/NL translations
+
+**`content/{ar,nl}/recommendations.json`**
+- Translated all 3 recommendations from English into Arabic and Dutch respectively
+
+### Decisions
+
+- **UX-11, NEW-3, UX-26 deferred**: all three are "Nice" priority, no material impact — UX-11 (extra highlight on most-recent teaser card), NEW-3 (timeline spine on list), UX-26 (skeleton loader). Closed the plan without them.
+- **UX-7 verified**: About section framer-motion `whileInView` works correctly in a real browser. Playwright fullPage screenshot captures initial `opacity:0` state — not a real user issue.
+- **`SiAmazons3` doesn't exist** in `react-icons/si` package — replaced with `Database` lucide icon (same bg color).
+
+### Gotchas
+
+- **react-icons/si gaps**: before adding a new `Si*` import, verify the export name exists in the package. `SiAmazons3` looked valid but doesn't exist — `SiAmazonwebservices` is the brand logo, no per-service S3 icon available.
+
+---
+
 ## Next
 
 - **Push current branch** to remote (awaiting user review)
@@ -505,3 +619,109 @@ Get a key at https://aistudio.google.com → Get API key. Key format must start 
 - `SonarAnalyzer` + `TreatWarningsAsErrors` needs one `.editorconfig` calibration pass so clean code still builds.
 - Custom domain not yet provided — Groups A–F + H proceed on `.vercel.app`; G swaps it in with zero code changes.
 - No self-hosted SonarQube/SonarCloud — build-time analyzers replace it (free, private-repo friendly). SonarLint IDE plugin = optional bonus.
+
+---
+
+---
+
+## UX + Content Polish Plan — COMPLETE ✓
+
+> **STATUS: FULLY IMPLEMENTED — 2026-06-08.**
+> Full audit performed via Playwright (desktop 1440px + mobile 390px) across all pages + complete content JSON review.
+> Implementation order: approve Role 1 (UX) → implement → approve Role 2 (Content) → implement. Both are independent.
+
+---
+
+### Role 1 — Senior UX Designer
+
+#### Image & Photo Decisions (Direct Answers)
+- **3 images (hero/contact/footer) — not too much.** Each serves a distinct purpose. Keep all three.
+- **Hero photo** (`amr-madkour-2.jpg`, outdoor smart-casual): good choice, approachable + professional. Issue is display size (280px too small on desktop), not the photo itself.
+- **Contact photo** (`amr-madkour.jpg`, formal event/suit/flags): stronger photo — confident, professional. Keep it on contact page.
+- **Hero photo hover animation**: currently absent — worth adding (subtle scale + glow).
+
+#### Hero Section
+- **UX-1** Hero photo too small on desktop (280px) — increase to 340×340px desktop, keep 200px ≤860px
+- **UX-2** No hover animation on hero photo — add `scale(1.04)` + glow pulse on hover, 0.3s ease
+- **UX-3** Too much empty vertical space in hero (`clamp(520px, 62vh, 700px)`) — change `min-height` to `auto`, use padding only
+- **UX-4** "Senior Software Engineer" title has same visual weight as bio — increase size slightly, reduce opacity 0.75→0.85
+- **UX-5** Social icon row feels disconnected from CTAs — add subtle divider above or integrate with CTA row
+- **UX-6** Page `<title>` says "Senior .NET Engineer" but page says "Senior Software Engineer" — align via `generateMetadata`
+
+#### About Section
+- **UX-7** `AboutAnimated` uses Framer Motion `whileInView` — verify paragraphs 2 & 3 are visible in real browser; if broken, migrate to CSS `s-reveal` + `IntersectionObserver` pattern used everywhere else
+
+#### Navbar
+- **UX-8** Avatar photo removed from navbar — restore 52×52 circular avatar next to name (adds personal recognition)
+- **UX-9** "Amr Madkour" name is plain white — color first name "Amr" in `var(--primary)` for brand signature
+
+#### Experience Preview (Home — 3 cards)
+- **UX-10** No visual distinction between company vs personal project cards — add colored left-border or type badge per card
+- **UX-11** All 3 cards equal visual weight — give most recent (Metrixlab Senior) a faint primary-tinted border
+
+#### Experience List Page
+- **UX-12** Active filter pill uses only outline ring — change to solid filled background (`bg-primary text-white`)
+- **UX-13** All cards use same icon/color — give Personal Project cards different icon color (violet/amber)
+
+#### Experience Detail Pages
+- **UX-14** Content too narrow (~680px) on 1440px viewport — feels like a blog post; increase max-width to ~860px
+- **UX-15** "← All Experience" back link is tiny plain text — style as proper back button with hover state
+- **UX-16** Detail header card is text-only — add domain badge (`{BE}` / `{FS}`) or colored accent to header
+- **UX-17** Pages end: content → blank gap → footer — add "Back to Experience" or "View full timeline" CTA before footer
+
+#### Contact Page
+- **UX-18** Email `mismadkor14@gmail.com` is personal-style — use professional email or display as "Email me" without raw address
+- **UX-19** LinkedIn shows full raw URL — display as `linkedin.com/in/amr-madkour` (shortened)
+- **UX-20** Heading "Want to work together?" slightly informal — change to "Let's Work Together" or "Get In Touch"
+
+#### Mobile (390px)
+- **UX-21** Skills carousel shows only ~1.3 cards on mobile — reduce card width to 220px so ~1.6 cards visible (suggests scrollability)
+- **UX-22** Hero bio is long and dense on small screen — add `line-clamp-4` on mobile, `sm:line-clamp-none`
+- **UX-23** Chat FAB may overlap content on some pages — verify no clipping, adjust bottom offset if needed
+
+#### Footer
+- **UX-24** "Quick Links" missing Home — add as first entry
+- **UX-25** Footer top padding 64px → reduce to 40px (less empty space)
+
+#### Animations
+- **UX-26** No skeleton loader on experience list — add minimal pulse skeleton for the API fetch gap
+- **UX-27** Experience preview card stagger delay too slow (0.45s for 3rd card) — tighten to `0.1 + i * 0.1s`
+
+**Priority: Must** = UX-1,2,3,6,8,14,18,19 | **Should** = UX-4,7,9,10,12,15,17,20,21,24 | **Nice** = UX-5,11,13,16,22,23,25,26,27
+
+---
+
+### Role 2 — Senior Software Engineer (Content Review)
+
+> Writing quality is clean throughout — no spelling or grammar errors found. Issues are about completeness, depth, and positioning.
+
+#### Skills (highest ROI — missing skills already demonstrated in projects)
+- **SE-1** Kafka missing from skills — used in 2 experience entries ← most glaring omission
+- **SE-2** Next.js missing from Frontend Development — used in portfolio project
+- **SE-3** Tailwind CSS missing — used in portfolio project; CSS3 is too generic
+- **SE-4** jQuery listed in Frontend — signals 2010s tech in 2026; remove entirely
+- **SE-5** Angular listed but appears in zero projects/experience — verify and add project, or remove
+- **SE-6** TDD explicitly used in Consumer Event Platform project but not in skills — add to Architecture & Quality
+- **SE-7** HL7 used in Meditop Medical but not in skills — add to Backend Development
+- **SE-8** AWS services (S3, CloudWatch, API Gateway) in projects/experience but not in skills — surface in Cloud & DevOps
+- **SE-9** GitHub Actions missing from Cloud & DevOps — now dominant CI/CD tool
+
+#### Experience Descriptions
+- **SE-10** Metrixlab Senior — strong but no scale metrics; add one concrete number (team size, survey volume, infra scale)
+- **SE-11** Metrixlab Developer — ".NET 4" phrasing → ".NET Framework 4.x"
+- **SE-12** Metrixlab Developer — "worked across" / "supported" are weak verbs → "Engineered" / "maintained and scaled"
+- **SE-13** Talabat — 4-month tenure with no context; add one sentence framing it as a targeted short-term engagement
+- **SE-14** Nahdet Misr — 0 projects linked despite 5 internal systems; add 1 project card (HR + Payroll system)
+
+#### Projects
+- **SE-15** Smart Innovation — 0 projects (entry-level, optional); add 1 small project to round out career arc
+- **SE-16** HoloLens POC — says "POC" but doesn't explain the business use case; add the intended domain (industrial, research, etc.)
+
+#### Recommendations
+- **SE-17** All 3 recommendations are generic (personality traits only, no technical achievements) — reach out to Wendy Boonstra, Moinudeen Rahmathulla, Mostafa Metwally for revised testimonials mentioning specific projects, metrics, or contributions
+
+#### Metadata & Positioning
+- **SE-18** Browser tab title "Senior .NET Engineer" vs page "Senior Software Engineer" — align all metadata to "Senior Software Engineer"
+- **SE-19** `generateMetadata` missing from `/experience/[slug]`, `/experience`, `/contact` — add unique title+description per route
+
+**Priority: Must** = SE-1,2,3,4,5,18 | **High** = SE-6,10,12,14,17 | **Should** = SE-7,8,9,11,13,19 | **Optional** = SE-15,16

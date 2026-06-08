@@ -1,7 +1,7 @@
 {
   "Metadata": {
-    "title": "Amr Madkour — Senior .NET Engineer",
-    "description": "Senior .NET Engineer specializing in clean architecture, full-stack development, and AI integration."
+    "title": "Amr Madkour — Senior Software Engineer",
+    "description": "Senior Software Engineer specializing in clean architecture, full-stack development, and AI integration."
   },
   "Navigation": {
     "home": "Home",
@@ -64,9 +64,10 @@
     "cta": "Read about my AI workflow"
   },
   "Contact": {
-    "headline": "Want to work together?",
+    "headline": "Let's Work Together",
     "subtext": "I'm open to senior engineering roles, technical consulting, and architecture reviews.",
-    "ctaEmail": "Send an Email",
+    "ctaEmail": "Email me",
+    "ctaEmailSub": "Send a message directly",
     "ctaLinkedIn": "LinkedIn",
     "ctaGitHub": "GitHub",
     "ctaBookMeeting": "Book a Meeting",
@@ -75,6 +76,7 @@
   "Footer": {
     "passion": "Passionate about clean architecture, AI-augmented engineering, and systems built to last.",
     "quickLinks": "Quick Links",
+    "home": "Home",
     "connect": "Connect with me",
     "allRightsReserved": "All rights reserved.",
     "privacyPolicy": "Privacy Policy",

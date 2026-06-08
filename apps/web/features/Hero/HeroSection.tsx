@@ -96,8 +96,8 @@ export async function HeroSection({ profile, locale }: HeroSectionProps) {
             <Image
               src="/amr-madkour-2.jpg"
               alt={profile.name}
-              width={280}
-              height={280}
+              width={320}
+              height={320}
               className="hero-avatar-img"
               priority
             />

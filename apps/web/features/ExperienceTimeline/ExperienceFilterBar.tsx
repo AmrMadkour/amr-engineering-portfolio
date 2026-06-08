@@ -41,7 +41,7 @@ const ERA_LABELS: Record<string, string> = {
 
 const pillBase = 'rounded-full border px-3 py-1 text-xs font-medium transition-colors duration-150 cursor-pointer select-none whitespace-nowrap'
 const pillOff  = 'border-border bg-card text-muted-foreground hover:border-primary/30 hover:text-foreground'
-const pillOn   = 'border-primary bg-primary/10 text-primary'
+const pillOn   = 'border-primary bg-primary text-white'
 
 function isFiltered(filter: ExperienceFilter) {
   return filter.type !== 'all' || filter.domain !== null || filter.era !== null

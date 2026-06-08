@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getTranslations } from 'next-intl/server'
 import { getExperience } from '@/services/experience'
@@ -8,6 +9,20 @@ import { ExperienceDetailView } from '@/features/ExperienceTimeline/ExperienceDe
 
 interface Props {
   params: Promise<{ locale: string; slug: string }>
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale, slug } = await params
+  const allExperience = await getExperience(locale).catch(() => [])
+  const experience = allExperience.find((e) => e.slug === slug)
+  if (!experience) return {}
+  const title = experience.type === 'company'
+    ? `${experience.role} at ${experience.company} — Amr Madkour`
+    : `${experience.role ?? 'Personal Project'} — Amr Madkour`
+  return {
+    title,
+    description: experience.description.slice(0, 155),
+  }
 }
 
 export default async function ExperienceDetailPage({ params }: Props) {

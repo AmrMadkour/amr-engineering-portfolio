@@ -19,8 +19,8 @@ export async function RecommendationsSection({ recommendations }: Recommendation
       <Container>
         <SectionReveal>
           <div className="mb-10 text-center">
-            <h2 className="mb-2">{t('sectionTitle')}</h2>
-            <p className="text-muted-foreground">{t('sectionSubtitle')}</p>
+            <h2 className="mb-2 section-heading">{t('sectionTitle')}</h2>
+            <p className="text-muted-foreground section-subheading">{t('sectionSubtitle')}</p>
           </div>
         </SectionReveal>
         <RecommendationsGrid recommendations={recommendations} />

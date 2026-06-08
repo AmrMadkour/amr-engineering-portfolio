@@ -91,6 +91,32 @@
     "experienceId": "talabat"
   },
   {
+    "id": "nahdet-misr-hr-payroll",
+    "slug": "nahdet-misr-hr-payroll",
+    "title": "HR & Salarisbeheer Systeem",
+    "description": "Een kernbedrijfssysteem voor het beheren van human resources en salarisoperaties voor een van Egypte's grootste uitgevers- en onderwijsgroepen. Het systeem verwerkte personeelsdossiers, contractbeheer, salarisberekening en rapportage over de afdelingen van de organisatie. Gebouwd op ASP.NET Web Forms met een SQL Server-backend, ondersteunde de applicatie complexe salarisregels, inhoudingen en toeslagen voor een grote personeelsbasis. Doorlopende feature-oplevering, bugfixes en prestatieverbeteringen werden toegepast gedurende een meerjarig traject voor zowel web- als desktopclients.",
+    "tags": ["ASP.NET Web Forms", "C#", "SQL Server", "ADO.NET", "Windows Forms"],
+    "liveUrl": null,
+    "repoUrl": null,
+    "startDate": "2016-05",
+    "endDate": "2018-02",
+    "featured": false,
+    "experienceId": "nahdet-misr"
+  },
+  {
+    "id": "smart-innovation-client-platforms",
+    "slug": "smart-innovation-client-platforms",
+    "title": "Klantwebapplicaties & Interne Tools",
+    "description": "Een portfolio van klantgerichte webapplicaties en interne bedrijfstools geleverd in meerdere sectoren tijdens de eerste professionele engineeringrol. Projecten omvatten de volledige leveringscyclus: van eisenverzameling tot onderhoud na livegang, met werk dat klantportalen, databeheerinterfaces en administratieve dashboards besloeg. Gebouwd op ASP.NET Web Forms en Windows Forms met SQL Server, waarmee een fundamenteel begrip van volledige softwareleveringscycli werd opgebouwd.",
+    "tags": ["ASP.NET Web Forms", "Windows Forms", "C#", "SQL Server", "ADO.NET"],
+    "liveUrl": null,
+    "repoUrl": null,
+    "startDate": "2015-03",
+    "endDate": "2016-04",
+    "featured": false,
+    "experienceId": "smart-innovation"
+  },
+  {
     "id": "amr-engineering-portfolio",
     "slug": "amr-engineering-portfolio",
     "title": "AMR Engineering Portfolio",

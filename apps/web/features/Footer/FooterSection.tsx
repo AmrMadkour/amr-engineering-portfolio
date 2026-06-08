@@ -26,7 +26,7 @@ export async function FooterSection({ locale }: Props) {
             width={88}
             height={88}
             className="footer-avatar"
-            style={{ objectFit: 'cover', objectPosition: 'center' }}
+            style={{ objectFit: 'cover', objectPosition: 'center top' }}
           />
           <p className="footer-name">{profile.name}</p>
           <p className="footer-tagline">{profile.title}</p>
@@ -36,6 +36,9 @@ export async function FooterSection({ locale }: Props) {
         <div className="footer-cols">
           <div className="footer-col">
             <p className="footer-col-label">{t('quickLinks')}</p>
+            <SmartLink href={`/${locale}`} className="footer-col-value">
+              {t('home')}
+            </SmartLink>
             <SmartLink href={`/${locale}/experience`} className="footer-col-value">
               {tNav('experience')}
             </SmartLink>

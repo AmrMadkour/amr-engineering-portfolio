@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import Image from 'next/image'
 import { getTranslations } from 'next-intl/server'
 import { Mail, CalendarDays, MapPin } from 'lucide-react'
@@ -8,6 +9,15 @@ import { GitHubIcon, LinkedInIcon } from '@/components/ui/icons'
 import { getProfile } from '@/services/profile'
 
 type Props = { params: Promise<{ locale: string }> }
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params
+  const t = await getTranslations({ locale, namespace: 'Metadata' })
+  return {
+    title: `Contact — ${t('title')}`,
+    description: 'Get in touch with Amr Madkour — open to senior engineering roles, technical consulting, and architecture reviews.',
+  }
+}
 
 export default async function ContactPage({ params }: Props) {
   const { locale } = await params
@@ -39,7 +49,7 @@ export default async function ContactPage({ params }: Props) {
                     </div>
                     <div>
                       <p className="text-sm font-semibold text-foreground">{t('ctaEmail')}</p>
-                      <p className="text-xs text-muted-foreground">{profile.email}</p>
+                      <p className="text-xs text-muted-foreground">{t('ctaEmailSub')}</p>
                     </div>
                   </a>
                 </SectionReveal>
@@ -57,7 +67,7 @@ export default async function ContactPage({ params }: Props) {
                       </div>
                       <div>
                         <p className="text-sm font-semibold text-foreground">{t('ctaLinkedIn')}</p>
-                        <p className="text-xs text-muted-foreground">{profile.linkedInUrl.replace('https://', '')}</p>
+                        <p className="text-xs text-muted-foreground">Connect on LinkedIn</p>
                       </div>
                     </a>
                   </SectionReveal>

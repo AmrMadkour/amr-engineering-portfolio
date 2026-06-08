@@ -91,6 +91,32 @@
     "experienceId": "talabat"
   },
   {
+    "id": "nahdet-misr-hr-payroll",
+    "slug": "nahdet-misr-hr-payroll",
+    "title": "نظام إدارة الموارد البشرية والرواتب",
+    "description": "نظام أعمال داخلي أساسي يدير عمليات الموارد البشرية والرواتب لإحدى كبرى مجموعات النشر والتعليم في مصر. يتولى النظام إدارة سجلات الموظفين وعقود العمل وحساب الرواتب وإعداد التقارير عبر أقسام المنظمة. مبني على ASP.NET Web Forms مع قاعدة بيانات SQL Server، وكان النظام يدعم قواعد رواتب معقدة مع خصومات ومستحقات لعدد كبير من الموظفين. تضمنت المهام تسليم ميزات مستمرة وإصلاح الأخطاء وتحسينات الأداء عبر تعاون ممتد بين تطبيقات الويب وسطح المكتب.",
+    "tags": ["ASP.NET Web Forms", "C#", "SQL Server", "ADO.NET", "Windows Forms"],
+    "liveUrl": null,
+    "repoUrl": null,
+    "startDate": "2016-05",
+    "endDate": "2018-02",
+    "featured": false,
+    "experienceId": "nahdet-misr"
+  },
+  {
+    "id": "smart-innovation-client-platforms",
+    "slug": "smart-innovation-client-platforms",
+    "title": "تطبيقات الويب والأدوات الداخلية للعملاء",
+    "description": "مجموعة من تطبيقات الويب الموجهة للعملاء والأدوات الداخلية التي تم تسليمها عبر قطاعات متعددة خلال أول تجربة مهنية في التطوير. غطّت المشاريع دورة التسليم الكاملة: جمع المتطلبات وبناء الميزات واختبارها ودعم التطبيقات بعد الإطلاق. شملت الأعمال بوابات العملاء وواجهات إدارة البيانات ولوحات التحكم الإدارية. مبنية على ASP.NET Web Forms وWindows Forms مع SQL Server.",
+    "tags": ["ASP.NET Web Forms", "Windows Forms", "C#", "SQL Server", "ADO.NET"],
+    "liveUrl": null,
+    "repoUrl": null,
+    "startDate": "2015-03",
+    "endDate": "2016-04",
+    "featured": false,
+    "experienceId": "smart-innovation"
+  },
+  {
     "id": "amr-engineering-portfolio",
     "slug": "amr-engineering-portfolio",
     "title": "معرض أعمال عمرو مدكور الهندسي",

@@ -118,7 +118,7 @@
     "featured": true,
     "domain": "fullstack",
     "company": null,
-    "role": null,
+    "role": "AMR Engineering Portfolio",
     "startDate": "2026-01",
     "endDate": null,
     "description": "Een monorepo-portfolioplatform gebouwd als een echte engineering-oefening. Vierlaagse Clean Architecture .NET 10 Minimal API aan de backend; Next.js 15 App Router met ISR, drietalige ondersteuning (EN/AR/NL), RTL-layout en dark mode aan de frontend.",

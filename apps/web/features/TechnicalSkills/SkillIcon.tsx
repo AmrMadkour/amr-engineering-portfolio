@@ -4,12 +4,14 @@ import {
   SiDotnet,
   SiReact,
   SiAngular,
+  SiNextdotjs,
+  SiTailwindcss,
+  SiApachekafka,
   SiTypescript,
   SiJavascript,
   SiHtml5,
   SiCss,
   SiBootstrap,
-  SiJquery,
   SiPostgresql,
   SiMongodb,
   SiRedis,
@@ -45,6 +47,7 @@ import {
   Brain,
   MonitorSmartphone,
   Bot,
+  HeartPulse,
 } from 'lucide-react'
 import type { IconType } from 'react-icons'
 import type { LucideIcon } from 'lucide-react'
@@ -71,16 +74,19 @@ const SKILL_ICON_MAP: Record<string, IconEntry> = {
   'rest apis':                     { icon: ArrowLeftRight,  color: '#fff', bg: '#1D4ED8', isLucide: true },
   'microservices':                 { icon: Network,         color: '#fff', bg: '#6366F1', isLucide: true },
   'sql server':                    { icon: Database,        color: '#fff', bg: '#CC2927', isLucide: true },
+  'kafka':                         { icon: SiApachekafka,   color: '#fff', bg: '#231F20' },
+  'hl7':                           { icon: HeartPulse,      color: '#fff', bg: '#DC2626', isLucide: true },
 
   /* ── Frontend ── */
   'react':                         { icon: SiReact,         color: '#61DAFB', bg: '#20232A' },
   'angular':                       { icon: SiAngular,       color: '#fff', bg: '#DD0031' },
+  'next.js':                       { icon: SiNextdotjs,     color: '#fff', bg: '#000000' },
+  'tailwind css':                  { icon: SiTailwindcss,   color: '#fff', bg: '#06B6D4' },
   'typescript':                    { icon: SiTypescript,    color: '#fff', bg: '#3178C6' },
   'javascript':                    { icon: SiJavascript,    color: '#000', bg: '#F7DF1E' },
   'html5':                         { icon: SiHtml5,         color: '#fff', bg: '#E34F26' },
   'css3':                          { icon: SiCss,           color: '#fff', bg: '#1572B6' },
   'bootstrap':                     { icon: SiBootstrap,     color: '#fff', bg: '#7952B3' },
-  'jquery':                        { icon: SiJquery,        color: '#fff', bg: '#0769AD' },
   'json':                          { icon: Braces,          color: '#fff', bg: '#64748B', isLucide: true },
   'xml':                           { icon: FileCode2,       color: '#fff', bg: '#64748B', isLucide: true },
 
@@ -91,8 +97,11 @@ const SKILL_ICON_MAP: Record<string, IconEntry> = {
 
   /* ── Cloud & DevOps ── */
   'aws serverless':                 { src: '/icons/aws-serverless.svg', color: '#fff', bg: '#FF9900' },
+  'aws s3':                        { icon: Database,        color: '#fff', bg: '#E25444', isLucide: true },
+  'api gateway':                   { icon: ArrowLeftRight,  color: '#fff', bg: '#8B5CF6', isLucide: true },
   'azure devops':                  { src: '/icons/azure-devops.png', blend: true, color: '#fff', bg: '#0078D4' },
   'terraform':                     { icon: SiTerraform,     color: '#fff', bg: '#7B42BC' },
+  'github actions':                { icon: SiGithubactions, color: '#fff', bg: '#2088FF' },
   'ci/cd pipelines':               { icon: SiGithubactions, color: '#fff', bg: '#2088FF' },
   'git':                           { icon: SiGit,           color: '#fff', bg: '#F05032' },
   'bitbucket':                     { icon: SiBitbucket,     color: '#fff', bg: '#0052CC' },
@@ -105,6 +114,7 @@ const SKILL_ICON_MAP: Record<string, IconEntry> = {
   'service oriented architecture': { icon: Share2,          color: '#fff', bg: '#5B21B6', isLucide: true },
   'design patterns':               { icon: LayoutTemplate,  color: '#fff', bg: '#6D28D9', isLucide: true },
   'solid principles':              { icon: ShieldCheck,     color: '#fff', bg: '#059669', isLucide: true },
+  'tdd':                           { icon: ShieldCheck,     color: '#fff', bg: '#10B981', isLucide: true },
   'unit testing':                  { icon: SiVitest,        color: '#fff', bg: '#6E9F18' },
   'agile/scrum':                   { src: '/icons/agile.png', blend: true, color: '#fff', bg: '#e0f2fe' },
 

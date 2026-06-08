@@ -9,7 +9,9 @@
         "Entity Framework",
         "REST API",
         "Microservices",
-        "SQL Server"
+        "SQL Server",
+        "Kafka",
+        "HL7"
       ]
     },
     {
@@ -18,12 +20,13 @@
       "skills": [
         "React",
         "Angular",
+        "Next.js",
         "TypeScript",
         "JavaScript",
         "HTML5",
+        "Tailwind CSS",
         "CSS3",
         "Bootstrap",
-        "jQuery",
         "JSON",
         "XML"
       ]
@@ -32,10 +35,12 @@
       "id": "cloud-devops",
       "title": "السحابة والـ DevOps",
       "skills": [
-        "AWS Lambda",
+        "AWS Serverless",
+        "AWS S3",
         "API Gateway",
         "Azure DevOps",
         "Terraform",
+        "GitHub Actions",
         "CI/CD Pipelines",
         "Git",
         "Bitbucket"
@@ -49,6 +54,7 @@
         "Service Oriented Architecture",
         "Design Patterns",
         "SOLID Principles",
+        "TDD",
         "Unit Testing",
         "Agile/Scrum"
       ]

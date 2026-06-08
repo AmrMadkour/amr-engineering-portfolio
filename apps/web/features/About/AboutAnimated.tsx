@@ -13,16 +13,26 @@ const ease = [0.22, 1, 0.36, 1] as const
 export function AboutAnimated({ title, subtitle, paragraphs }: AboutAnimatedProps) {
   return (
     <div className="text-center">
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-60px' }}
-        transition={{ duration: 0.55, ease }}
-        className="mb-10"
-      >
-        <h2 className="mb-2">{title}</h2>
-        <p className="text-muted-foreground">{subtitle}</p>
-      </motion.div>
+      <div className="mb-10">
+        <motion.h2
+          className="mb-2"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.55, ease }}
+        >
+          {title}
+        </motion.h2>
+        <motion.p
+          className="text-muted-foreground"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.5, ease, delay: 0.14 }}
+        >
+          {subtitle}
+        </motion.p>
+      </div>
 
       <div className="mx-auto max-w-4xl space-y-5 text-lg">
         {paragraphs.map((p, i) => (

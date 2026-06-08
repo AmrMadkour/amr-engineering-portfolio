@@ -6,6 +6,7 @@ import { notFound } from 'next/navigation'
 import { ThemeProvider } from '@/components/providers/ThemeProvider'
 import { Navbar } from '@/components/layout/Navbar'
 import { PageTransition } from '@/components/layout/PageTransition'
+import { ScrollRestoration } from '@/components/layout/ScrollRestoration'
 import { FooterSection } from '@/features/Footer/FooterSection'
 import { ChatWidgetLoader } from '@/features/ChatWidget/ChatWidgetLoader'
 import { routing } from '@/i18n/routing'
@@ -63,8 +64,11 @@ export default async function LocaleLayout({ children, params }: Props) {
       suppressHydrationWarning
     >
       <body className={`${outfit.variable} font-sans antialiased`}>
+        {/* Ensure sections are visible when JS is disabled */}
+        <noscript><style>{`.s-reveal { opacity: 1 !important; transform: none !important; }`}</style></noscript>
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider>
+            <ScrollRestoration />
             <Navbar locale={locale} />
             <div className="page-body"><PageTransition>{children}</PageTransition></div>
             <FooterSection locale={locale} />
