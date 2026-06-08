@@ -517,7 +517,7 @@ Full UX audit + content polish executed. All "Must" and "Should" items from the 
 
 ## Next
 
-- **Push current branch** to remote (awaiting user review)
+- **SSH push fixed** — `core.sshCommand = wsl ssh` set in `.git/config`. Claude Code's Bash tool now routes git over WSL SSH (where the GitHub key lives). Manual pushes from VS Code WSL are unaffected.
 - **Fix Gemini quota**: new Google Cloud project + new API key (see `.env.example`)
 - **Add `react-markdown`** to render Gemini markdown (bold, bullets) in chat bubbles
 - **Rate limiting** on `POST /v1/chat` (`AddRateLimiter` in Program.cs — fixed window, per-IP)
