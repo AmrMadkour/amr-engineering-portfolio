@@ -725,3 +725,32 @@ Full UX audit + content polish executed. All "Must" and "Should" items from the 
 - **SE-19** `generateMetadata` missing from `/experience/[slug]`, `/experience`, `/contact` — add unique title+description per route
 
 **Priority: Must** = SE-1,2,3,4,5,18 | **High** = SE-6,10,12,14,17 | **Should** = SE-7,8,9,11,13,19 | **Optional** = SE-15,16
+
+---
+
+## Session — 2026-06-08 (Privacy Policy + SSH fix)
+
+### Files changed
+
+- `.git/config` — `core.sshCommand = wsl ssh` (SSH push fix)
+- `content/{en,ar,nl}/pages/privacy-policy.mdx` — new; 5-section policy (Analytics, Cookies, Data Storage, Your Rights, Contact)
+- `apps/web/app/[locale]/privacy-policy/page.tsx` — rebuilt: locale→MDX import map, `generateMetadata`; replaced placeholder
+- `apps/web/next.config.ts` — added `remark-gfm` plugin so MDX tables render as `<table>` not raw text
+- `apps/web/app/globals.css` — added `.mdx-prose` block (h1/h2, p, a, ul, table, code, hr styles)
+
+### Decisions
+
+- **Privacy policy in MDX, not JSON** — it's a document (prose + formatting), not structured data. JSON would require dozens of awkward keys or raw HTML strings. The `content/{locale}/pages/` MDX pattern was already established.
+- **No Google Analytics** — not needed for a personal portfolio; avoids cookie consent banner and third-party script overhead.
+- **Policy kept short** — 5 sections covering what a visitor actually needs to know. Legal boilerplate (data controller address, retention schedule, 8-section structure) removed.
+
+### Gotchas
+
+- **SSH push from Claude Code** — the Bash tool runs in Git Bash (Windows), which has no SSH agent. User's key lives in WSL. Fix: `core.sshCommand = wsl ssh` in `.git/config` routes git SSH through WSL. Manual pushes from VS Code WSL terminal are unaffected.
+- **`remark-gfm` required for MDX tables** — `@next/mdx` does not render GFM tables by default. Without the plugin, pipe-syntax tables render as a single paragraph of text. Installed as a workspace dep in `apps/web`.
+
+### Next
+
+- **Fix Gemini quota** — new Google Cloud project + new API key → `dotnet user-secrets set "Gemini:ApiKey" "NEW_KEY"`
+- **Delete dead files** — `features/ExperienceSection/`, `ExperienceCard/`, `ExperienceAnimatedList/`, `ProjectList/`, `app/[locale]/projects/page.tsx`, `public/icons/aws.svg`
+- **Phase 4** — quality gate → deployment (Vercel + Render) → SEO → CI/CD (see Phase 4 plan above)

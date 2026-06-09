@@ -3,6 +3,7 @@ import { ArrowRight, Building2, User, Briefcase } from 'lucide-react'
 import type { Experience } from '@/types/experience'
 import { Badge } from '@/components/ui/badge'
 import { formatYearMonth } from '@/lib/formatDate'
+import { toCompleteSentences } from '@/lib/textUtils'
 
 const TYPE_BADGE = {
   company:   { label: null,               icon: null,      className: '' },
@@ -10,11 +11,6 @@ const TYPE_BADGE = {
   freelance: { label: 'Freelance',        icon: Briefcase, className: 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20' },
 }
 
-function toCompleteSentences(text: string, maxSentences = 2): string {
-  const parts = text.split(/\.\s+/)
-  const taken = parts.slice(0, maxSentences).join('. ')
-  return taken.endsWith('.') ? taken : taken + '.'
-}
 
 interface Props {
   experience: Experience

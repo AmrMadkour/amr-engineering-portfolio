@@ -26,7 +26,7 @@ export function NavLinks({ locale, mobile = false, iconOnly = false, onNavigate 
   const t = useTranslations('Navigation')
 
   return (
-    <nav className={cn('flex', mobile ? 'flex-col gap-1' : iconOnly ? 'items-center gap-0.5' : 'items-center gap-6')}>
+    <nav className={cn('flex', mobile && 'flex-col gap-1', !mobile && iconOnly && 'items-center gap-0.5', !mobile && !iconOnly && 'items-center gap-6')}>
       {NAV_ITEMS.map(({ key, href, icon: Icon }) => {
         const fullHref = href === '/' ? `/${locale}` : `/${locale}${href}`
         const isActive =

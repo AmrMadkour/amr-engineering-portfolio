@@ -1,0 +1,44 @@
+root = true
+
+[*.cs]
+indent_style = space
+indent_size = 2
+end_of_line = crlf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+# ── Roslyn code style ────────────────────────────────────────────────────────
+dotnet_style_qualification_for_field = false:suggestion
+dotnet_style_qualification_for_property = false:suggestion
+dotnet_style_object_initializer = true:suggestion
+dotnet_style_collection_initializer = true:suggestion
+csharp_style_var_for_built_in_types = false:suggestion
+csharp_style_var_when_type_is_apparent = true:suggestion
+csharp_prefer_braces = true:suggestion
+
+# ── Suppressions: false positives / intentional patterns ─────────────────────
+
+# ChatEventDto is intentionally an empty abstract record (discriminated-union base)
+dotnet_diagnostic.S2094.severity = none
+
+# TODO in Program.cs marks a known future-work item, not forgotten code
+dotnet_diagnostic.S1135.severity = none
+
+# Log.Fatal + throw is correct — S2139 doesn't recognise the dual-action pattern
+dotnet_diagnostic.S2139.severity = none
+
+# System prompt builds culture-invariant text for Gemini; IFormatProvider irrelevant
+dotnet_diagnostic.CA1305.severity = none
+
+# LogDebug "Cache miss" passes a simple string key — evaluation is not expensive
+dotnet_diagnostic.CA1873.severity = none
+# Performance-oriented logger delegates are overkill for a portfolio-scale app
+dotnet_diagnostic.CA1848.severity = none
+
+# ── Test projects only ────────────────────────────────────────────────────────
+[tests/**/*.cs]
+# xUnit convention: Method_Scenario_ExpectedBehavior uses underscores — suppress CA1707
+dotnet_diagnostic.CA1707.severity = none
+# Tests deliberately construct bare Exception to test message-pattern matching
+dotnet_diagnostic.CA2201.severity = none

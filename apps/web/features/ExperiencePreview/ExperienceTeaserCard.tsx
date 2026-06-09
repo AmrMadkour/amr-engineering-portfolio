@@ -6,6 +6,7 @@ import { ArrowRight, Building2, User, Briefcase } from 'lucide-react'
 import type { Experience } from '@/types/experience'
 import { Badge } from '@/components/ui/badge'
 import { formatYearMonth } from '@/lib/formatDate'
+import { toCompleteSentences } from '@/lib/textUtils'
 
 const TYPE_CONFIG = {
   company:   { label: null,               icon: Building2, accent: 'from-violet-500/20 to-violet-500/5'  },
@@ -19,11 +20,6 @@ interface Props {
   locale: string
 }
 
-function toCompleteSentences(text: string, maxSentences = 2): string {
-  const parts = text.split(/\.\s+/)
-  const taken = parts.slice(0, maxSentences).join('. ')
-  return taken.endsWith('.') ? taken : taken + '.'
-}
 
 export function ExperienceTeaserCard({ experience, presentLabel, locale }: Props) {
   const config = TYPE_CONFIG[experience.type]

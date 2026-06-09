@@ -8,9 +8,9 @@ namespace AmrPortfolio.UnitTests.Application;
 /// </summary>
 public sealed class ChatErrorCodesTests
 {
-    [Fact] public void RateLimited_HasExpectedKey()  => Assert.Equal("rateLimited",  ChatErrorCodes.RateLimited);
-    [Fact] public void Unavailable_HasExpectedKey()  => Assert.Equal("unavailable",  ChatErrorCodes.Unavailable);
-    [Fact] public void Timeout_HasExpectedKey()      => Assert.Equal("timeout",      ChatErrorCodes.Timeout);
-    [Fact] public void ConfigError_HasExpectedKey()  => Assert.Equal("configError",  ChatErrorCodes.ConfigError);
-    [Fact] public void Unknown_HasExpectedKey()      => Assert.Equal("unknown",      ChatErrorCodes.Unknown);
+  [Fact] public void RateLimited_HasExpectedKey() => Assert.Equal("rateLimited", ChatErrorCodes.RateLimited);
+  [Fact] public void Unavailable_HasExpectedKey() => Assert.Equal("unavailable", ChatErrorCodes.Unavailable);
+  [Fact] public void Timeout_HasExpectedKey() => Assert.Equal("timeout", ChatErrorCodes.Timeout);
+  [Fact] public void ConfigError_HasExpectedKey() => Assert.Equal("configError", ChatErrorCodes.ConfigError);
+  [Fact] public void Unknown_HasExpectedKey() => Assert.Equal("unknown", ChatErrorCodes.Unknown);
 }

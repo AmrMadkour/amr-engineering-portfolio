@@ -105,5 +105,11 @@
       "timeout": "The request timed out. Please try again.",
       "configError": "The AI is not configured correctly. Please contact Amr directly."
     }
+  },
+  "CookieNotice": {
+    "ariaLabel": "Cookie notice",
+    "message": "This site uses a functional cookie to remember your language preference and stores your theme locally. No tracking or advertising.",
+    "policyLink": "Privacy Policy",
+    "dismiss": "Got it"
   }
 }

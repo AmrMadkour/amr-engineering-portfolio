@@ -1,24 +1,100 @@
-# CI — Continuous Integration
-# Runs on every pull request targeting main or develop.
-#
-# TODO (Phase 1.5): Wire up actual jobs once local dev is validated.
-# Jobs to add:
-#   frontend: ESLint → Prettier check → TypeScript typecheck → next build
-#   backend:  dotnet format --verify-no-changes → dotnet build → dotnet test
-
 name: CI
 
 on:
+  push:
+    branches: [main, AmrMadkour-develop]
   pull_request:
-    branches:
-      - main
-      - AmrMadkour-develop
+    branches: [main, AmrMadkour-develop]
 
 jobs:
-  placeholder:
-    name: CI Placeholder
+  # ─── Frontend (Node 20) ────────────────────────────────────────────────────
+  frontend:
+    name: Frontend — lint / typecheck / duplication / tests / build
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
-      - name: Placeholder
-        run: echo "CI pipeline — wired up in Phase 1.5"
+
+      - name: Set up Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint (ESLint + sonarjs)
+        run: npm run lint:web
+
+      - name: Type check
+        run: npm run typecheck:web
+
+      - name: Duplication check (jscpd ≤ 5%)
+        run: npm run quality:web:dupes
+
+      - name: Tests with coverage
+        run: npm run test:web:coverage
+
+      - name: Production build
+        run: npm run build:web
+
+      - name: Upload coverage report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fe-coverage
+          path: apps/web/coverage/
+          retention-days: 14
+
+  # ─── Backend (.NET 10) ────────────────────────────────────────────────────
+  backend:
+    name: Backend — format / build / tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.x
+
+      - name: Restore NuGet packages
+        run: dotnet restore apps/api
+
+      - name: Restore dotnet local tools
+        working-directory: apps/api
+        run: dotnet tool restore
+
+      - name: Code style check
+        run: dotnet format apps/api --verify-no-changes
+
+      - name: Build (analyzers + TreatWarningsAsErrors)
+        run: dotnet build apps/api --no-restore --configuration Release --verbosity minimal
+
+      - name: Run tests with coverage
+        run: >
+          dotnet test apps/api
+          --no-build
+          --configuration Release
+          --settings apps/api/coverage.runsettings
+          --collect:"XPlat Code Coverage"
+          --results-directory apps/api/coverage-results
+          --verbosity minimal
+
+      - name: Generate coverage report
+        working-directory: apps/api
+        run: >
+          dotnet reportgenerator
+          -reports:"coverage-results/**/coverage.cobertura.xml"
+          -targetdir:"coverage-results/html"
+          -reporttypes:"Html;TextSummary"
+
+      - name: Upload coverage report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: be-coverage
+          path: apps/api/coverage-results/html/
+          retention-days: 14

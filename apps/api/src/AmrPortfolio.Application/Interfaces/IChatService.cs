@@ -4,7 +4,7 @@ namespace AmrPortfolio.Application.Interfaces;
 
 public interface IChatService
 {
-    IAsyncEnumerable<ChatEventDto> StreamResponseAsync(ChatRequestDto request, CancellationToken ct = default);
+  IAsyncEnumerable<ChatEventDto> StreamResponseAsync(ChatRequestDto request, CancellationToken ct = default);
 }
 
 public abstract record ChatEventDto;
@@ -16,9 +16,9 @@ public sealed record ErrorEvent(string Code) : ChatEventDto;
 
 public static class ChatErrorCodes
 {
-    public const string RateLimited  = "rateLimited";
-    public const string Unavailable  = "unavailable";
-    public const string Timeout      = "timeout";
-    public const string ConfigError  = "configError";
-    public const string Unknown      = "unknown";
+  public const string RateLimited = "rateLimited";
+  public const string Unavailable = "unavailable";
+  public const string Timeout = "timeout";
+  public const string ConfigError = "configError";
+  public const string Unknown = "unknown";
 }

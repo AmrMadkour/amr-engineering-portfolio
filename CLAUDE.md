@@ -181,3 +181,32 @@ const mdxPages = {
 **Chat error codes** — `GeminiChatService` never returns human-readable strings. It yields `ErrorEvent(string Code)` with a `ChatErrorCodes` constant. The frontend (`ChatWidget.tsx`) translates codes via `messages/{locale}.json` `ChatWidget.errors.*` keys. Adding a new error type = add a constant + add a translation key; no C# strings to change.
 
 **Slash commands** — `.claude/commands/run.md` (`/run`) starts API + web + verifies Playwright. `.claude/commands/push.md` (`/push`) stages, commits with a descriptive message, and pushes the current branch.
+
+---
+
+## Quality Gate (single source of truth)
+
+A commit is **shippable** when ALL of the following pass. Run `npm run quality:all` locally before pushing to main.
+
+### Frontend (run from `apps/web`)
+| Check | Command | Pass condition |
+|---|---|---|
+| ESLint + sonarjs | `npm run lint:web` | 0 errors |
+| TypeScript | `npm run typecheck:web` | 0 errors |
+| Duplication | `npm run quality:web:dupes` | ≤ 5% duplicate blocks |
+| Tests + coverage | `npm run test:web:coverage` | All pass; lines ≥ 70%, branches ≥ 60% |
+| Build | `npm run build:web` | Exit 0 |
+
+### Backend (run from `apps/api`)
+| Check | Command | Pass condition |
+|---|---|---|
+| Code style | `dotnet format --verify-no-changes` | No changes needed |
+| Build + analyzers | `dotnet build -c Release` | 0 warnings, 0 errors |
+| Tests + coverage | `dotnet test --settings coverage.runsettings` | All pass; lines ≥ 70%, branches ≥ 60% |
+
+**Coverage exclusion note**: `GeminiChatService.StreamResponseAsync` and `BuildSystemPromptAsync` are excluded from the threshold calculation because they require a live Gemini API key to exercise — they cannot be meaningfully unit-tested. All other code is covered.
+
+### Notes
+- `dotnet build -c Release` enables SonarAnalyzer and Roslyn analyzers (in `Directory.Build.props`). The Debug build also runs analyzers — 0 warnings enforced by `.editorconfig`.
+- The `.editorconfig` at `apps/api/.editorconfig` documents why each suppression exists.
+- `npm run quality:all` (root) chains FE + BE gates in sequence (A8).

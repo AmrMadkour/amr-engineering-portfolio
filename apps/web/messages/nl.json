@@ -105,5 +105,11 @@
       "timeout": "Het verzoek is verlopen. Probeer het opnieuw.",
       "configError": "De AI is niet correct geconfigureerd. Neem rechtstreeks contact op met Amr."
     }
+  },
+  "CookieNotice": {
+    "ariaLabel": "Cookiemelding",
+    "message": "Deze site gebruikt één functionele cookie om je taalvoorkeur te onthouden en slaat je thema lokaal op. Geen tracking of advertenties.",
+    "policyLink": "Privacybeleid",
+    "dismiss": "Begrepen"
   }
 }

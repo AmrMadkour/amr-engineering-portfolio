@@ -1,15 +1,14 @@
 /** @type {import("eslint").Linter.Config} */
 module.exports = {
-  extends: ["next/core-web-vitals"],
-  plugins: ["@typescript-eslint"],
+  extends: ["next/core-web-vitals", "plugin:sonarjs/recommended-legacy"],
+  plugins: ["@typescript-eslint", "sonarjs"],
   rules: {
-    // Enforce explicit return types on exported functions
     "@typescript-eslint/explicit-module-boundary-types": "off",
-    // Disallow unused variables (warn, not error, during dev)
     "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
-    // Prefer const
     "prefer-const": "error",
-    // No console.log in committed code
-    "no-console": ["warn", { allow: ["warn", "error"] }]
+    "no-console": ["warn", { allow: ["warn", "error"] }],
+    // Tune sonarjs rules to practical levels for this codebase
+    "sonarjs/cognitive-complexity": ["warn", 20],
+    "sonarjs/no-duplicate-string": ["warn", { threshold: 5 }]
   }
 };

@@ -9,6 +9,7 @@ import { PageTransition } from '@/components/layout/PageTransition'
 import { ScrollRestoration } from '@/components/layout/ScrollRestoration'
 import { FooterSection } from '@/features/Footer/FooterSection'
 import { ChatWidgetLoader } from '@/features/ChatWidget/ChatWidgetLoader'
+import { CookieNotice } from '@/components/layout/CookieNotice'
 import { routing } from '@/i18n/routing'
 import '../globals.css'
 
@@ -31,7 +32,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: t('title'),
       description: t('description'),
-      locale: locale === 'ar' ? 'ar_EG' : locale === 'nl' ? 'nl_NL' : 'en_US',
+      locale: ({ ar: 'ar_EG', nl: 'nl_NL' } as Record<string, string>)[locale] ?? 'en_US',
       type: 'website',
     },
     alternates: {
@@ -73,6 +74,7 @@ export default async function LocaleLayout({ children, params }: Props) {
             <div className="page-body"><PageTransition>{children}</PageTransition></div>
             <FooterSection locale={locale} />
             <ChatWidgetLoader locale={locale} />
+            <CookieNotice />
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>
