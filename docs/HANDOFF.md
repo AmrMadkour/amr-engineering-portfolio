@@ -832,12 +832,27 @@ All of Group A (A1–A9) completed. The portfolio now has a full quality safety 
 
 - **Docker Desktop not installed** — Dockerfile is written but local `docker build` verification is pending. Command: `docker build -f apps/api/Dockerfile -t amr-portfolio-api:local .` from repo root.
 - **`/sitemap.xml` times out in Playwright** (30 s tool limit) but works correctly — first-load compilation + API call exceeds the tool timeout. Verified green via `curl --max-time 60`.
+- **`.editorconfig` `end_of_line` must match `.gitattributes`** — `.gitattributes` uses `eol=lf`; `.editorconfig` must also use `end_of_line = lf`. If they diverge, CI (Ubuntu) fails `dotnet format --verify-no-changes` with ENDOFLINE errors on every `.cs` file. Fixed in commit `3f002c8`.
+- **`gh` CLI path** — installed at `C:\Program Files\GitHub CLI\gh.exe`; not on PATH in Claude Code tool sessions. Use `$gh = "C:\Program Files\GitHub CLI\gh.exe"; & $gh ...` in PowerShell tool calls.
+
+---
+
+## Session — 2026-06-09 (CI fix — line ending normalization)
+
+### Files changed
+
+- `apps/api/.editorconfig` — `end_of_line = crlf` → `end_of_line = lf` (aligns with `.gitattributes eol=lf`)
+- `apps/api/src/**/*.cs`, `apps/api/tests/**/*.cs` — `dotnet format` re-run to normalize on-disk CRLF → LF (no content change in git; files were already LF in the repo)
+
+### Decision
+
+The conflict: `.gitattributes` stores and checks out all files as LF; `.editorconfig` told `dotnet format` to enforce CRLF. CI (Ubuntu) checked out LF files, then `dotnet format --verify-no-changes` failed demanding CRLF on every line of every `.cs` file. Fix is one line in `.editorconfig`. Running `dotnet format` afterward ensures on-disk files match so the local verify-no-changes also passes.
 
 ### Next
 
-**Manual steps required (cloud accounts):**
-1. **B2 Render** — create Web Service, Docker env, Dockerfile `apps/api/Dockerfile`, context = root; set `ASPNETCORE_ENVIRONMENT=Production`, `AllowedOrigins`, `Gemini__ApiKey`, `Gemini__ModelId=gemini-flash-latest`, `ContentPath=/app/content`; disable auto-deploy; copy Deploy Hook URL → GitHub secret `RENDER_DEPLOY_HOOK`
-2. **Local Docker verify** — install Docker Desktop, run build from repo root, hit `/health` + `/v1/profile?locale=en`
+**CI is green. Manual steps required (cloud accounts):**
+1. **Local Docker verify** — install Docker Desktop, run `docker build -f apps/api/Dockerfile -t amr-portfolio-api:local .` from repo root, hit `/health` + `/v1/profile?locale=en`
+2. **B2 Render** — create Web Service, Docker env, Dockerfile `apps/api/Dockerfile`, context = root; set `ASPNETCORE_ENVIRONMENT=Production`, `AllowedOrigins=<vercel-url>`, `Gemini__ApiKey`, `Gemini__ModelId=gemini-flash-latest`, `ContentPath=/app/content`; disable auto-deploy; copy Deploy Hook URL → GitHub secret `RENDER_DEPLOY_HOOK`
 3. **C1 Vercel** — import repo; Root Directory = `apps/web`; set `NEXT_PUBLIC_API_URL` (Render URL) + `NEXT_PUBLIC_SITE_URL` (Vercel URL); disable auto-deploy on main; copy Deploy Hook → GitHub secret `VERCEL_DEPLOY_HOOK`
-4. **C2 CORS** — update Render `AllowedOrigins` to exact Vercel origin
+4. **C2 CORS** — update Render `AllowedOrigins` to exact Vercel origin once both URLs are known
 5. **G/H** — custom domain + Google Search Console (when domain is ready)
