@@ -10,6 +10,7 @@ import { ScrollRestoration } from '@/components/layout/ScrollRestoration'
 import { FooterSection } from '@/features/Footer/FooterSection'
 import { ChatWidgetLoader } from '@/features/ChatWidget/ChatWidgetLoader'
 import { CookieNotice } from '@/components/layout/CookieNotice'
+import { PersonJsonLd } from '@/components/seo/PersonJsonLd'
 import { routing } from '@/i18n/routing'
 import '../globals.css'
 
@@ -67,6 +68,7 @@ export default async function LocaleLayout({ children, params }: Props) {
       <body className={`${outfit.variable} font-sans antialiased`}>
         {/* Ensure sections are visible when JS is disabled */}
         <noscript><style>{`.s-reveal { opacity: 1 !important; transform: none !important; }`}</style></noscript>
+        <PersonJsonLd locale={locale} />
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider>
             <ScrollRestoration />

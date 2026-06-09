@@ -1,22 +1,37 @@
-# Deploy — Production Deployment
-# Runs on push to main after CI passes.
-#
-# TODO (Phase 1.5): Wire up deploy hooks once Vercel and Render projects are created.
-# Secrets needed:
-#   VERCEL_DEPLOY_HOOK  — from Vercel project settings → Git → Deploy Hooks
-#   RENDER_DEPLOY_HOOK  — from Render service settings → Deploy Hook URL
-
 name: Deploy
 
 on:
-  push:
-    branches:
-      - main
+  workflow_run:
+    workflows: [CI]
+    branches: [main]
+    types: [completed]
 
 jobs:
-  placeholder:
-    name: Deploy Placeholder
+  deploy:
+    name: Trigger Vercel + Render deploy
     runs-on: ubuntu-latest
+    # Only deploy when CI passed on main; never deploy on a failed or cancelled run
+    if: >
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.head_branch == 'main'
+
     steps:
-      - name: Placeholder
-        run: echo "Deploy pipeline — wired up in Phase 1.5"
+      - name: Trigger Render deploy (API)
+        run: |
+          if [ -z "${{ secrets.RENDER_DEPLOY_HOOK }}" ]; then
+            echo "RENDER_DEPLOY_HOOK not configured — skipping"
+          else
+            curl --silent --show-error --fail \
+              -X POST "${{ secrets.RENDER_DEPLOY_HOOK }}"
+            echo "Render deploy triggered"
+          fi
+
+      - name: Trigger Vercel deploy (web)
+        run: |
+          if [ -z "${{ secrets.VERCEL_DEPLOY_HOOK }}" ]; then
+            echo "VERCEL_DEPLOY_HOOK not configured — skipping"
+          else
+            curl --silent --show-error --fail \
+              -X POST "${{ secrets.VERCEL_DEPLOY_HOOK }}"
+            echo "Vercel deploy triggered"
+          fi

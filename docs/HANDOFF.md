@@ -749,8 +749,95 @@ Full UX audit + content polish executed. All "Must" and "Should" items from the 
 - **SSH push from Claude Code** — the Bash tool runs in Git Bash (Windows), which has no SSH agent. User's key lives in WSL. Fix: `core.sshCommand = wsl ssh` in `.git/config` routes git SSH through WSL. Manual pushes from VS Code WSL terminal are unaffected.
 - **`remark-gfm` required for MDX tables** — `@next/mdx` does not render GFM tables by default. Without the plugin, pipe-syntax tables render as a single paragraph of text. Installed as a workspace dep in `apps/web`.
 
+### Next → Group A then Group B
+
+---
+
+## Session — 2026-06-09 (Phase 4 Group A — Quality Gate Foundation)
+
+### Overview
+
+All of Group A (A1–A9) completed. The portfolio now has a full quality safety net: frontend tests with enforced coverage thresholds, SonarJS smell + jscpd duplication detection, backend tests (56 tests, 79.7% line coverage), build-time Sonar analyzers with TreatWarningsAsErrors, and a real CI pipeline replacing the placeholder stub.
+
+### Files changed
+
+**Frontend (A1–A3)**
+- `apps/web/vitest.config.ts` — NEW; v8 coverage, text/html/lcov reporters, thresholds lines/fns/stmts ≥70% branches ≥60%
+- `apps/web/package.json` — `test`, `test:watch`, `test:coverage`, `quality`, `quality:dupes` scripts
+- `apps/web/setup-tests.ts` — `@testing-library/jest-dom` global setup
+- `apps/web/__tests__/*.test.ts(x)` — 9 test files covering: `useChatStream` SSE parsing/abort/history cap, `ChatWindow` chip routing, `smoothScrollTop`, `toCompleteSentences`, `api` fetch wrappers, `CookieNotice` dismiss logic
+- `packages/eslint-config/index.js` — added `eslint-plugin-sonarjs`
+- `.jscpd.json` (root) — jscpd config, threshold 5%, scans `apps/web/{app,features,components,lib}`
+- `package.json` (root) — `quality:all`, `quality:api`, `test:api`, `test:api:coverage` scripts
+
+**Backend (A4–A6)**
+- `apps/api/coverage.runsettings` — Coverlet threshold 70% line, scoped to `AmrPortfolio.*`
+- `apps/api/.config/dotnet-tools.json` — `dotnet-reportgenerator-globaltool`
+- `apps/api/Directory.Build.props` — NEW; `SonarAnalyzer.CSharp 10.*`, `TreatWarningsAsErrors=true`, `AnalysisLevel=latest-Recommended`, `EnforceCodeStyleInBuild=true`
+- `apps/api/.editorconfig` — NEW; suppressions for CA1305, CA1873, CA1848, S2094, S1135, S2139, CA1707, CA2201
+- `apps/api/tests/AmrPortfolio.UnitTests/Infrastructure/Content/JsonContentRepositoryRealTests.cs` — NEW; 11 real-file tests (all locales, caching, unknown locale throws)
+- `apps/api/tests/AmrPortfolio.UnitTests/Api/ChatEndpointsValidationTests.cs` — NEW; 11 integration tests via `WebApplicationFactory` (locale whitelist, message length, SSE content-type, [DONE] signal)
+- `apps/api/tests/AmrPortfolio.UnitTests/AI/GeminiChatServiceTests.cs` — added `StreamResponseAsync_WhenRepoThrows_YieldsUnavailableError`
+- `apps/api/src/AmrPortfolio.Api/Program.cs` — `app.Run()` → `await app.RunAsync()`, `Log.CloseAndFlush()` → `await Log.CloseAndFlushAsync()`, `protected Program() {}` ctor for WebApplicationFactory
+- `apps/api/src/AmrPortfolio.Infrastructure/Content/JsonContentRepository.cs` — removed unused `CancellationToken ct` from `GetCachedAsync<T>` (S1172)
+- `CLAUDE.md` — appended "Quality Gate (single source of truth)" section
+
+**CI (A9)**
+- `.github/workflows/ci.yml` — replaced placeholder: two real jobs (FE Node 20, BE .NET 10), triggers push+PR on both branches, uploads coverage artifacts, no deploy
+
+### Decisions
+
+- **Per-test `WebApplicationFactory` instantiation** — originally used `IClassFixture<ChatTestApiFactory>` (shared server). After 10 requests the `FixedWindowRateLimiter` started returning 429 instead of expected status codes. Fix: removed `IClassFixture`, each test creates its own factory instance (implements `IDisposable`).
+- **`GeminiChatService.StreamResponseAsync` excluded from coverage** — the live streaming body requires a real Gemini API key and cannot be meaningfully unit-tested. Setup-failure path (mock repo throws) IS covered. Exclusion documented in `CLAUDE.md` coverage note.
+- **`dotnet format` run twice** — first pass normalized most CRLF; a second pass was needed before `--verify-no-changes` passed cleanly.
+
+### Gotchas
+
+- **MSB3026 file lock during `dotnet build`** — dev API process was running and locked the DLLs. Fix: `Stop-Process -Name "AmrPortfolio.Api" -Force` before building.
+- **Rate limiter in tests** — `FixedWindowRateLimiter(PermitLimit=10)` applies inside `WebApplicationFactory`. With 13 tests sharing one factory instance, tests 11–13 got 429. Per-test factory avoids this entirely.
+- **`dotnet format --verify-no-changes` ENDOFLINE errors** — some files still had `\n` line endings after first format pass. Run `dotnet format` (no verify flag) once to normalize, then the verify-flag pass will be clean.
+
+### Final state (commit `5ecc727`)
+
+- 56 backend tests passing (was 29), 79.7% line / 89.5% branch coverage
+- `dotnet build -c Release` → 0 warnings, 0 errors
+- `quality:all` → end-to-end green
+- `ci.yml` → real FE + BE jobs, green
+
+### Next → Group B (B1 Dockerfile, then B2 Render account)
+
+---
+
+## Session — 2026-06-09 (Phase 4 Groups B/E/F — Dockerfile, SEO, Deploy Pipeline)
+
+### Files changed
+
+- `apps/api/Dockerfile` — NEW; multi-stage `sdk:10.0` → `aspnet:10.0`; build context = repo root so `content/` is reachable; `ContentPath=/app/content`; shell ENTRYPOINT expands `${PORT:-8080}` for Render
+- `.dockerignore` — NEW at repo root; excludes `node_modules/`, `apps/web/`, `**/bin/`, `**/obj/`, test code, docs
+- `apps/web/components/seo/PersonJsonLd.tsx` — NEW; async Server Component; fetches profile, emits `<script type="application/ld+json">` (Person schema: name, jobTitle, url, image, sameAs)
+- `apps/web/app/opengraph-image.tsx` — NEW; 1200×630 branded OG card via `ImageResponse` (edge runtime); dark bg, violet accent, name + title + stack tagline
+- `apps/web/app/sitemap.ts` — extended; adds `/contact`, `/experience`, and all `/experience/[slug]` per locale with hreflang `alternates`; graceful catch if API is down
+- `apps/web/app/[locale]/layout.tsx` — added `<PersonJsonLd locale={locale} />` inside `<body>`
+- `.github/workflows/deploy.yml` — replaced placeholder; uses `workflow_run` on `CI` + `conclusion == 'success'` + `head_branch == 'main'`; fires Vercel + Render deploy hooks; no-op if secrets not set
+- `apps/web/.env.local.example` — added production URL comments for `NEXT_PUBLIC_API_URL` / `NEXT_PUBLIC_SITE_URL`
+
+### Decisions
+
+- **Shell-form ENTRYPOINT** — `ENTRYPOINT ["sh", "-c", "ASPNETCORE_URLS=http://+:${PORT:-8080} exec dotnet AmrPortfolio.Api.dll"]`. Render injects `PORT` dynamically at container start; `ENV` instructions expand at build time, not runtime, so shell form is required.
+- **`workflow_run` not `push` in deploy.yml** — guarantees the quality gate (ci.yml) passed before any hook fires. A direct `push` trigger would race with CI.
+- **JSON-LD in `<body>` not `<head>`** — App Router has no explicit `<head>` slot for Server Components; body placement is valid and crawled correctly by Google.
+- **Sitemap catches API errors** — if the API is unreachable during a cold Vercel build, dynamic slugs are omitted rather than crashing the build.
+
+### Gotchas
+
+- **Docker Desktop not installed** — Dockerfile is written but local `docker build` verification is pending. Command: `docker build -f apps/api/Dockerfile -t amr-portfolio-api:local .` from repo root.
+- **`/sitemap.xml` times out in Playwright** (30 s tool limit) but works correctly — first-load compilation + API call exceeds the tool timeout. Verified green via `curl --max-time 60`.
+
 ### Next
 
-- **Fix Gemini quota** — new Google Cloud project + new API key → `dotnet user-secrets set "Gemini:ApiKey" "NEW_KEY"`
-- **Delete dead files** — `features/ExperienceSection/`, `ExperienceCard/`, `ExperienceAnimatedList/`, `ProjectList/`, `app/[locale]/projects/page.tsx`, `public/icons/aws.svg`
-- **Phase 4** — quality gate → deployment (Vercel + Render) → SEO → CI/CD (see Phase 4 plan above)
+**Manual steps required (cloud accounts):**
+1. **B2 Render** — create Web Service, Docker env, Dockerfile `apps/api/Dockerfile`, context = root; set `ASPNETCORE_ENVIRONMENT=Production`, `AllowedOrigins`, `Gemini__ApiKey`, `Gemini__ModelId=gemini-flash-latest`, `ContentPath=/app/content`; disable auto-deploy; copy Deploy Hook URL → GitHub secret `RENDER_DEPLOY_HOOK`
+2. **Local Docker verify** — install Docker Desktop, run build from repo root, hit `/health` + `/v1/profile?locale=en`
+3. **C1 Vercel** — import repo; Root Directory = `apps/web`; set `NEXT_PUBLIC_API_URL` (Render URL) + `NEXT_PUBLIC_SITE_URL` (Vercel URL); disable auto-deploy on main; copy Deploy Hook → GitHub secret `VERCEL_DEPLOY_HOOK`
+4. **C2 CORS** — update Render `AllowedOrigins` to exact Vercel origin
+5. **G/H** — custom domain + Google Search Console (when domain is ready)
