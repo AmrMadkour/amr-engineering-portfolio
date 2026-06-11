@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="coverlet.collector" Version="6.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="10.0.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="Mscc.GenerativeAI" Version="2.*" />
+    <PackageReference Include="NSubstitute" Version="5.3.0" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\AmrPortfolio.Api\AmrPortfolio.Api.csproj" />
+    <ProjectReference Include="..\..\src\AmrPortfolio.Application\AmrPortfolio.Application.csproj" />
+    <ProjectReference Include="..\..\src\AmrPortfolio.Domain\AmrPortfolio.Domain.csproj" />
+    <ProjectReference Include="..\..\src\AmrPortfolio.Infrastructure\AmrPortfolio.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

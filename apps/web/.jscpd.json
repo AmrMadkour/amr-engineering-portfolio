@@ -1,0 +1,6 @@
+{
+  "threshold": 5,
+  "reporters": ["console"],
+  "ignore": ["**/__tests__/**", "**/*.test.*", "**/*.config.*", "node_modules/**", ".next/**"],
+  "path": ["app", "components", "features", "lib", "services", "hooks"]
+}

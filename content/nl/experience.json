@@ -1,0 +1,133 @@
+[
+  {
+    "id": "metrixlab-senior",
+    "slug": "metrixlab-senior",
+    "type": "company",
+    "featured": true,
+    "domain": "fullstack",
+    "company": "Metrixlab (Toluna)",
+    "role": "Senior Software Developer",
+    "startDate": "2023-07",
+    "endDate": null,
+    "description": "Werken als onderdeel van een multidisciplinair team aan de modernisering van het TIQM (Toluna Insight Questionnaire Manager) surveyplatform, van een verouderde MVC-architectuur naar een modern microservice-ecosysteem. Bijdragen aan backend-serviceontwikkeling, cloudinfrastructuur en frontend-surveyflows — binnen een grootschalig marktonderzoeksproduct voor wereldwijde klanten.",
+    "highlights": [
+      "TIQM migreren van MVC naar microservices als onderdeel van een team van 3 senior developers en een teamleider — inclusief orchestratiedienst (Cambridge), oplossingsmanagement (Lexicon) en gebruikersmetadata (Thesaurus)",
+      "Backend-services ontwikkeld en onderhouden voor de volledige levenscyclus van surveys: aanmaken, bijwerken, dupliceren, ophalen en valideren",
+      "De AdReview-surveyflow gerealiseerd in React en TypeScript zonder bestaande legacy-surveypaden te verstoren, in nauwe samenwerking met het UI/UX-team en stakeholders",
+      "Serverloze cloudinfrastructuur ondersteund op AWS Lambda, API Gateway, CloudWatch en S3 met Terraform-beheerde deployments en CI/CD-pipelines"
+    ],
+    "technologies": [".NET 8", "C#", "Microservices", "React", "TypeScript", "AWS Lambda", "API Gateway", "CloudWatch", "S3", "Secrets Manager", "Terraform", "Bitbucket", "Jira", "SonarQube", "Datadog"]
+  },
+  {
+    "id": "metrixlab-developer",
+    "slug": "metrixlab-developer",
+    "type": "company",
+    "featured": true,
+    "domain": "fullstack",
+    "company": "Metrixlab",
+    "role": "Software Developer",
+    "startDate": "2020-11",
+    "endDate": "2023-07",
+    "description": "Bijgedragen aan twee grote platformtracks: het Dashboardplatform — drie verbonden tools (Admin, Scorecard, Visual Library) voor het beheren van klantprojectmetadata, KPI's, advertenties en surveys — en een nieuw Kafka-gebaseerd Consumer Platform voor real-time DMP-eventverwerking. Gewerkt aan backend-API's, SQL-datalaag en frontend-UI-componenten.",
+    "highlights": [
+      "Drie verbonden dashboardtools ondersteund (Admin, Scorecard, Visual Library) voor KPI-beheer, scorecarduploads via meerdere workflows en klantgerichte datavisualisatie",
+      "Nieuw Kafka-gebaseerd event-consumptieplatform van de grond af opgebouwd — DMP-events uit AKHQ verwerken, transformeren en in real time doorsturen naar het dashboardplatform",
+      "Features ontwikkeld en onderhouden voor de volledige event-verwerkingspipeline inclusief backendservices, datapersistentie en frontend-weergave",
+      "Doorlopende platformverbeteringen en nieuwe features opgeleverd als onderdeel van de releasecyclus van het team"
+    ],
+    "technologies": [".NET Framework 4.x", ".NET Core", "REST API", "ASP.NET MVC", "Knockout.js", "SQL Server", "Entity Framework", "Kafka", "AKHQ", "TDD", "Azure DevOps"]
+  },
+  {
+    "id": "ict-group",
+    "slug": "ict-group",
+    "type": "company",
+    "featured": false,
+    "domain": "backend",
+    "company": "ICT Group N.V.",
+    "role": "Software Engineer",
+    "startDate": "2018-09",
+    "endDate": "2020-09",
+    "description": "Gewerkt aan een gevarieerde reeks projecten op het kantoor van ICT Group in Eindhoven: modernisering van medische software, mixed reality-prototyping en onderzoek naar gedecentraliseerde data. Brede ervaring opgedaan in zorgintegratiesystemen, cloud-verbonden IoT-ervaringen en opkomende W3C-webstandaarden — binnen Agile-teams.",
+    "highlights": [
+      "Het Meditop-medisch systeem ontwikkeld en gemodemiseerd — de legacy VB6-applicatie gemigreerd naar C#/.NET met REST API's, HL7-zorgberichtenuitwisseling en Leadtools-beeldintegratie",
+      "Een HoloLens mixed reality-POC gebouwd: een spraakgestuurde Q&A-bot gedeployed op Azure Bot Service met Unity-scènes voor meeslepende stemresponsvisualisatie",
+      "Een gedecentraliseerd Solid Server-POC ontwikkeld, met toepassing van W3C Linked Data-principes en Turtle-syntaxis voor semantische datarepresentatie",
+      "Gewerkt in Agile-sprints voor productiefeatures in zorgworkflows en experimentele prototypes op het gebied van mixed reality en dataonderzoek"
+    ],
+    "technologies": [".NET", "C#", "REST API", "MVVM", "SQL Server", "Entity Framework", "HL7", "Serial Communication", "Leadtools", "ASP.NET Core", "Azure Bot Service", "Unity", "Microsoft HoloLens"]
+  },
+  {
+    "id": "talabat",
+    "slug": "talabat",
+    "type": "company",
+    "featured": false,
+    "domain": "backend",
+    "company": "Talabat",
+    "role": "Software Engineer",
+    "startDate": "2018-03",
+    "endDate": "2018-07",
+    "description": "Bijgedragen aan backendsystemen bij Talabat — een toonaangevend bezorgplatform in de Golfregio, onderdeel van Delivery Hero. Gericht op restaurantmenu-integratie en orderplaatsingsworkflows die het Talabat-platform verbinden met diverse partnersystemen in verschillende dataformaten.",
+    "highlights": [
+      "Restaurantmenudata verwerkt in XML- en JSON-formaten — gedeserialiseerd naar interne Talabat-objecten en getransformeerd naar gestandaardiseerde platformcompatibele structuren",
+      "Generieke en herbruikbare integratiemodellen gebouwd om meerdere restaurantpartners te onboarden met uiteenlopende menuformaten en dataschema's",
+      "Orderplaatsingsflows ontwikkeld die bevestigde orders uit de Talabat-database ophalen, serialiseren naar het verwachte formaat en naar externe restaurantsystemen versturen",
+      "Bijgedragen aan verbeterde integratiereliabiliteit en schaalbaarheid in het restaurantpartnernetwerk"
+    ],
+    "technologies": ["ASP.NET Core API", "C#", "SQL Server", "LINQ", "XML", "JSON", "Postman", "TFS"]
+  },
+  {
+    "id": "nahdet-misr",
+    "slug": "nahdet-misr",
+    "type": "company",
+    "featured": false,
+    "domain": "backend",
+    "company": "Nahdet Misr",
+    "role": ".NET Developer",
+    "startDate": "2016-05",
+    "endDate": "2018-02",
+    "description": "Onderhoud en uitbreiding van een suite van 5 interne bedrijfsapplicaties voor HR, Salarisadministratie, Medisch, Aanwezigheid en Bouw bij een van Egyptes toonaangevende uitgeef- en onderwijsbedrijven. Gewerkt aan zowel ASP.NET-webapplicaties als Windows Forms-desktopapplicaties om functionaliteit, stabiliteit en dagelijkse bedrijfsworkflows te verbeteren.",
+    "highlights": [
+      "5 kern-interne systemen ondersteund — HR, Salarisadministratie, Medisch, Aanwezigheid en Bouw — die dagelijks door de gehele organisatie worden gebruikt",
+      "Nieuwe features en bugfixes opgeleverd voor zowel webapplicaties (ASP.NET Web Forms) als desktopapplicaties (Windows Forms)",
+      "Bijgedragen aan prestatieverbeteringen, systeemstabiliteit en doorlopende platformondersteuning in alle bedrijfsdomeinen"
+    ],
+    "technologies": ["ASP.NET Web Forms", "Windows Forms", "C#", "SQL Server", "ADO.NET"]
+  },
+  {
+    "id": "smart-innovation",
+    "slug": "smart-innovation",
+    "type": "company",
+    "featured": false,
+    "domain": "backend",
+    "company": "Smart Innovation",
+    "role": ".NET Developer",
+    "startDate": "2015-03",
+    "endDate": "2016-04",
+    "description": "Eerste professionele softwareontwikkelingsrol — meerdere websites en webapplicaties gebouwd voor klanten in verschillende bedrijfstakken en sectoren. Deelgenomen aan de volledige ontwikkelingscyclus van requirementsanalyse tot implementatie, testen en post-launchondersteuning.",
+    "highlights": [
+      "Meerdere klantgerichte webapplicaties en interne tools ontwikkeld voor uiteenlopende bedrijfsdomeinen en sectoren",
+      "Deelgenomen aan requirementsgesprekken, implementatie, testen en doorlopend onderhoud voor elk opgeleverd project",
+      "Fundamentele kennis opgebouwd in .NET-webontwikkeling, SQL Server en desktopapplicatieontwikkeling onder begeleiding van ervaren engineers"
+    ],
+    "technologies": ["ASP.NET Web Forms", "Windows Forms", "C#", "SQL Server", "ADO.NET"]
+  },
+  {
+    "id": "amr-portfolio",
+    "slug": "amr-portfolio",
+    "type": "personal",
+    "featured": true,
+    "domain": "fullstack",
+    "company": null,
+    "role": "AMR Engineering Portfolio",
+    "startDate": "2026-01",
+    "endDate": null,
+    "description": "Een monorepo-portfolioplatform gebouwd als een echte engineering-oefening. Vierlaagse Clean Architecture .NET 10 Minimal API aan de backend; Next.js 15 App Router met ISR, drietalige ondersteuning (EN/AR/NL), RTL-layout en dark mode aan de frontend.",
+    "highlights": [
+      "Clean Architecture-laagsgrenzen ontworpen en afgedwongen via .csproj-projectreferenties",
+      "Repository Pattern gebouwd over JSON-contentbestanden met IMemoryCache (15 minuten TTL)",
+      "Drietalige routering geïmplementeerd met next-intl inclusief volledige RTL-ondersteuning voor Arabisch",
+      "Gestructureerd als een echte monorepo met npm-workspaces en gedeelde TypeScript-pakketten"
+    ],
+    "technologies": ["Next.js", ".NET 10", "TypeScript", "Tailwind CSS", "Clean Architecture", "next-intl", "C#"]
+  }
+]

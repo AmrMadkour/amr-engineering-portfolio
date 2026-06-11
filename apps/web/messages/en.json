@@ -1,0 +1,115 @@
+{
+  "Metadata": {
+    "title": "Amr Madkour — Senior Software Engineer",
+    "description": "Senior Software Engineer specializing in clean architecture, full-stack development, and AI integration."
+  },
+  "Navigation": {
+    "home": "Home",
+    "projects": "Projects",
+    "experience": "Experience",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "Common": {
+    "learnMore": "Learn More",
+    "viewProject": "View Project",
+    "viewCode": "View Code",
+    "present": "Present",
+    "comingSoon": "Coming Soon"
+  },
+  "Hero": {
+    "credentialLabel": "Senior Software Developer • .NET & Cloud • AI-Augmented Engineering",
+    "greeting": "Hi, I'm",
+    "headline": "Building scalable backend systems and modern AI-powered developer experiences.",
+    "subtext": "Passionate about building scalable applications, clean architectures, and user-focused solutions. I enjoy solving complex problems and turning ideas into reliable, maintainable software. Currently expanding my expertise in AI-powered development and modern engineering workflows.",
+    "ctaProjects": "View My Work",
+    "ctaContact": "Get In Touch",
+    "ctaBookMeeting": "Book a Meeting",
+    "ctaGitHub": "GitHub",
+    "ctaResume": "Resume"
+  },
+  "Projects": {
+    "sectionTitle": "Projects",
+    "sectionSubtitle": "Selected work demonstrating architecture, scale, and engineering depth.",
+    "filterAll": "All",
+    "viewLive": "Live Demo",
+    "viewRepo": "Repository",
+    "featured": "Featured"
+  },
+  "Experience": {
+    "sectionTitle": "Experience",
+    "sectionSubtitle": "A track record of ownership, systems thinking, and measurable impact.",
+    "viewAll": "View full timeline",
+    "present": "Present"
+  },
+  "Recommendations": {
+    "sectionTitle": "Recommendations",
+    "sectionSubtitle": "What colleagues and managers say."
+  },
+  "About": {
+    "sectionTitle": "About Me",
+    "sectionSubtitle": "Architect by mindset. Engineer by craft.",
+    "p1": "As a Senior Software Engineer, I think in systems and lead with architecture. I care about building software that is not just functional, but scalable, maintainable, and built to last. Every challenge I take on gets the same treatment: understand it deeply, design it right, and own it from start to finish.",
+    "p2": "I've worked with diverse, cross-functional teams across multiple industries, including enterprise platforms, healthcare, e-commerce, and market research. I genuinely enjoy learning from the people around me and sharing what I pick up along the way, whether through code reviews, pairing on a problem, or just a good conversation. I believe the best teams are built on open knowledge and growing together.",
+    "p3": "My core expertise is backend and cloud architecture, but I don't define myself by a stack. The best engineer isn't the one with the longest list of tools. It's the one who can pick up any tool, understand it properly, and deliver something meaningful with it. I actively integrate AI-assisted workflows into my engineering practice, not as a shortcut, but as a way to raise the bar on quality and velocity."
+  },
+  "Skills": {
+    "sectionTitle": "Technical Expertise",
+    "sectionSubtitle": "The tools and technologies I use to build, ship, and scale."
+  },
+  "AIWorkflow": {
+    "label": "Engineering Process",
+    "headline": "How I Work with AI",
+    "subtext": "I've built AI-augmented workflows into how I code, review, and ship — from pair programming to RAG-powered tooling.",
+    "cta": "Read about my AI workflow"
+  },
+  "Contact": {
+    "headline": "Let's Work Together",
+    "subtext": "I'm open to senior engineering roles, technical consulting, and architecture reviews.",
+    "ctaEmail": "Email me",
+    "ctaEmailSub": "Send a message directly",
+    "ctaLinkedIn": "LinkedIn",
+    "ctaGitHub": "GitHub",
+    "ctaBookMeeting": "Book a Meeting",
+    "ctaLocation": "Schiedam, Netherlands"
+  },
+  "Footer": {
+    "passion": "Passionate about clean architecture, AI-augmented engineering, and systems built to last.",
+    "quickLinks": "Quick Links",
+    "home": "Home",
+    "connect": "Connect with me",
+    "allRightsReserved": "All rights reserved.",
+    "privacyPolicy": "Privacy Policy",
+    "copyright": "© {year} Amr Madkour",
+    "builtWith": "Built with Next.js and .NET 10"
+  },
+  "NotFound": {
+    "title": "Page Not Found",
+    "description": "The page you are looking for does not exist.",
+    "backHome": "Back to Home"
+  },
+  "ChatWidget": {
+    "title": "Ask Amr",
+    "placeholder": "Ask me anything about Amr...",
+    "greeting": "Hi! What would you like to know?",
+    "errorMessage": "Something went wrong. Please try again.",
+    "quickActions": {
+      "background": "Amr's background",
+      "experience": "Experience timeline",
+      "resume": "Download resume",
+      "bookCall": "Book a call"
+    },
+    "errors": {
+      "rateLimited": "Too many requests — please wait a moment and try again.",
+      "unavailable": "The AI is temporarily unavailable. Please try again in a moment.",
+      "timeout": "The request timed out. Please try again.",
+      "configError": "The AI is not configured correctly. Please contact Amr directly."
+    }
+  },
+  "CookieNotice": {
+    "ariaLabel": "Cookie notice",
+    "message": "This site uses a functional cookie to remember your language preference and stores your theme locally. No tracking or advertising.",
+    "policyLink": "Privacy Policy",
+    "dismiss": "Got it"
+  }
+}

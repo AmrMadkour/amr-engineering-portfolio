@@ -1,0 +1,86 @@
+{
+  "categories": [
+    {
+      "id": "backend",
+      "title": "Backend-ontwikkeling",
+      "skills": [
+        ".NET 10",
+        "C#",
+        "Entity Framework",
+        "REST API",
+        "Microservices",
+        "SQL Server",
+        "Kafka",
+        "HL7"
+      ]
+    },
+    {
+      "id": "frontend",
+      "title": "Frontend-ontwikkeling",
+      "skills": [
+        "React",
+        "Angular",
+        "Next.js",
+        "TypeScript",
+        "JavaScript",
+        "HTML5",
+        "Tailwind CSS",
+        "CSS3",
+        "Bootstrap",
+        "JSON",
+        "XML"
+      ]
+    },
+    {
+      "id": "cloud-devops",
+      "title": "Cloud & DevOps",
+      "skills": [
+        "AWS Serverless",
+        "AWS S3",
+        "API Gateway",
+        "Azure DevOps",
+        "Terraform",
+        "GitHub Actions",
+        "CI/CD Pipelines",
+        "Git",
+        "Bitbucket"
+      ]
+    },
+    {
+      "id": "architecture",
+      "title": "Architectuur & Kwaliteit",
+      "skills": [
+        "Clean Architecture",
+        "Service Oriented Architecture",
+        "Design Patterns",
+        "SOLID Principles",
+        "TDD",
+        "Unit Testing",
+        "Agile/Scrum"
+      ]
+    },
+    {
+      "id": "tools",
+      "title": "Tools & Samenwerking",
+      "skills": [
+        "Jira",
+        "SonarQube",
+        "Datadog",
+        "Postman",
+        "Swagger",
+        "Visual Studio",
+        "VS Code"
+      ]
+    },
+    {
+      "id": "ai-productivity",
+      "title": "AI & Ontwikkelaarsproductiviteit",
+      "skills": [
+        "GitHub Copilot",
+        "Claude Code",
+        "Prompt Engineering",
+        "LLM Research & Brainstorming"
+      ]
+    }
+  ]
+}

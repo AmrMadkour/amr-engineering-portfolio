@@ -1,0 +1,115 @@
+{
+  "Metadata": {
+    "title": "Amr Madkour — Senior Software Engineer",
+    "description": "Senior Software Engineer gespecialiseerd in schone architectuur, full-stack ontwikkeling en AI-integratie."
+  },
+  "Navigation": {
+    "home": "Home",
+    "projects": "Projecten",
+    "experience": "Ervaring",
+    "about": "Over mij",
+    "contact": "Contact"
+  },
+  "Common": {
+    "learnMore": "Meer informatie",
+    "viewProject": "Project bekijken",
+    "viewCode": "Code bekijken",
+    "present": "Heden",
+    "comingSoon": "Binnenkort"
+  },
+  "Hero": {
+    "credentialLabel": "Senior Software Developer • .NET & Cloud • AI-ondersteunde engineering",
+    "greeting": "Hoi, ik ben",
+    "headline": "Schaalbare backendsystemen bouwen en moderne AI-gedreven ontwikkelaarservaringen.",
+    "subtext": "Gepassioneerd door het bouwen van schaalbare applicaties, schone architecturen en gebruikersgerichte oplossingen. Ik geniet van het oplossen van complexe problemen en het omzetten van ideeën in betrouwbare, onderhoudbare software. Momenteel vergroot ik mijn expertise in AI-ondersteunde ontwikkeling en moderne engineering-workflows.",
+    "ctaProjects": "Mijn Werk",
+    "ctaContact": "Neem contact op",
+    "ctaBookMeeting": "Meeting boeken",
+    "ctaGitHub": "GitHub",
+    "ctaResume": "CV"
+  },
+  "Projects": {
+    "sectionTitle": "Projecten",
+    "sectionSubtitle": "Geselecteerd werk dat architectuur, schaal en technische diepgang toont.",
+    "filterAll": "Alle",
+    "viewLive": "Live demo",
+    "viewRepo": "Repository",
+    "featured": "Uitgelicht"
+  },
+  "Experience": {
+    "sectionTitle": "Ervaring",
+    "sectionSubtitle": "Een trackrecord van eigenaarschap, systeemdenken en meetbare impact.",
+    "viewAll": "Volledige tijdlijn bekijken",
+    "present": "Heden"
+  },
+  "Recommendations": {
+    "sectionTitle": "Aanbevelingen",
+    "sectionSubtitle": "Wat collega's en managers zeggen."
+  },
+  "About": {
+    "sectionTitle": "Over mij",
+    "sectionSubtitle": "Architect van nature. Engineer van vakmanschap.",
+    "p1": "Als Senior Software Engineer denk ik in systemen en begin ik met architectuur. Ik geloof in het bouwen van software die niet alleen functioneel is, maar schaalbaar, onderhoudbaar en gebouwd om te blijven. Elk probleem dat ik aanpak krijgt dezelfde behandeling: grondig begrijpen, goed ontwerpen en van begin tot eind eigenaarschap nemen.",
+    "p2": "Ik heb gewerkt met diverse, multidisciplinaire teams in meerdere sectoren, van grootschalige enterprise platforms tot healthcare, e-commerce en marktonderzoek. Ik leer graag van de mensen om me heen en deel wat ik onderweg oppik, of het nu via code reviews is, samen aan een probleem werken, of gewoon een goed gesprek. Ik geloof dat de beste teams worden gebouwd op open kennisdeling en samen groeien.",
+    "p3": "Mijn kernkracht ligt in backend- en cloudarchitectuur, maar ik definieer mezelf niet door een specifieke stack. De beste engineer is niet degene die de meeste tools kent. Het is degene die elk tool kan oppakken, goed begrijpen en er iets waardevols mee bouwen. Ik integreer actief AI-ondersteunde workflows in mijn dagelijkse praktijk, niet als snelkoppeling, maar om de lat voor kwaliteit en snelheid hoger te leggen."
+  },
+  "Skills": {
+    "sectionTitle": "Technische Expertise",
+    "sectionSubtitle": "De tools en technologieën waarmee ik bouw, ship en schaal."
+  },
+  "AIWorkflow": {
+    "label": "Engineeringsproces",
+    "headline": "Hoe ik met AI werk",
+    "subtext": "Ik heb AI-versterkte workflows ingebouwd in hoe ik codeer, review en ship — van pair programming tot RAG-tooling.",
+    "cta": "Lees over mijn AI-werkwijze"
+  },
+  "Contact": {
+    "headline": "Laten We Samenwerken",
+    "subtext": "Ik sta open voor senior engineeringfuncties, technisch advies en architectuurreviews.",
+    "ctaEmail": "Stuur me een e-mail",
+    "ctaEmailSub": "Stuur direct een bericht",
+    "ctaLinkedIn": "LinkedIn",
+    "ctaGitHub": "GitHub",
+    "ctaBookMeeting": "Meeting boeken",
+    "ctaLocation": "Schiedam, Nederland"
+  },
+  "Footer": {
+    "passion": "Gepassioneerd door schone architectuur, AI-verrijkte engineering en systemen die meegaan.",
+    "quickLinks": "Snelle links",
+    "home": "Home",
+    "connect": "Verbinding maken",
+    "allRightsReserved": "Alle rechten voorbehouden.",
+    "privacyPolicy": "Privacybeleid",
+    "copyright": "© {year} Amr Madkour",
+    "builtWith": "Gebouwd met Next.js en .NET 10"
+  },
+  "NotFound": {
+    "title": "Pagina niet gevonden",
+    "description": "De pagina die u zoekt bestaat niet.",
+    "backHome": "Terug naar home"
+  },
+  "ChatWidget": {
+    "title": "Vraag Amr",
+    "placeholder": "Vraag me alles over Amr...",
+    "greeting": "Hoi! Wat wil je weten?",
+    "errorMessage": "Er is iets misgegaan. Probeer het opnieuw.",
+    "quickActions": {
+      "background": "Amr's achtergrond",
+      "experience": "Ervaringstijdlijn",
+      "resume": "Download cv",
+      "bookCall": "Gesprek inplannen"
+    },
+    "errors": {
+      "rateLimited": "Te veel verzoeken — wacht even en probeer het opnieuw.",
+      "unavailable": "De AI is tijdelijk niet beschikbaar. Probeer het over een moment opnieuw.",
+      "timeout": "Het verzoek is verlopen. Probeer het opnieuw.",
+      "configError": "De AI is niet correct geconfigureerd. Neem rechtstreeks contact op met Amr."
+    }
+  },
+  "CookieNotice": {
+    "ariaLabel": "Cookiemelding",
+    "message": "Deze site gebruikt één functionele cookie om je taalvoorkeur te onthouden en slaat je thema lokaal op. Geen tracking of advertenties.",
+    "policyLink": "Privacybeleid",
+    "dismiss": "Begrepen"
+  }
+}

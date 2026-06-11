@@ -1,0 +1,133 @@
+[
+  {
+    "id": "metrixlab-senior",
+    "slug": "metrixlab-senior",
+    "type": "company",
+    "featured": true,
+    "domain": "fullstack",
+    "company": "Metrixlab (Toluna)",
+    "role": "Senior Software Developer",
+    "startDate": "2023-07",
+    "endDate": null,
+    "description": "Part of a cross-functional team of four senior developers rebuilding the TIQM survey platform — a worldwide market-research product — from a legacy MVC system into a distributed microservice architecture. Work spans backend services, AWS cloud infrastructure, and React-based survey flows covering the full survey lifecycle.",
+    "highlights": [
+      "Led migration of TIQM from MVC to microservices alongside three senior developers, splitting responsibilities across Cambridge (orchestration), Lexicon (solution management), and Thesaurus (user metadata) services",
+      "Built and maintained backend services covering the full survey lifecycle: creation, update, duplication, retrieval, and validation",
+      "Delivered the AdReview survey flow in React and TypeScript, coordinating closely with UI/UX and stakeholders to ship without breaking existing survey paths",
+      "Supported AWS Lambda, API Gateway, CloudWatch, and S3 infrastructure managed with Terraform, including CI/CD pipeline maintenance"
+    ],
+    "technologies": [".NET 8", "C#", "Microservices", "React", "TypeScript", "AWS Lambda", "API Gateway", "CloudWatch", "S3", "Secrets Manager", "Terraform", "Bitbucket", "Jira", "SonarQube", "Datadog"]
+  },
+  {
+    "id": "metrixlab-developer",
+    "slug": "metrixlab-developer",
+    "type": "company",
+    "featured": true,
+    "domain": "fullstack",
+    "company": "Metrixlab",
+    "role": "Software Developer",
+    "startDate": "2020-11",
+    "endDate": "2023-07",
+    "description": "Engineered features across two platform tracks: the Dashboard Platform (three internal tools managing client KPIs, ad performance, and survey data) and a greenfield Kafka-based Consumer Platform processing real-time DMP events end-to-end. Maintained and scaled backend APIs, SQL data layers, and frontend components across the full release cycle.",
+    "highlights": [
+      "Supported three connected dashboard tools (Admin, Scorecard, Visual Library) handling KPI management, scorecard uploads, and client-facing data visualization",
+      "Built a Kafka-based event-consumption platform from scratch: consumed DMP events from AKHQ, applied processing and transformation logic, and fed the results to the dashboard in real time",
+      "Developed and maintained features across the full event-processing pipeline including backend services, data persistence, and frontend display",
+      "Delivered ongoing feature work and platform improvements as part of the team's regular release cycle"
+    ],
+    "technologies": [".NET Framework 4.x", ".NET Core", "REST API", "ASP.NET MVC", "Knockout.js", "SQL Server", "Entity Framework", "Kafka", "AKHQ", "TDD", "Azure DevOps"]
+  },
+  {
+    "id": "ict-group",
+    "slug": "ict-group",
+    "type": "company",
+    "featured": false,
+    "domain": "backend",
+    "company": "ICT Group N.V.",
+    "role": "Software Engineer",
+    "startDate": "2018-09",
+    "endDate": "2020-09",
+    "description": "Worked on several projects at ICT Group in Eindhoven covering medical software modernization, a HoloLens mixed reality prototype, and a decentralized data research POC. Each project was delivered within an Agile team, touching healthcare integrations, Azure cloud services, and W3C Linked Data standards.",
+    "highlights": [
+      "Modernized the Meditop medical system by migrating a VB6 legacy application to C#/.NET with REST APIs, HL7 healthcare messaging, and Leadtools imaging",
+      "Built a HoloLens mixed reality POC: a speech-driven Q&A bot on Azure Bot Service with Unity scenes for voice-response visualization",
+      "Developed a decentralized Solid Server POC applying W3C Linked Data principles and Turtle syntax for semantic data representation",
+      "Worked in Agile sprints delivering production features for healthcare workflows and experimental prototypes across different technical domains"
+    ],
+    "technologies": [".NET", "C#", "REST API", "MVVM", "SQL Server", "Entity Framework", "HL7", "Serial Communication", "Leadtools", "ASP.NET Core", "Azure Bot Service", "Unity", "Microsoft HoloLens"]
+  },
+  {
+    "id": "talabat",
+    "slug": "talabat",
+    "type": "company",
+    "featured": false,
+    "domain": "backend",
+    "company": "Talabat",
+    "role": "Software Engineer",
+    "startDate": "2018-03",
+    "endDate": "2018-07",
+    "description": "Joined as part of a targeted short-term integration engagement at Talabat, a food delivery platform operating across the Gulf region under Delivery Hero. Built restaurant menu ingestion flows and order dispatch pipelines to connect Talabat's core platform with external restaurant systems across multiple data formats and partner schemas.",
+    "highlights": [
+      "Processed restaurant menu data in XML and JSON, deserializing into internal Talabat models and transforming to platform-compatible structures",
+      "Built reusable integration models to onboard multiple restaurant clients with different menu formats and data schemas",
+      "Developed order-posting flows that retrieved orders from the database, serialized to XML or JSON, and dispatched them to external restaurant endpoints",
+      "Improved integration reliability and consistency across the partner restaurant ecosystem"
+    ],
+    "technologies": ["ASP.NET Core API", "C#", "SQL Server", "LINQ", "XML", "JSON", "Postman", "TFS"]
+  },
+  {
+    "id": "nahdet-misr",
+    "slug": "nahdet-misr",
+    "type": "company",
+    "featured": false,
+    "domain": "backend",
+    "company": "Nahdet Misr",
+    "role": ".NET Developer",
+    "startDate": "2016-05",
+    "endDate": "2018-02",
+    "description": "Maintained and extended five internal business systems covering HR, Payroll, Medical, Attendance, and Construction operations at one of Egypt's major publishing and education groups. Delivered feature work and fixes across both ASP.NET web applications and Windows Forms desktop tools used daily across the organization.",
+    "highlights": [
+      "Supported five core internal systems (HR, Payroll, Medical, Attendance, and Construction) used daily across the organization",
+      "Delivered new features and bug fixes for both web (ASP.NET Web Forms) and desktop (Windows Forms) applications",
+      "Contributed to performance improvements, system stability, and ongoing support across all business domains"
+    ],
+    "technologies": ["ASP.NET Web Forms", "Windows Forms", "C#", "SQL Server", "ADO.NET"]
+  },
+  {
+    "id": "smart-innovation",
+    "slug": "smart-innovation",
+    "type": "company",
+    "featured": false,
+    "domain": "backend",
+    "company": "Smart Innovation",
+    "role": ".NET Developer",
+    "startDate": "2015-03",
+    "endDate": "2016-04",
+    "description": "First professional development role. Built client websites and web applications across a range of business sectors, covering the full delivery cycle: gathering requirements, building and testing features, and supporting projects after launch.",
+    "highlights": [
+      "Developed multiple client-facing web applications and internal tools across a range of business domains",
+      "Handled requirements gathering, implementation, testing, and post-launch maintenance for each project",
+      "Built foundational expertise in .NET web development, SQL Server, and desktop applications under senior engineering guidance"
+    ],
+    "technologies": ["ASP.NET Web Forms", "Windows Forms", "C#", "SQL Server", "ADO.NET"]
+  },
+  {
+    "id": "amr-portfolio",
+    "slug": "amr-portfolio",
+    "type": "personal",
+    "featured": true,
+    "domain": "fullstack",
+    "company": null,
+    "role": "AMR Engineering Portfolio",
+    "startDate": "2026-01",
+    "endDate": null,
+    "description": "A personal engineering project built to practice real-world architecture, not just produce a polished page. The backend is a four-layer Clean Architecture .NET 10 Minimal API; the frontend is Next.js 15 App Router with three-locale support, RTL, and dark mode.",
+    "highlights": [
+      "Designed and enforced Clean Architecture layer boundaries via .csproj project references",
+      "Built a Repository Pattern over JSON content files with IMemoryCache for a 15-minute read-through cache",
+      "Implemented three-locale routing with next-intl including full RTL layout support for Arabic",
+      "Structured as a real-world monorepo with npm workspaces and shared TypeScript configuration packages"
+    ],
+    "technologies": ["Next.js", ".NET 10", "TypeScript", "Tailwind CSS", "Clean Architecture", "next-intl", "C#"]
+  }
+]

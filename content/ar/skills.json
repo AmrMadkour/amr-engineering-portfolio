@@ -1,0 +1,86 @@
+{
+  "categories": [
+    {
+      "id": "backend",
+      "title": "تطوير الخلفيات",
+      "skills": [
+        ".NET 10",
+        "C#",
+        "Entity Framework",
+        "REST API",
+        "Microservices",
+        "SQL Server",
+        "Kafka",
+        "HL7"
+      ]
+    },
+    {
+      "id": "frontend",
+      "title": "تطوير الواجهات الأمامية",
+      "skills": [
+        "React",
+        "Angular",
+        "Next.js",
+        "TypeScript",
+        "JavaScript",
+        "HTML5",
+        "Tailwind CSS",
+        "CSS3",
+        "Bootstrap",
+        "JSON",
+        "XML"
+      ]
+    },
+    {
+      "id": "cloud-devops",
+      "title": "السحابة والـ DevOps",
+      "skills": [
+        "AWS Serverless",
+        "AWS S3",
+        "API Gateway",
+        "Azure DevOps",
+        "Terraform",
+        "GitHub Actions",
+        "CI/CD Pipelines",
+        "Git",
+        "Bitbucket"
+      ]
+    },
+    {
+      "id": "architecture",
+      "title": "المعمارية والجودة",
+      "skills": [
+        "Clean Architecture",
+        "Service Oriented Architecture",
+        "Design Patterns",
+        "SOLID Principles",
+        "TDD",
+        "Unit Testing",
+        "Agile/Scrum"
+      ]
+    },
+    {
+      "id": "tools",
+      "title": "الأدوات والتعاون",
+      "skills": [
+        "Jira",
+        "SonarQube",
+        "Datadog",
+        "Postman",
+        "Swagger",
+        "Visual Studio",
+        "VS Code"
+      ]
+    },
+    {
+      "id": "ai-productivity",
+      "title": "الذكاء الاصطناعي وإنتاجية المطور",
+      "skills": [
+        "GitHub Copilot",
+        "Claude Code",
+        "Prompt Engineering",
+        "LLM Research & Brainstorming"
+      ]
+    }
+  ]
+}

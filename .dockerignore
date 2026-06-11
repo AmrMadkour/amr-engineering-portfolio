@@ -1,0 +1,49 @@
+# Node — huge; exclude before anything else
+node_modules/
+**/node_modules/
+
+# Next.js build output
+apps/web/.next/
+apps/web/out/
+
+# .NET build artefacts
+**/bin/
+**/obj/
+
+# Test code and coverage — not needed in the runtime image
+apps/api/tests/
+apps/api/coverage-results/
+
+# Runtime logs — ephemeral in the container; created by Dockerfile RUN
+apps/api/logs/
+
+# Web app source — API image only; entire subtree excluded
+apps/web/
+
+# Git and CI
+.git/
+.gitignore
+.github/
+
+# IDE and editor
+.vs/
+.vscode/
+**/*.user
+**/*.suo
+**/*.lscache
+
+# OS artefacts
+.DS_Store
+Thumbs.db
+
+# Development docs and tooling (not needed in image)
+docs/
+packages/
+CLAUDE.md
+README.md
+LICENSE
+
+# Screenshots and images at repo root (session screenshots, not public assets)
+*.jpeg
+*.jpg
+*.png
