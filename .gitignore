@@ -68,5 +68,6 @@ Thumbs.db
 
 # Dev/debug screenshots and scripts
 *.png
+!apps/web/public/**/*.png
 screenshot-*.mjs
 test-*.mjs
