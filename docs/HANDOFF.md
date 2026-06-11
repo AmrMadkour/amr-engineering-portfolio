@@ -851,8 +851,54 @@ The conflict: `.gitattributes` stores and checks out all files as LF; `.editorco
 ### Next
 
 **CI is green. Manual steps required (cloud accounts):**
-1. **Local Docker verify** — install Docker Desktop, run `docker build -f apps/api/Dockerfile -t amr-portfolio-api:local .` from repo root, hit `/health` + `/v1/profile?locale=en`
+1. ~~**Local Docker verify**~~ ✓ DONE — see session 2026-06-10 below
 2. **B2 Render** — create Web Service, Docker env, Dockerfile `apps/api/Dockerfile`, context = root; set `ASPNETCORE_ENVIRONMENT=Production`, `AllowedOrigins=<vercel-url>`, `Gemini__ApiKey`, `Gemini__ModelId=gemini-flash-latest`, `ContentPath=/app/content`; disable auto-deploy; copy Deploy Hook URL → GitHub secret `RENDER_DEPLOY_HOOK`
 3. **C1 Vercel** — import repo; Root Directory = `apps/web`; set `NEXT_PUBLIC_API_URL` (Render URL) + `NEXT_PUBLIC_SITE_URL` (Vercel URL); disable auto-deploy on main; copy Deploy Hook → GitHub secret `VERCEL_DEPLOY_HOOK`
 4. **C2 CORS** — update Render `AllowedOrigins` to exact Vercel origin once both URLs are known
 5. **G/H** — custom domain + Google Search Console (when domain is ready)
+
+---
+
+## Session — 2026-06-10 (B1 Docker verification — COMPLETE)
+
+### What happened
+
+Docker Desktop installed and working. Built and ran the API image locally to verify the Dockerfile is correct end-to-end.
+
+**Commands run (from repo root):**
+```bash
+docker build -f apps/api/Dockerfile -t amr-portfolio-api:local .
+docker run -d --name amr-api-test -p 8080:8080 -e PORT=8080 -e Gemini__ApiKey=placeholder -e Gemini__ModelId=gemini-flash-latest amr-portfolio-api:local
+```
+
+**Results:**
+- `/health` → `200 {"status":"healthy"}` ✓
+- `/v1/profile?locale=en` → `200` with real Amr Madkour profile content ✓
+- `content/` folder correctly bundled inside the image ✓
+- `PORT` env var expansion via shell ENTRYPOINT works ✓
+
+### Gotcha — Gemini key required at startup
+
+`DependencyInjection.AddInfrastructure` throws `InvalidOperationException` if `Gemini:ApiKey` is missing — the app won't start at all, even for non-chat endpoints. For local Docker testing pass `-e Gemini__ApiKey=placeholder`. For Render, set the real key as an env var (mandatory).
+
+### Deploy Hook — not yet found
+
+Tried to locate the Render Deploy Hook URL to store as GitHub secret `RENDER_DEPLOY_HOOK`. Could not find it. Two reasons this might happen:
+- **Service not yet deployed** — the Deploy Hook only appears in the Render UI after the first successful deploy.
+- **UI location**: Settings → Build & Deploy → Deploy Hook section (Render has moved this around).
+
+**Alternative if hook stays hidden:** Update `deploy.yml` to use the Render API directly (`curl -X POST "https://api.render.com/v1/services/<service-id>/deploys" -H "Authorization: Bearer <api-key>"`). Ask Claude to update the workflow when ready.
+
+### Status
+
+- B1 ✓ Docker image builds and runs correctly
+- B2 IN PROGRESS — Render service not yet created/deployed
+- C1/C2 NOT STARTED — waiting on Render URL
+
+### Next session pick-up
+
+1. **Create Render Web Service** — Docker env, Dockerfile `apps/api/Dockerfile`, context = repo root (blank or `.`). Set env vars (see above). Do first deploy to get the service URL.
+2. **Get Deploy Hook URL** — after first deploy: Settings → Build & Deploy → Deploy Hook → copy URL → GitHub repo Settings → Secrets and variables → Actions → New secret → `RENDER_DEPLOY_HOOK`.
+3. **C1 Vercel** — import repo, Root Directory = `apps/web`, set `NEXT_PUBLIC_API_URL` = Render URL, `NEXT_PUBLIC_SITE_URL` = Vercel URL, disable auto-deploy on main, copy Deploy Hook → GitHub secret `VERCEL_DEPLOY_HOOK`.
+4. **C2 CORS** — update Render env var `AllowedOrigins` to exact Vercel origin.
+5. **Test end-to-end** — Vercel frontend loads, calls Render API, chat widget streams (needs real Gemini key on Render).

@@ -35,7 +35,7 @@
       "تطوير وصيانة الميزات عبر خط معالجة الأحداث الكامل بما يشمل الخدمات الخلفية وحفظ البيانات وعرضها على الواجهة",
       "تسليم تحسينات مستمرة وميزات جديدة للمنصة ضمن دورة إصدار الفريق"
     ],
-    "technologies": [".NET 4", ".NET Core", "REST API", "ASP.NET MVC", "Knockout.js", "SQL Server", "Entity Framework", "Kafka", "AKHQ", "TDD", "Azure DevOps"]
+    "technologies": [".NET Framework 4.x", ".NET Core", "REST API", "ASP.NET MVC", "Knockout.js", "SQL Server", "Entity Framework", "Kafka", "AKHQ", "TDD", "Azure DevOps"]
   },
   {
     "id": "ict-group",

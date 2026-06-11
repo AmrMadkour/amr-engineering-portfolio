@@ -35,7 +35,7 @@
       "Features ontwikkeld en onderhouden voor de volledige event-verwerkingspipeline inclusief backendservices, datapersistentie en frontend-weergave",
       "Doorlopende platformverbeteringen en nieuwe features opgeleverd als onderdeel van de releasecyclus van het team"
     ],
-    "technologies": [".NET 4", ".NET Core", "REST API", "ASP.NET MVC", "Knockout.js", "SQL Server", "Entity Framework", "Kafka", "AKHQ", "TDD", "Azure DevOps"]
+    "technologies": [".NET Framework 4.x", ".NET Core", "REST API", "ASP.NET MVC", "Knockout.js", "SQL Server", "Entity Framework", "Kafka", "AKHQ", "TDD", "Azure DevOps"]
   },
   {
     "id": "ict-group",
