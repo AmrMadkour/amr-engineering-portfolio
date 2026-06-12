@@ -902,3 +902,110 @@ Tried to locate the Render Deploy Hook URL to store as GitHub secret `RENDER_DEP
 3. **C1 Vercel** — import repo, Root Directory = `apps/web`, set `NEXT_PUBLIC_API_URL` = Render URL, `NEXT_PUBLIC_SITE_URL` = Vercel URL, disable auto-deploy on main, copy Deploy Hook → GitHub secret `VERCEL_DEPLOY_HOOK`.
 4. **C2 CORS** — update Render env var `AllowedOrigins` to exact Vercel origin.
 5. **Test end-to-end** — Vercel frontend loads, calls Render API, chat widget streams (needs real Gemini key on Render).
+
+---
+
+## Session — 2026-06-11 (Live deployment smoke test + fixes)
+
+### What happened
+
+First full end-to-end smoke test against the live Vercel + Render deployment. Render and Vercel were already up (done before this session). CORS was updated from `*` to the exact Vercel origin just before this session started.
+
+### Status after this session
+
+| Group | Item | Status |
+|---|---|---|
+| A | Quality gate (tests, lint, CI) | ✓ Done |
+| B1 | Dockerfile + local verify | ✓ Done |
+| B2 | Render Web Service deployed | ✓ Done |
+| C1 | Vercel project imported + deployed | ✓ Done |
+| C2 | CORS `AllowedOrigins` → exact Vercel origin | ✓ Done |
+| D1 | Security verification | ✓ Done (see below) |
+| F1 | `deploy.yml` GitHub secrets | ⚠ Pending — secrets not yet wired |
+| G | Custom domain | Pending — domain not yet provided |
+| H | Google Search Console | Pending — needs live domain first |
+
+### Files changed
+
+- `.gitignore` — added `!apps/web/public/**/*.png` negation; the blanket `*.png` rule (dev screenshot guard) was also blocking production icon assets in `public/`
+- `apps/web/public/icons/{agile,azure-devops,csharp,visual-studio,vscode}.png` — committed for the first time; were on disk but never tracked, causing 404s on Vercel
+
+### Security audit results ✓
+
+- **CORS**: `access-control-allow-origin: https://amr-engineering-portfolio-web.vercel.app` — locked, not `*`
+- **API keys in git**: clean — `git grep` found only the error-message template string, no real key
+- **Scalar API docs**: blocked in production (returns non-200, not accessible)
+- **SSL**: Render is behind Cloudflare + HTTPS; Vercel is HTTPS
+- **Optional** (not blocking): security response headers (`X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`) not yet set in `next.config.ts` — Group D1 noted this as non-blocking
+
+### AI agent broken — Gemini quota/key issue on Render
+
+The chat widget shows "The AI is temporarily unavailable." The network request to `POST https://amr-engineering-portfolio.onrender.com/v1/chat` returns HTTP 200 with body:
+```
+data: {"type":"error","code":"unavailable"}
+data: [DONE]
+```
+
+CORS is working correctly (200 response, correct `access-control-allow-origin` header). The failure is inside `GeminiChatService`: Gemini throws a `GeminiApiException` that doesn't match the rate-limit or auth patterns in `ClassifyGeminiError`, so it falls through to `ChatErrorCodes.Unavailable`. Most likely cause: **the Gemini API key set in Render env vars has exhausted its quota**, and the `Mscc.GenerativeAI` library wraps the 429 in a way where the message chain doesn't contain "429" or "RESOURCE_EXHAUSTED".
+
+**Fix (manual — requires Render dashboard access):**
+1. Go to Google AI Studio → create a **new Google Cloud project** → generate a new API key (quota is per-project, not per-key)
+2. Render dashboard → Environment → update `Gemini__ApiKey` to the new key
+3. Trigger a manual redeploy on Render
+4. Re-test the chat widget on the live site
+
+### SSH push config — permanent fix
+
+`core.sshCommand` was sitting in `.git/config` (local, shared between Windows and WSL contexts), causing pushes from the VS Code WSL terminal to break. Fixed:
+- Set `core.sshCommand = wsl ssh` in the **Windows global** git config (`~/.gitconfig`) — applies to Claude Code's Bash tool only
+- Removed `core.sshCommand` from `.git/config` (local) — WSL terminal now uses its own native SSH unaffected
+
+### Gotchas
+
+- **`*.png` gitignore rule blocks production assets** — the root `.gitignore` has `*.png` to ignore dev screenshots. Any new icon PNGs added to `public/` will also be blocked unless the `!apps/web/public/**/*.png` negation is already in place (it now is). Same pattern applies to `.jpg` files if a blanket rule is ever added.
+- **`core.sshCommand` resets** — if git is ever reinstalled or `.git/config` is regenerated, the local setting may reappear as plain `ssh`. The Windows global config is the durable fix. WSL pushes are unaffected either way.
+- **Gemini `unavailable` vs `rateLimited`** — `ClassifyGeminiError` checks exception message strings. When `Mscc.GenerativeAI` wraps a 429 as a `GeminiApiException(JsonException)`, the outer message may just be "Response was not successful" without "429" in it, causing misclassification as `unavailable`. This is a known library quirk — the real fix is a fresh API key on a new project.
+
+### Branch discipline — action required
+
+All changes this session were pushed **directly to `main`**. Going forward, all changes must go through a **pull request** — even small fixes. Direct pushes to `main` bypass the CI quality gate and the gated deploy workflow.
+
+**Required setup:**
+1. GitHub repo → Settings → Branches → Add branch protection rule for `main`
+   - ✅ Require a pull request before merging
+   - ✅ Require status checks to pass (select the `CI / frontend` and `CI / backend` jobs from `ci.yml`)
+   - ✅ Require branches to be up to date before merging
+2. All future work starts on a feature branch → PR → CI green → merge to `main` → `deploy.yml` fires
+
+The `deploy.yml` already uses `workflow_run` on `ci.yml` with `head_branch == 'main'`, so gated deploys are correct — the branch protection just makes it impossible to bypass the gate by pushing directly.
+
+---
+
+## Next steps (ordered)
+
+### Immediate — unblock the AI agent
+1. **Fix Gemini quota** — new Google Cloud project → new API key → update `Gemini__ApiKey` on Render → manual redeploy → verify chat widget responds
+
+### Deployment wiring — complete the gated pipeline
+2. **Wire GitHub secrets** — once deploy hooks are available in Render + Vercel dashboards:
+   - Render: Settings → Build & Deploy → Deploy Hook → copy URL → GitHub repo → Settings → Secrets → `RENDER_DEPLOY_HOOK`
+   - Vercel: Project → Settings → Git → Deploy Hook → copy URL → GitHub repo → Secrets → `VERCEL_DEPLOY_HOOK`
+3. **Enable branch protection on `main`** — see "Branch discipline" section above; required before any further direct pushes
+
+### Custom domain — Group G
+4. **Provide the custom domain** — once the domain name is ready, the steps are:
+   - Vercel: Project → Settings → Domains → add domain → update DNS at registrar (CNAME/A record) → free SSL auto-provisions
+   - Render: Settings → Custom Domains → add `api.<domain>` (optional) → DNS CNAME to Render URL
+   - Update Vercel env var `NEXT_PUBLIC_SITE_URL` to `https://<domain>`
+   - Update Render env var `AllowedOrigins` to `https://<domain>` (remove old Vercel subdomain)
+   - Update `PersonJsonLd.tsx` `url` field (currently hardcoded or from `NEXT_PUBLIC_SITE_URL`)
+   - If site was already indexed on `.vercel.app`: old URL → new URL 301 redirect + Google Search Console re-submit
+
+### Off-site discoverability — Group H (after domain is live)
+5. **Google Search Console** — verify domain → submit `https://<domain>/sitemap.xml` → request indexing for homepage
+6. **LinkedIn + GitHub** — add the live URL to both profiles (reciprocal `sameAs` links from `PersonJsonLd.tsx`)
+
+### Optional quality improvements (non-blocking)
+- **Security headers** in `next.config.ts` — `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`, `Referrer-Policy: strict-origin-when-cross-origin`
+- **`react-markdown`** in `ChatMessage.tsx` — Gemini responses with `**bold**` and `- bullets` render as raw text currently
+- **Rate limiting** on `POST /v1/chat` — `AddRateLimiter` fixed window per IP (~10 req/min) in `Program.cs`
