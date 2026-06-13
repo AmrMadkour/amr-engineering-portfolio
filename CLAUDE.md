@@ -25,10 +25,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - [x] Step 4: Experience page rebuilt — list cards, client-side filtering (Type/Focus/Era), project counts per entry
 - [x] Step 5: Experience detail pages — `/experience/[slug]` dynamic route; company and personal/freelance layouts; embedded projects/use-cases
 
-**Phase 2 Cleanup (pre-Phase 3) — PENDING**
-- [ ] Delete dead files: `ExperienceSection`, `ExperienceCard`, `ExperienceAnimatedList`, `ProjectList/*`, `/projects` route, `public/icons/aws.svg`
-- [ ] SEO: add `generateMetadata` to `/experience/[slug]/page.tsx` (and other routes)
-- [ ] Translate AR/NL experience + project descriptions (currently EN text in all locales)
+**Phase 2 Cleanup (pre-Phase 3) — COMPLETE**
+- [x] Delete dead files: `ExperienceSection`, `ExperienceCard`, `ExperienceAnimatedList`, `ProjectList/*`, `ContactCTA/`, `AIWorkflowTeaser/`, `/projects` route, `public/icons/aws.svg`
+- [x] SEO: `generateMetadata` added to `/experience/[slug]/page.tsx`
+- [x] Translate AR/NL experience + project descriptions
 
 **Phase 3 (AI Integration) — COMPLETE**
 - [x] `IChatService` + `ErrorEvent`/`ChatErrorCodes` in `Application/`
@@ -36,9 +36,18 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - [x] `POST /v1/chat` SSE endpoint — locale whitelist validation, streams `delta`/`action`/`error` events
 - [x] Context: full portfolio JSON loaded per-request from `IContentRepository` (fits in one context window, no vector DB needed)
 - [x] `ChatWidget` frontend — floating FAB, illustrated avatar, quick-action chips (3 direct, 1 AI), i18n error codes, RTL-aware
-- [ ] `react-markdown` in chat bubbles (Gemini markdown renders as raw text currently)
-- [ ] Rate limiting on `POST /v1/chat` (`AddRateLimiter` in Program.cs)
-- [ ] Unit tests for `GeminiChatService.ClassifyGeminiError` (method is `internal`)
+- [x] `react-markdown` in chat bubbles (`ChatMessage.tsx`)
+- [x] Rate limiting on `POST /v1/chat` — `AddRateLimiter` fixed window per IP in `Program.cs`
+- [x] Unit tests for `GeminiChatService.ClassifyGeminiError` (`GeminiChatServiceTests.cs`)
+
+**Phase 4 (Deployment & Production) — COMPLETE**
+- [x] Dockerfile + Render deploy (`.NET` backend at `https://amr-portfolio-api.onrender.com`)
+- [x] Vercel deploy (frontend) + CORS env var `AllowedOrigins`
+- [x] Custom domain `amrmadkour.com` via Cloudflare (DNS-only, no proxy — required for Vercel SSL)
+- [x] CI/CD — GitHub Actions `ci.yml` (lint/typecheck/build/test) gates `deploy.yml` (Render + Vercel webhooks) on `main` only
+- [x] SEO — `generateMetadata` on all routes, JSON-LD `PersonJsonLd`, OG image, `sitemap.ts`, `robots.ts`; `NEXT_PUBLIC_SITE_URL=https://amrmadkour.com` drives all canonical URLs
+- [x] Google Search Console — domain property verified; sitemap submitted and accepted
+- [x] Branch protection on `main` — PR required; `CI / frontend` + `CI / backend` checks must pass
 
 Full architecture decisions and implementation roadmap: `docs/planning/Stage1/3-ArchitectureReview.md`
 
@@ -125,8 +134,7 @@ apps/web/components/       ← stateless reusable UI atoms (Button, Card, Badge)
 apps/web/features/         ← page-level sections — colocate component + logic:
                              Hero/, About/, TechnicalSkills/, ExperiencePreview/ (homepage teaser cards),
                              ExperienceTimeline/ (list cards, filter bar, page client, detail view),
-                             RecommendationsCarousel/, Footer/, ChatWidget/,
-                             ProjectList/ (unlinked), ContactCTA/, AIWorkflowTeaser/ (dead — pending cleanup)
+                             RecommendationsCarousel/, Footer/, ChatWidget/
 apps/web/services/         ← typed fetch() wrappers; called from Server Components only
 apps/web/hooks/            ← client-only hooks; every file is 'use client'
 apps/web/lib/              ← pure utility functions; no React/Next imports

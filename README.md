@@ -1,5 +1,7 @@
 # AMR Engineering Portfolio
 
+**Live:** [amrmadkour.com](https://amrmadkour.com)
+
 A production-grade personal engineering platform built to demonstrate senior-level full-stack architecture, clean code practices, DevOps readiness, and AI integration capability.
 
 This is not a simple portfolio template. It is engineered as a scalable, modern monorepo with enterprise-inspired patterns.
@@ -26,10 +28,11 @@ This is not a simple portfolio template. It is engineered as a scalable, modern 
 ### Frontend (`apps/web`)
 - Next.js 15 (App Router)
 - TypeScript
-- Tailwind CSS + shadcn/ui
+- Tailwind CSS
 - next-intl (EN / AR / NL localization + RTL)
 - next-themes (dark / light mode)
 - Framer Motion
+- react-markdown
 - react-icons + lucide-react
 
 ### Backend (`apps/api`)
@@ -44,9 +47,10 @@ This is not a simple portfolio template. It is engineered as a scalable, modern 
 
 ### Infrastructure
 - npm workspaces monorepo
-- GitHub Actions (CI/CD)
-- Vercel (frontend hosting)
-- Render (backend hosting)
+- GitHub Actions (CI — lint/typecheck/build/test; gated deploy on `main`)
+- Vercel (frontend — `amrmadkour.com`)
+- Render (backend — `.NET` API)
+- Cloudflare (DNS)
 
 ---
 
@@ -72,7 +76,7 @@ This is not a simple portfolio template. It is engineered as a scalable, modern 
 │   ├── architecture/     → System diagrams and component docs
 │   └── decisions/        → Architecture Decision Records (ADRs)
 │
-├── infrastructure/       → Deployment configs and runbooks
+├── infrastructure/       → Deployment notes
 │
 └── .github/
     └── workflows/        → CI/CD pipelines
