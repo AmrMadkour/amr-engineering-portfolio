@@ -1009,3 +1009,76 @@ The `deploy.yml` already uses `workflow_run` on `ci.yml` with `head_branch == 'm
 - **Security headers** in `next.config.ts` — `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`, `Referrer-Policy: strict-origin-when-cross-origin`
 - **`react-markdown`** in `ChatMessage.tsx` — Gemini responses with `**bold**` and `- bullets` render as raw text currently
 - **Rate limiting** on `POST /v1/chat` — `AddRateLimiter` fixed window per IP (~10 req/min) in `Program.cs`
+
+---
+
+## Session — 2026-06-13 (Custom Domain + SEO — COMPLETE)
+
+### What was confirmed done before this session
+- **Gemini quota fixed** — new Google Cloud project + new API key set on Render; chat widget working
+- **GitHub secrets wired** — `RENDER_DEPLOY_HOOK` + `VERCEL_DEPLOY_HOOK` added to repo secrets; gated deploy pipeline fully operational
+- **Branch protection on `main`** — PR required + CI checks (`CI / frontend`, `CI / backend`) must pass before merge
+
+### Domain setup (Group G — COMPLETE)
+
+**Domain:** `amrmadkour.com` (registered via Cloudflare)
+
+**Vercel domains configured:**
+- `amrmadkour.com` — primary
+- `www.amrmadkour.com` — redirects to root
+
+**Cloudflare DNS records added (both set to DNS-only / grey cloud — required for Vercel SSL):**
+| Type | Name | Value |
+|---|---|---|
+| A | `@` | `76.76.21.21` |
+| CNAME | `www` | `cname.vercel-dns.com` |
+
+**Env vars updated:**
+- Vercel: `NEXT_PUBLIC_SITE_URL` → `https://amrmadkour.com` → redeployed
+- Render: `AllowedOrigins` → `https://amrmadkour.com` → redeployed
+
+**Why the sitemap initially failed in Search Console:** `NEXT_PUBLIC_SITE_URL` was still pointing to `https://amr-engineering-portfolio.vercel.app`, so `sitemap.xml` was outputting old-domain URLs. Search Console rejected them ("URL not allowed — 30 instances"). Fixed by updating the env var and redeploying before re-submitting.
+
+### Google Search Console (Group H — COMPLETE)
+
+- Domain property `amrmadkour.com` verified via Cloudflare DNS TXT record
+- Sitemap `https://amrmadkour.com/sitemap.xml` submitted — **Success** (lists all pages: home/experience/contact × 3 locales + 7 experience detail pages × 3 locales)
+- Indexing requested for `https://amrmadkour.com/en` and `https://amrmadkour.com`
+
+### Status — Phase 4 complete
+
+| Group | Item | Status |
+|---|---|---|
+| A | Quality gate (tests, lint, CI) | ✓ Done |
+| B | Dockerfile + Render deploy | ✓ Done |
+| C | Vercel deploy + CORS | ✓ Done |
+| D | Security verification | ✓ Done |
+| E | SEO (metadata, JSON-LD, OG, sitemap) | ✓ Done |
+| F | Gated deploy pipeline | ✓ Done |
+| G | Custom domain `amrmadkour.com` | ✓ Done |
+| H | Google Search Console + sitemap | ✓ Done |
+
+### Gotchas
+
+- **Cloudflare proxy must be OFF (grey cloud)** for the DNS records pointing to Vercel. Orange cloud (proxied) interferes with Vercel's SSL provisioning and certificate validation.
+- **`NEXT_PUBLIC_SITE_URL` drives everything** — sitemap URLs, robots.txt sitemap pointer, canonical tags, OG URLs, JSON-LD Person `url` field. If the domain ever changes, this is the one env var to update in Vercel.
+- **`amr-engineering-portfolio-web.vercel.app` still exists** — Vercel's permanent internal URL; cannot be removed. Doesn't affect SEO because all canonicals point to `amrmadkour.com`. Render's `AllowedOrigins` no longer includes it — requests from the old Vercel subdomain will be CORS-rejected (intentional).
+
+---
+
+## Next steps (ordered)
+
+### Manual — off-site discoverability (do now)
+1. **LinkedIn profile** — Edit profile → Website field → add `https://amrmadkour.com`
+2. **GitHub profile** — Edit profile → Website → add `https://amrmadkour.com`
+
+These complete the `sameAs` loop in `PersonJsonLd.tsx` — Google sees LinkedIn, GitHub, and the portfolio all pointing to each other, which is the trigger for a Knowledge Panel for "Amr Madkour".
+
+### Code improvements (non-blocking)
+3. **`react-markdown`** — install + wrap assistant message content in `<ReactMarkdown>` in `ChatMessage.tsx`. Gemini responses with `**bold**` and `- bullets` render as raw text.
+4. **Rate limiting** on `POST /v1/chat` — `AddRateLimiter` fixed window per IP (~10 req/min) in `Program.cs`. Prevents Gemini quota abuse.
+5. **Security headers** in `next.config.ts` — `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`, `Referrer-Policy: strict-origin-when-cross-origin`.
+
+### Housekeeping
+6. **Delete dead files** — `features/ExperienceSection/`, `ExperienceCard/`, `ExperienceAnimatedList/`, `ProjectList/`, `app/[locale]/projects/page.tsx`, `public/icons/aws.svg`
+7. **AR/NL translations** — `content/{ar,nl}/experience.json` + `content/{ar,nl}/projects.json` still have English prose
