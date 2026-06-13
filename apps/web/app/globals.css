@@ -483,7 +483,7 @@
   @media (max-width: 440px) {
     .nav-pill            { padding: 0 16px; height: 68px; }
     .page-body           { padding-top: 68px; }
-    .nav-name            { display: none; }
+    .nav-name            { font-size: 16px; }
     .nav-avatar          { width: 44px; height: 44px; }
     .nav-avatar-initials { font-size: 12px; }
     .nav-ctrl-btn        { width: 40px; height: 40px; }
