@@ -49,7 +49,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - [x] Google Search Console — domain property verified; sitemap submitted and accepted
 - [x] Branch protection on `main` — PR required; `CI / frontend` + `CI / backend` checks must pass
 
-Full architecture decisions and implementation roadmap: `docs/planning/Stage1/3-ArchitectureReview.md`
+Full architecture decisions and implementation roadmap: `docs/planning/Stage1/ArchitectureReview.md`
+
+Interactive visual diagram: `docs/architecture/architecture-diagram.jsx` — open in any React sandbox (CodeSandbox, StackBlitz) for a clickable layer + data-flow view.
 
 ---
 
