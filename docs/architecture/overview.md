@@ -1,7 +1,10 @@
-# Stage 1 — Architecture Review
+# Architecture Overview
 
-> Pre-implementation architecture validation. No code is generated here.
-> Based on: `Stage1-Summary.md` and `Stage1-Architecture.md`
+> What the system is and why it's shaped this way. Originally written as a pre-implementation
+> validation exercise (Stage 1); the project has since reached Phase 4 (production launch) —
+> this doc has been updated to reflect what was actually built, not just what was proposed.
+> Durable rationale behind individual decisions lives in `decisions/`; day-to-day implementation
+> history lives in `git log`.
 
 ---
 
@@ -319,9 +322,9 @@ yourname.com        → Vercel (A record or CNAME)
 api.yourname.com    → Render (CNAME)
 ```
 
-### Docker: removed
+### Docker: added for the backend (supersedes the original "removed" call below)
 
-Docker adds no value for this deployment target combination. Vercel and Render both support native Next.js and .NET deploys. Scaffolding Docker would create maintenance overhead (Dockerfile, docker-compose, .dockerignore) for zero deployment benefit.
+The original Stage 1 plan called for no Docker (see strikethrough rationale further down). In practice, Render's native .NET support didn't line up cleanly with the monorepo layout and the need to bundle `content/` (at the repo root) alongside the API at build time. The backend now deploys to Render as a Docker image — multi-stage build (`sdk:10.0` → `aspnet:10.0`), built from the **monorepo root** as context so `content/` is reachable. See [ADR 0008](decisions/0008-docker-for-backend-deploy.md) for the full rationale and trade-offs. The frontend still deploys natively to Vercel — no Docker involved there.
 
 ---
 
@@ -396,6 +399,11 @@ A `validate-content.yml` workflow runs AJV JSON schema validation on every PR th
 ---
 
 ## 10. CI/CD Approach
+
+> The workflow sketches below are the original Stage 1 plan. The actual `deploy.yml` differs in one
+> important way: it triggers on `workflow_run` of `ci.yml` succeeding on `main`, not a direct `push`
+> — see [ADR 0006](decisions/0006-gated-deploy-pipeline.md) for why. `validate-content.yml` was not
+> built. Check `.github/workflows/*.yml` for the current, authoritative pipeline definitions.
 
 ### Workflow: `ci.yml` — runs on every PR
 
@@ -499,12 +507,12 @@ feature/*         ← short-lived; merged to develop; deleted after merge
 | CORS `AllowedOrigins` env var | Standard implementation config; not architecture |
 | OpenTelemetry TODO comment | One-line marker for future tracing in Stage 3+ |
 
-### Removals
+### Removals (at the time of the original Stage 1 review)
 
-| Removal | Reason |
-|---|---|
-| Docker | No deployment value for Vercel + Render; adds maintenance overhead |
-| `packages/shared-types` in Stage 1 | Defer to Stage 2; types live in `apps/web/types/` initially; promote to shared package when a second consumer exists |
+| Removal | Reason | Current status |
+|---|---|---|
+| Docker | No deployment value for Vercel + Render; adds maintenance overhead | **Reversed** — backend now deploys to Render via Docker; see [ADR 0008](decisions/0008-docker-for-backend-deploy.md) |
+| `packages/shared-types` in Stage 1 | Defer to Stage 2; types live in `apps/web/types/` initially; promote to shared package when a second consumer exists | Still deferred — no second consumer has emerged |
 
 ---
 
@@ -557,27 +565,34 @@ feature/*         ← short-lived; merged to develop; deleted after merge
 - [x] Update `README.md` with local dev setup instructions
 - [ ] Full CI/CD pipelines wired (actual jobs) — deferred to Phase 2 after local dev validated
 
-### Phase 2 — UI Implementation
-- Hero section with headline, sub-headline, CTA
-- Projects grid with filter by tag
-- Experience timeline
-- Recommendations carousel
-- About MDX page
-- AI workflow MDX page
+### Phase 2 — UI Implementation ✅ COMPLETE
+What shipped differs from the original plan in one significant way: the standalone Projects grid
+was dropped in favor of an **experience-first** design (projects surface only inside experience
+detail pages) — see [ADR 0002](decisions/0002-experience-first-no-projects-page.md). Otherwise
+delivered as planned: Hero, About (animated), Technical Skills carousel, Experience list +
+filtering (Type/Focus/Era) + detail pages, Recommendations grid, standalone Contact page.
 
-### Phase 3 — AI Integration
-- Semantic Kernel integration in `Infrastructure/`
-- `IChatService` interface in `Application/`
-- `POST /api/chat` endpoint with SSE streaming
-- RAG: portfolio JSON as vector context
+### Phase 3 — AI Integration ✅ COMPLETE
+Built on **Google Gemini** instead of the originally planned Semantic Kernel + OpenAI — see
+[ADR 0004](decisions/0004-gemini-over-semantic-kernel.md). No RAG/vector store: the full portfolio
+JSON fits in one context window and is rebuilt per-request from the cached `IContentRepository` —
+see [ADR 0005](decisions/0005-no-vector-db-full-context.md). Delivered: `IChatService` +
+`GeminiChatService` with function calling (navigate, open booking/LinkedIn/GitHub, download resume),
+`POST /v1/chat` SSE endpoint with locale validation and rate limiting, error events as codes rather
+than strings ([ADR 0007](decisions/0007-sse-error-codes-not-strings.md)), and a floating `ChatWidget`
+on the frontend with `react-markdown` rendering and i18n-translated error messages.
 
-### Phase 4 — Production Polish
-- Replace placeholder content with real portfolio data
-- Vercel Analytics or Plausible
-- Core Web Vitals audit (Lighthouse CI)
-- Accessibility audit (axe-core)
-- Performance budget configuration
-- Add Vitest + React Testing Library; write component tests for key features
+### Phase 4 — Production Polish & Deployment ✅ COMPLETE
+- **Quality gate**: frontend Vitest + coverage thresholds + SonarJS + jscpd duplication detection;
+  backend xUnit + Coverlet coverage + SonarAnalyzer with `TreatWarningsAsErrors`; both wired into a
+  real `ci.yml` that gates merges to `main` (branch protection requires the checks to pass).
+- **Deployment**: backend on Render via Docker ([ADR 0008](decisions/0008-docker-for-backend-deploy.md));
+  frontend on Vercel natively. `deploy.yml` fires only after CI is green
+  ([ADR 0006](decisions/0006-gated-deploy-pipeline.md)).
+- **Custom domain**: `amrmadkour.com` via Cloudflare, DNS-only — see
+  [ADR 0009](decisions/0009-custom-domain-cloudflare-dns-only.md).
+- **SEO**: `generateMetadata` on all routes, JSON-LD `Person`, OG image, full sitemap with
+  per-locale experience detail pages; Google Search Console verified and sitemap submitted.
 
 ---
 
@@ -588,22 +603,25 @@ feature/*         ← short-lived; merged to develop; deleted after merge
 | **npm workspaces over Turborepo** | No parallel build graph or remote cache; simpler setup for 2 apps | **Applied.** Turborepo can be added later without restructuring if CI becomes slow. |
 | **Skip MediatR → direct `IContentService`** | Less CQRS ceremony; still Clean Architecture; equally correct for 4 GET endpoints | Recommended if shipping speed matters more than CQRS demonstration. Keep MediatR if pattern demonstration is the priority. |
 | **Skip Husky + lint-staged** | Pre-commit hooks not enforced; rely on CI | Correct choice for solo work. CI lint job is the safety net. |
-| **Skip Docker** | No local-Docker parity; no deployment benefit for Vercel + Render | Already removed. Confirmed. |
+| **Skip Docker** | No local-Docker parity; no deployment benefit for Vercel + Render | **Reversed** — Docker was added for the backend deploy. See [ADR 0008](decisions/0008-docker-for-backend-deploy.md). |
 | **Defer `packages/shared-types`** | TypeScript types live in `apps/web/types/` until a second consumer exists | Already in recommended plan. Apply immediately. |
 
 ---
 
 ## Future Scalability Path
 
+**AI chatbot and API rate limiting are already implemented** (not future triggers anymore — see
+Phase 3/4 above): `IChatService` + `GeminiChatService` (not Semantic Kernel) with `POST /v1/chat`
+(not `/api/chat`), and fixed-window per-IP rate limiting via `AddRateLimiter` in `Program.cs`.
+Branch protection on `main` is also already enforced. Remaining open triggers:
+
 | Trigger | Upgrade path | Scope of change |
 |---|---|---|
 | **Content too large for JSON** | Swap `JsonContentRepository` → `SanityContentRepository` in `Infrastructure/` | Infrastructure only; Application and Domain unchanged |
-| **AI chatbot** | Add `IChatService` to `Application/`; implement with Semantic Kernel in `Infrastructure/`; add `POST /api/chat` route | New interface + implementation + route |
 | **Database needed** | Add EF Core to `Infrastructure/`; implement `IRepository<T>` with DB backing | Infrastructure only; Application uses same interfaces |
 | **Cache pressure** | Swap `IMemoryCache` → `IDistributedCache` (Redis) | Infrastructure only; interface already exists in .NET |
 | **Frontend grows** | Promote `apps/web/components/` → `packages/ui` | New package; update import paths |
 | **CI is slow** | Add Turborepo (`turbo.json` + `turbo run` scripts); enable Remote Cache | No restructuring needed — npm workspaces is compatible |
-| **API exposed publicly** | Add .NET built-in rate limiting (`UseRateLimiter()`); fixed window policy | `Api` layer only — one middleware registration |
 | **Observability needed** | Add OpenTelemetry exporter to Serilog; ship to Seq or Grafana Cloud | One package + one config line (prep comment already in plan) |
-| **Multiple contributors** | Enable Husky + lint-staged; enforce branch protection rules | Config only |
+| **More contributors join** | Enable Husky + lint-staged for local pre-commit enforcement | Config only — CI already gates merges |
 | **Blog needed** | Add `content/en/posts/` with MDX; add `/blog/[slug]` route | New content type + new route; existing architecture unchanged |
