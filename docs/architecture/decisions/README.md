@@ -37,3 +37,5 @@ What are the trade-offs and implications?
 | 0005 | [No Vector DB, Full Portfolio JSON in System Prompt](0005-no-vector-db-full-context.md) | Accepted |
 | 0006 | [Gated Deploy Pipeline](0006-gated-deploy-pipeline.md) | Accepted |
 | 0007 | [SSE Error Events Use Codes, Not Human-Readable Strings](0007-sse-error-codes-not-strings.md) | Accepted |
+| 0008 | [Docker for Backend Deployment](0008-docker-for-backend-deploy.md) | Accepted (supersedes earlier "no Docker" call in `overview.md`) |
+| 0009 | [Custom Domain via Cloudflare, DNS-Only](0009-custom-domain-cloudflare-dns-only.md) | Accepted |

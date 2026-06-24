@@ -2,9 +2,20 @@
 
 **Live:** [amrmadkour.com](https://amrmadkour.com)
 
-A production-grade personal engineering platform built to demonstrate senior-level full-stack architecture, clean code practices, DevOps readiness, and AI integration capability.
+## What this is
 
-This is not a simple portfolio template. It is engineered as a scalable, modern monorepo with enterprise-inspired patterns.
+This is the source code behind [amrmadkour.com](https://amrmadkour.com) — Amr Madkour's personal
+portfolio site. It's a bilingual-plus (English, Arabic, Dutch) website covering his work experience,
+projects, and an AI assistant ("Ask Amr") that visitors can chat with to learn more about his
+background, book a call, or jump straight to a résumé download.
+
+Beyond being a portfolio, the repository is itself a demonstration piece: it's built the way Amr
+builds production software at work — a real frontend/backend split, automated testing and code
+quality checks gating every change, a real deployment pipeline, and documented reasoning behind
+the technical choices (see [`docs/`](docs/)). Anyone evaluating his engineering work can read the
+code and the decision records below, not just the live site.
+
+The rest of this README covers the technical stack and how to run the project locally.
 
 ---
 
@@ -49,7 +60,7 @@ This is not a simple portfolio template. It is engineered as a scalable, modern 
 - npm workspaces monorepo
 - GitHub Actions (CI — lint/typecheck/build/test; gated deploy on `main`)
 - Vercel (frontend — `amrmadkour.com`)
-- Render (backend — `.NET` API)
+- Render + Docker (backend — `.NET` API, multi-stage build)
 - Cloudflare (DNS)
 
 ---
@@ -72,11 +83,9 @@ This is not a simple portfolio template. It is engineered as a scalable, modern 
 │   └── tsconfig/         → Shared TypeScript configs
 │
 ├── docs/
-│   ├── planning/         → Architecture planning documents
-│   ├── architecture/     → System diagrams and component docs
-│   └── decisions/        → Architecture Decision Records (ADRs)
-│
-├── infrastructure/       → Deployment notes
+│   └── architecture/
+│       ├── overview.md   → What the system is and why it's shaped this way
+│       └── decisions/    → Architecture Decision Records (ADRs)
 │
 └── .github/
     └── workflows/        → CI/CD pipelines
@@ -135,12 +144,14 @@ dotnet run
 # → API docs (Scalar): http://localhost:5088/scalar/v1
 ```
 
-### 5. Build, lint, and typecheck (frontend)
+### 5. Build, lint, typecheck, and test (frontend)
 
 ```bash
-npm run build:web      # production build
-npm run lint:web       # ESLint
-npm run typecheck:web  # tsc --noEmit
+npm run build:web         # production build
+npm run lint:web          # ESLint
+npm run typecheck:web     # tsc --noEmit
+npm run test:web          # Vitest
+npm run test:web:coverage # Vitest with coverage thresholds enforced
 ```
 
 ### 6. Build and test (backend)

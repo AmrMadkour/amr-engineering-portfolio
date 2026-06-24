@@ -49,7 +49,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - [x] Google Search Console — domain property verified; sitemap submitted and accepted
 - [x] Branch protection on `main` — PR required; `CI / frontend` + `CI / backend` checks must pass
 
-Full architecture decisions and implementation roadmap: `docs/planning/Stage1/ArchitectureReview.md`
+Full architecture overview and decision records: `docs/architecture/overview.md` and `docs/architecture/decisions/`
 
 Interactive visual diagram: `docs/architecture/architecture-diagram.jsx` — open in any React sandbox (CodeSandbox, StackBlitz) for a clickable layer + data-flow view.
 
@@ -64,10 +64,12 @@ npm install          # run from repo root — installs all workspaces
 
 ### Frontend (`apps/web`)
 ```bash
-npm run dev:web      # start Next.js dev server → http://localhost:3000
-npm run build:web    # production build
-npm run lint:web     # ESLint
-npm run typecheck:web  # tsc --noEmit
+npm run dev:web           # start Next.js dev server → http://localhost:3000
+npm run build:web         # production build
+npm run lint:web          # ESLint
+npm run typecheck:web     # tsc --noEmit
+npm run test:web          # Vitest
+npm run test:web:coverage # Vitest with coverage thresholds enforced
 ```
 
 ### Backend (`apps/api`)
@@ -123,7 +125,7 @@ Infrastructure → Application
 
 - `Domain/` — placeholder; no entities yet (all data is DTO-shaped JSON, no rich domain model needed at this stage)
 - `Application/` — `IContentRepository`, `IChatService`, DTOs (`ProfileDto`, `ProjectDto`, `ExperienceDto`, `RecommendationDto`, `ChatRequestDto`, `ChatEventDto` hierarchy with `TextDeltaEvent`/`ActionEvent`/`ErrorEvent`), `ChatErrorCodes` constants
-- `Infrastructure/` — `JsonContentRepository` (JSON file reads + `IMemoryCache`), `GeminiChatService` (Gemini 2.0 Flash via `Mscc.GenerativeAI`)
+- `Infrastructure/` — `JsonContentRepository` (JSON file reads + `IMemoryCache`), `GeminiChatService` (`gemini-flash-latest` via `Mscc.GenerativeAI`)
 - `Api/` — Minimal API routes, middleware, DI wiring, Scalar/OpenAPI, CORS
 
 `Infrastructure` never references `Api`. `Domain` has no NuGet dependencies.

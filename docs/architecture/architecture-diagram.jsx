@@ -1,5 +1,13 @@
 import { useState } from "react";
 
+// Six layers, left to right through a typical request:
+//   client    → the visitor's browser (locale-aware: en/ar/nl)
+//   frontend  → Next.js renders the page, fetching data via ISR
+//   backend   → .NET Minimal API, Clean Architecture (Api → Application → Domain, Infrastructure → Application)
+//   content   → the "database": JSON + MDX files the backend reads and caches, no DB
+//   ai        → the "Ask Amr" chat widget and its Gemini backend, called directly from the browser via SSE
+//   infra     → CI/CD and hosting: GitHub Actions gates deploys to Vercel (frontend) and Render (backend), DNS via Cloudflare
+// Click any node below to highlight the FLOWS that connect it to other layers.
 const LAYERS = {
   client: {
     label: "Client / Browser",
@@ -307,10 +315,18 @@ export default function ArchDiagram() {
             <div style={{ color: "#475569", fontSize: 12 }}>System Architecture Diagram</div>
           </div>
         </div>
-        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+        <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 10 }}>
           {["Next.js 15", ".NET 10", "Clean Architecture", "Google Gemini", "Vercel + Render"].map((t) => (
             <Badge key={t} color="#6366f1" label={t} />
           ))}
+        </div>
+        <div style={{ color: "#64748b", fontSize: 12, maxWidth: 640, lineHeight: 1.5 }}>
+          Six layers, left to right through a typical request: the visitor's <b style={{ color: "#6366f1" }}>browser</b> hits the{" "}
+          <b style={{ color: "#0ea5e9" }}>Next.js frontend</b>, which fetches from the{" "}
+          <b style={{ color: "#10b981" }}>.NET backend</b>, which reads the <b style={{ color: "#f59e0b" }}>JSON/MDX content</b> layer
+          (no database). The <b style={{ color: "#ec4899" }}>AI layer</b> ("Ask Amr") talks to Gemini directly from the browser over SSE.{" "}
+          <b style={{ color: "#a855f7" }}>Infra</b> (GitHub Actions, Vercel, Render, Cloudflare) deploys and hosts everything else.
+          Click any node below to highlight its connections.
         </div>
       </div>
 
@@ -340,9 +356,6 @@ export default function ArchDiagram() {
 
       {activeTab === "diagram" && (
         <>
-          <div style={{ color: "#475569", fontSize: 12, marginBottom: 12 }}>
-            Click any node to highlight its connections
-          </div>
           {Object.entries(LAYER_NODE_MAP).map(([layerKey, nodeKeys]) => (
             <LayerSection
               key={layerKey}
