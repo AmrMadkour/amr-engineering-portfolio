@@ -18,7 +18,8 @@
     "quality:web:dupes": "npm -w apps/web run quality:dupes",
     "test:api": "dotnet test apps/api --settings apps/api/coverage.runsettings --collect:\"XPlat Code Coverage\" --results-directory apps/api/coverage-results --verbosity minimal",
     "test:api:coverage": "npm run test:api && dotnet reportgenerator -reports:\"apps/api/coverage-results/**/coverage.cobertura.xml\" -targetdir:\"apps/api/coverage-results/html\" -reporttypes:\"Html;TextSummary\"",
-    "quality:api": "dotnet build apps/api --verbosity minimal && dotnet format apps/api --verify-no-changes && npm run test:api",
+    "quality:api:dupes": "jscpd --config apps/api/.jscpd.json",
+    "quality:api": "dotnet build apps/api --verbosity minimal && dotnet format apps/api --verify-no-changes && npm run test:api && npm run quality:api:dupes",
     "quality:all": "npm run quality:web && npm run quality:api"
   },
   "engines": {

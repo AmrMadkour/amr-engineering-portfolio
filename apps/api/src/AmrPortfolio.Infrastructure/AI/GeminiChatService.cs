@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Text;
 using AmrPortfolio.Application.DTOs;
@@ -27,6 +28,7 @@ public sealed class GeminiChatService : IChatService
     _modelId = modelId;
   }
 
+  [ExcludeFromCodeCoverage(Justification = "Requires live Gemini API key; exercised via integration/manual testing.")]
   public async IAsyncEnumerable<ChatEventDto> StreamResponseAsync(
       ChatRequestDto request,
       [EnumeratorCancellation] CancellationToken ct = default)
@@ -185,6 +187,7 @@ public sealed class GeminiChatService : IChatService
     return ChatErrorCodes.Unknown;
   }
 
+  [ExcludeFromCodeCoverage(Justification = "Only called from the excluded StreamResponseAsync path.")]
   private static Tools BuildTools() =>
   [
       new Tool
@@ -245,6 +248,7 @@ public sealed class GeminiChatService : IChatService
         }
   ];
 
+  [ExcludeFromCodeCoverage(Justification = "Requires live Gemini API key; exercised via integration/manual testing.")]
   private async Task<string> BuildSystemPromptAsync(string locale, PageContextDto? pageContext, CancellationToken ct)
   {
     var profileTask = _repo.GetProfileAsync(locale, ct);

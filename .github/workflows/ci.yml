@@ -49,11 +49,20 @@ jobs:
 
   # ─── Backend (.NET 10) ────────────────────────────────────────────────────
   backend:
-    name: Backend — format / build / tests
+    name: Backend — format / build / tests / duplication
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: Set up Node 20 (jscpd)
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install root dev tools
+        run: npm ci
 
       - name: Set up .NET 10
         uses: actions/setup-dotnet@v4
@@ -66,6 +75,9 @@ jobs:
       - name: Restore dotnet local tools
         working-directory: apps/api
         run: dotnet tool restore
+
+      - name: Duplication check — backend C# (jscpd ≤ 5%)
+        run: npx jscpd --config apps/api/.jscpd.json
 
       - name: Code style check
         run: dotnet format apps/api --verify-no-changes

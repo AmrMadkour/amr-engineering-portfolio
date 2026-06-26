@@ -7,9 +7,12 @@
           <Format>cobertura</Format>
           <Include>[AmrPortfolio.*]*</Include>
           <Exclude>[AmrPortfolio.UnitTests]*,[*.Tests]*</Exclude>
-          <ExcludeByAttribute>GeneratedCodeAttribute,CompilerGeneratedAttribute</ExcludeByAttribute>
+          <ExcludeByAttribute>GeneratedCodeAttribute,CompilerGeneratedAttribute,ExcludeFromCodeCoverageAttribute</ExcludeByAttribute>
           <SingleHit>false</SingleHit>
           <UseSourceLink>true</UseSourceLink>
+          <Threshold>70</Threshold>
+          <ThresholdType>Line</ThresholdType>
+          <ThresholdStat>Total</ThresholdStat>
         </Configuration>
       </DataCollector>
     </DataCollectors>
