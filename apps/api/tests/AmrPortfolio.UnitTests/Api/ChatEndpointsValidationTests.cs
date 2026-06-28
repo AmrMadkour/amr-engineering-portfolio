@@ -10,6 +10,8 @@ using Microsoft.Extensions.DependencyInjection;
 namespace AmrPortfolio.UnitTests.Api;
 
 // Each test gets its own factory/server so the rate limiter (10 req/min) never interferes.
+// Collection("WebApp") serializes all WebApplicationFactory-based tests to prevent concurrent startup failures.
+[Collection("WebApp")]
 public sealed class ChatEndpointsValidationTests : IDisposable
 {
   private readonly ChatTestApiFactory _factory;

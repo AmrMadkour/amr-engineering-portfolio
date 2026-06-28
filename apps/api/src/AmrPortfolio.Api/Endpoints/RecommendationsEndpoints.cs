@@ -1,3 +1,4 @@
+using AmrPortfolio.Application.Constants;
 using AmrPortfolio.Application.DTOs;
 using AmrPortfolio.Application.Interfaces;
 
@@ -7,10 +8,13 @@ public static class RecommendationsEndpoints
 {
   public static RouteGroupBuilder MapRecommendationsEndpoints(this RouteGroupBuilder group)
   {
-    group.MapGet("/recommendations", async (string locale, IContentRepository repo, CancellationToken ct) =>
+    group.MapGet("/recommendations", async (string? locale, IContentRepository repo, CancellationToken ct) =>
     {
-      var recommendations = await repo.GetRecommendationsAsync(locale, ct);
-      return TypedResults.Ok(recommendations);
+      if (!SupportedLocales.IsValid(locale))
+        return Results.BadRequest($"Unsupported locale '{locale}'. Supported: {string.Join(", ", SupportedLocales.All)}.");
+
+      var recommendations = await repo.GetRecommendationsAsync(locale!, ct);
+      return Results.Ok(recommendations);
     })
     .WithName("GetRecommendations")
     .WithSummary("Returns all recommendations for the given locale.")

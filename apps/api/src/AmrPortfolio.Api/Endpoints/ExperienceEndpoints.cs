@@ -1,3 +1,4 @@
+using AmrPortfolio.Application.Constants;
 using AmrPortfolio.Application.DTOs;
 using AmrPortfolio.Application.Interfaces;
 
@@ -7,10 +8,13 @@ public static class ExperienceEndpoints
 {
   public static RouteGroupBuilder MapExperienceEndpoints(this RouteGroupBuilder group)
   {
-    group.MapGet("/experience", async (string locale, IContentRepository repo, CancellationToken ct) =>
+    group.MapGet("/experience", async (string? locale, IContentRepository repo, CancellationToken ct) =>
     {
-      var experience = await repo.GetExperienceAsync(locale, ct);
-      return TypedResults.Ok(experience);
+      if (!SupportedLocales.IsValid(locale))
+        return Results.BadRequest($"Unsupported locale '{locale}'. Supported: {string.Join(", ", SupportedLocales.All)}.");
+
+      var experience = await repo.GetExperienceAsync(locale!, ct);
+      return Results.Ok(experience);
     })
     .WithName("GetExperience")
     .WithSummary("Returns all experience entries for the given locale.")
