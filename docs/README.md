@@ -5,6 +5,9 @@ Technical documentation for this repository. If you're new here, start with the 
 
 - [`architecture/overview.md`](architecture/overview.md) — what the system is and why it's shaped
   this way: tech stack rationale, layer boundaries, folder structure, caching, deployment.
+- [`architecture/ai-chat-flow.md`](architecture/ai-chat-flow.md) — end-to-end walkthrough of the
+  AI chat feature: request validation, system prompt assembly, Gemini streaming, SSE serialization,
+  retry logic, and error handling.
 - [`architecture/decisions/`](architecture/decisions/) — Architecture Decision Records (ADRs).
   Each one is a short, standalone record of a specific choice and its trade-offs.
 - [`architecture/architecture-diagram.jsx`](architecture/architecture-diagram.jsx) — interactive

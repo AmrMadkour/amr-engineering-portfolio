@@ -20,7 +20,6 @@ try
             .Enrich.FromLogContext()
             .WriteTo.Console()
             .WriteTo.File("logs/api-.log", rollingInterval: RollingInterval.Day)
-  // TODO: add OpenTelemetry exporter here (Stage 3+)
   );
 
   // CORS

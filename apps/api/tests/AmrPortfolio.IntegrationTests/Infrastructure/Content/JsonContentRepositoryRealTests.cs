@@ -2,7 +2,7 @@ using AmrPortfolio.Infrastructure.Content;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging.Abstractions;
 
-namespace AmrPortfolio.UnitTests.Infrastructure.Content;
+namespace AmrPortfolio.IntegrationTests.Infrastructure.Content;
 
 public sealed class JsonContentRepositoryRealTests : IDisposable
 {
@@ -93,7 +93,6 @@ public sealed class JsonContentRepositoryRealTests : IDisposable
     var first = await _repo.GetProfileAsync("en");
     var second = await _repo.GetProfileAsync("en");
 
-    // Cache returns the same in-memory object on subsequent calls
     Assert.Same(first, second);
   }
 

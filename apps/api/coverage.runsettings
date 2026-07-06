@@ -6,7 +6,7 @@
         <Configuration>
           <Format>cobertura</Format>
           <Include>[AmrPortfolio.*]*</Include>
-          <Exclude>[AmrPortfolio.UnitTests]*,[*.Tests]*</Exclude>
+          <Exclude>[AmrPortfolio.UnitTests]*,[AmrPortfolio.IntegrationTests]*,[*.Tests]*</Exclude>
           <ExcludeByAttribute>GeneratedCodeAttribute,CompilerGeneratedAttribute,ExcludeFromCodeCoverageAttribute</ExcludeByAttribute>
           <SingleHit>false</SingleHit>
           <UseSourceLink>true</UseSourceLink>

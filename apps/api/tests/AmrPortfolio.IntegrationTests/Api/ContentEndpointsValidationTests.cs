@@ -1,6 +1,6 @@
 using System.Net;
 
-namespace AmrPortfolio.UnitTests.Api;
+namespace AmrPortfolio.IntegrationTests.Api;
 
 [Collection("WebApp")]
 public sealed class ContentEndpointsValidationTests : IDisposable
