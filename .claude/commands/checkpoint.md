@@ -3,8 +3,8 @@
 Check: git diff, recently changed files, new folders/files, dependency/config changes.
 
 ## What was done
-Files created/modified/removed, grouped by layer:
-Application · Domain · Infrastructure · Presentation · Shared · Config/Tooling · Docs
+Files created/modified/removed, grouped by area (e.g. layer, module, feature — use whatever grouping fits the project):
+e.g. Application · Domain · Infrastructure · Frontend · Config/Tooling · Docs
 
 ## Why each decision was made
 For each important architectural or implementation decision: what problem it solves and tradeoffs. Focus on libraries, patterns, abstractions, folder structure, conventions.

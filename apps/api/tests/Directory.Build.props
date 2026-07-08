@@ -1,0 +1,11 @@
+<Project>
+  <!--
+    NU1903: Microsoft.OpenApi 2.0.0 has a known high severity vulnerability.
+    Suppressed here because test projects are never deployed — the vulnerability
+    exists in API documentation tooling (Scalar/OpenAPI), not in the runtime serving path.
+    Re-evaluate when Microsoft.AspNetCore.OpenApi ships a fix via a minor update.
+  -->
+  <PropertyGroup>
+    <NoWarn>$(NoWarn);NU1903</NoWarn>
+  </PropertyGroup>
+</Project>

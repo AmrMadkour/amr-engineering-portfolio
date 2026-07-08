@@ -5,6 +5,7 @@ import { getProjects } from '@/services/projects'
 import { Section } from '@/components/layout/Section'
 import { Container } from '@/components/layout/Container'
 import { ExperiencePageClient } from '@/features/ExperienceTimeline/ExperiencePageClient'
+import { buildAlternates } from '@/lib/seo'
 
 interface Props {
   params: Promise<{ locale: string }>
@@ -16,6 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `Experience — ${t('title')}`,
     description: 'Full career timeline: senior engineering roles across fintech, market research, healthcare, and e-commerce spanning backend, full-stack, and cloud architecture.',
+    alternates: buildAlternates(locale, '/experience'),
   }
 }
 

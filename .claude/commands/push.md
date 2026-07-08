@@ -12,13 +12,14 @@ Stage, commit, and push all current changes to the remote branch with a descript
 - `git log --oneline -5` — learn the commit message style used in this repo
 
 ### 2. Draft a commit message
-- First line: short summary (≤ 72 chars), following the repo's style (e.g. `Phase X Step Y — what changed`)
-- Body: bullet points grouped by area (UI, data, tooling, fixes) — one line per meaningful change
+- First line: short summary (≤ 72 chars), following the repo's existing style (read from `git log --oneline -5`)
+- Body: bullet points grouped by area — one line per meaningful change
 - End with: `Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>`
 
 ### 3. Commit and push
 ```bash
-git add -A
+# Stage only files shown in git status — do NOT use -A blindly; skip .env / credentials
+git add <files from git status>
 git commit -m "<message as heredoc>"
 git push origin <current-branch>
 ```

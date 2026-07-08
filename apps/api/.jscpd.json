@@ -1,0 +1,7 @@
+{
+  "threshold": 5,
+  "reporters": ["console"],
+  "languages": ["csharp"],
+  "ignore": ["**/obj/**", "**/bin/**", "**/*.g.cs", "**/*.AssemblyInfo.cs", "**/*.AssemblyAttributes.cs"],
+  "path": ["apps/api/src"]
+}

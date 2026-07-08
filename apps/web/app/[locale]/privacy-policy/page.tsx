@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
 import { Section } from '@/components/layout/Section'
 import { Container } from '@/components/layout/Container'
+import { buildAlternates } from '@/lib/seo'
 
 type Props = { params: Promise<{ locale: string }> }
 
@@ -17,6 +18,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `Privacy Policy — ${t('title')}`,
     description: 'Privacy policy for the personal portfolio website of Amr Madkour.',
+    alternates: buildAlternates(locale, '/privacy-policy'),
   }
 }
 

@@ -1,6 +1,8 @@
 # Sync Handoff
 
-Create or update `docs/HANDOFF.md` (create `docs/` if needed).
+Create or update the handoff file (default: `HANDOFF.md` at repo root).
+If a path is passed as `$ARGUMENTS`, use that instead (e.g. `docs/HANDOFF.md`).
+If the file does not exist yet, create it with a blank header before appending the session block.
 Do NOT repeat anything already in CLAUDE.md (architecture, conventions, commands).
 
 ---

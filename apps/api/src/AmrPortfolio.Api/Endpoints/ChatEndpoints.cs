@@ -1,4 +1,5 @@
 using System.Text.Json;
+using AmrPortfolio.Application.Constants;
 using AmrPortfolio.Application.DTOs;
 using AmrPortfolio.Application.Interfaces;
 
@@ -20,9 +21,8 @@ public static class ChatEndpoints
         return Results.BadRequest("Message must be between 1 and 2000 characters.");
 
       // Prevent path traversal — locale is used to build a file path in JsonContentRepository.
-      string[] validLocales = ["en", "ar", "nl"];
-      if (!validLocales.Contains(request.Locale))
-        return Results.BadRequest($"Unsupported locale '{request.Locale}'. Supported: en, ar, nl.");
+      if (!SupportedLocales.IsValid(request.Locale))
+        return Results.BadRequest($"Unsupported locale '{request.Locale}'. Supported: {string.Join(", ", SupportedLocales.All)}.");
 
       ctx.Response.ContentType = "text/event-stream; charset=utf-8";
       ctx.Response.Headers.CacheControl = "no-cache";

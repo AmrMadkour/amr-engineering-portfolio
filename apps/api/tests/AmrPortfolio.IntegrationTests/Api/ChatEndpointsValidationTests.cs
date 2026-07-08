@@ -1,15 +1,10 @@
 using System.Net;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json;
-using AmrPortfolio.Application.DTOs;
-using AmrPortfolio.Application.Interfaces;
-using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.Extensions.DependencyInjection;
 
-namespace AmrPortfolio.UnitTests.Api;
+namespace AmrPortfolio.IntegrationTests.Api;
 
-// Each test gets its own factory/server so the rate limiter (10 req/min) never interferes.
+[Collection("WebApp")]
 public sealed class ChatEndpointsValidationTests : IDisposable
 {
   private readonly ChatTestApiFactory _factory;
@@ -101,47 +96,4 @@ public sealed class ChatEndpointsValidationTests : IDisposable
 
   private static StringContent Body(object payload) =>
       new(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
-}
-
-/// <summary>
-/// Test factory: replaces IChatService with a no-op stub so no real Gemini calls are made.
-/// </summary>
-public sealed class ChatTestApiFactory : WebApplicationFactory<Program>
-{
-  protected override void ConfigureWebHost(Microsoft.AspNetCore.Hosting.IWebHostBuilder builder)
-  {
-    // Provide Gemini config so AddInfrastructure doesn't throw on missing key
-    builder.UseSetting("Gemini:ApiKey", "test-api-key-not-real");
-    builder.UseSetting("Gemini:ModelId", "gemini-test");
-    builder.UseSetting("ContentPath", FindContentPath());
-
-    builder.ConfigureServices(services =>
-    {
-      // Replace the real GeminiChatService singleton with a no-op stub
-      var descriptor = services.SingleOrDefault(d => d.ServiceType == typeof(IChatService));
-      if (descriptor != null) services.Remove(descriptor);
-      services.AddSingleton<IChatService, NoOpChatService>();
-    });
-  }
-
-  private static string FindContentPath()
-  {
-    var dir = new DirectoryInfo(AppContext.BaseDirectory);
-    while (dir != null && !Directory.Exists(Path.Combine(dir.FullName, "content")))
-      dir = dir.Parent;
-    if (dir == null)
-      throw new InvalidOperationException("content/ directory not found in any ancestor of " + AppContext.BaseDirectory);
-    return Path.Combine(dir.FullName, "content");
-  }
-
-  private sealed class NoOpChatService : IChatService
-  {
-    public async IAsyncEnumerable<ChatEventDto> StreamResponseAsync(
-        ChatRequestDto request,
-        [EnumeratorCancellation] CancellationToken ct = default)
-    {
-      await Task.CompletedTask;
-      yield break;
-    }
-  }
 }

@@ -6,6 +6,7 @@ import { getProjects } from '@/services/projects'
 import { Section } from '@/components/layout/Section'
 import { Container } from '@/components/layout/Container'
 import { ExperienceDetailView } from '@/features/ExperienceTimeline/ExperienceDetailView'
+import { buildAlternates } from '@/lib/seo'
 
 interface Props {
   params: Promise<{ locale: string; slug: string }>
@@ -22,6 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title,
     description: experience.description.slice(0, 155),
+    alternates: buildAlternates(locale, `/experience/${slug}`),
   }
 }
 
