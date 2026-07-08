@@ -7,6 +7,7 @@ import { Container } from '@/components/layout/Container'
 import { SectionReveal } from '@/components/layout/SectionReveal'
 import { GitHubIcon, LinkedInIcon } from '@/components/ui/icons'
 import { getProfile } from '@/services/profile'
+import { buildAlternates } from '@/lib/seo'
 
 type Props = { params: Promise<{ locale: string }> }
 
@@ -16,6 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `Contact — ${t('title')}`,
     description: 'Get in touch with Amr Madkour — open to senior engineering roles, technical consulting, and architecture reviews.',
+    alternates: buildAlternates(locale, '/contact'),
   }
 }
 

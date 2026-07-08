@@ -12,6 +12,7 @@ import { ChatWidgetLoader } from '@/features/ChatWidget/ChatWidgetLoader'
 import { CookieNotice } from '@/components/layout/CookieNotice'
 import { PersonJsonLd } from '@/components/seo/PersonJsonLd'
 import { routing } from '@/i18n/routing'
+import { buildAlternates } from '@/lib/seo'
 import '../globals.css'
 
 const outfit = Outfit({ subsets: ['latin'], variable: '--font-outfit', display: 'swap' })
@@ -36,13 +37,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       locale: ({ ar: 'ar_EG', nl: 'nl_NL' } as Record<string, string>)[locale] ?? 'en_US',
       type: 'website',
     },
-    alternates: {
-      languages: {
-        en: `${siteUrl}/en`,
-        ar: `${siteUrl}/ar`,
-        nl: `${siteUrl}/nl`,
-      },
-    },
+    alternates: buildAlternates(locale, ''),
   }
 }
 
